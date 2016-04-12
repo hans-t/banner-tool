@@ -1,0 +1,36 @@
+{
+  "name": "bannertool",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^15.0.1",
+    "react-dom": "^15.0.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.7.6",
+    "babel-loader": "^6.2.4",
+    "babel-plugin-transform-es2015-modules-commonjs-simple": "^6.7.4",
+    "babel-plugin-transform-object-rest-spread": "^6.6.5",
+    "babel-plugin-transform-runtime": "^6.7.5",
+    "babel-preset-es2015-webpack": "^6.4.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-runtime": "^6.6.1",
+    "webpack": "^1.12.15"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hans-t/banner-tool.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hans-t/banner-tool/issues"
+  },
+  "homepage": "https://github.com/hans-t/banner-tool#readme"
+}
