@@ -3,7 +3,7 @@ const path = require('path');
 const PATHS = {
   src: path.join(__dirname, 'src'),
   tests: path.join(__dirname, 'tests'),
-  build: path.join(__dirname, 'build')
+  build: path.join(__dirname, 'build', 'js')
 }
 
 module.exports = {
@@ -14,6 +14,14 @@ module.exports = {
     extensions: ['', '.js', '.jsx']
   },
   module: {
+    preLoaders: [
+      {
+        test: /\.jsx?$/,
+        loader: 'eslint',
+        include: PATHS.src,
+        exclude: /(node_modules|bower_components)/,
+      }
+    ],
     loaders: [
       {
         test: /\.jsx?$/,
@@ -22,5 +30,5 @@ module.exports = {
         exclude: /(node_modules|bower_components)/,
       }
     ],
-  }
+  },
 }
