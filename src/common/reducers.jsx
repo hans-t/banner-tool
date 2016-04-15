@@ -8,6 +8,18 @@ export function selectedChannel(state = '', action) {
   }
 }
 
+
+export function selectedTemplates(state = [], action) {
+  switch (action.type) {
+    case 'SELECT_TEMPLATES':
+      return action.templates;
+
+    default:
+      return state;
+  }
+}
+
+
 export function selectedCountries(state = [], action) {
   switch (action.type) {
     case 'SELECT_COUNTRIES':
@@ -17,6 +29,7 @@ export function selectedCountries(state = [], action) {
       return state;
   }
 }
+
 
 export function currentCountry(state = '', action) {
   switch (action.type) {

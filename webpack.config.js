@@ -3,7 +3,7 @@ const path = require('path');
 const PATHS = {
   src: path.join(__dirname, 'src'),
   tests: path.join(__dirname, 'tests'),
-  build: path.join(__dirname, 'build', 'js')
+  build: path.join(__dirname, 'static', 'js')
 }
 
 module.exports = {
@@ -28,6 +28,12 @@ module.exports = {
         loader: 'babel-loader',
         include: [PATHS.src],
         exclude: /(node_modules|bower_components)/,
+      },
+      {
+        test: /\.css$/,
+        loader: "style-loader!css-loader",
+        include: [PATHS.src],
+        exclude: /(node_modules|bower_components)/
       }
     ],
   },
