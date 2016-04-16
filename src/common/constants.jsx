@@ -8,3 +8,8 @@ export const AVAILABLE_COUNTRIES_OPTION = [
   { value: 'TW', selected: false },
   { value: 'HK', selected: false },
 ];
+
+export const AVAILABLE_CHANNELS_OPTION = [
+  'Mobile',
+  'GDN',
+];

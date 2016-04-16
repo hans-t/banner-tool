@@ -25,6 +25,10 @@ export function countries(state = AVAILABLE_COUNTRIES_OPTION, action) {
 
 export function templates(state = [], action) {
   switch (action.type) {
+    case 'REFRESH_TEMPLATE_OPTIONS': {
+      return action.templates;
+    }
+
     case 'SELECT_TEMPLATES':
       return action.templates;
 
