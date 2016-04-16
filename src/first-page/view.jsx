@@ -7,7 +7,7 @@ import AddImagesButton from './add-images-btn';
 import {
   OuterContainer,
   ContentScrollableContainer,
-} from './common/containers';
+} from '../common/containers';
 
 
 const Content = () => {

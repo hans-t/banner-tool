@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { MultiSelectBox } from './common/multi-select';
+import { MultiSelectBox } from '../common/multi-select';
 
 
 const TemplatesSelectBox = ({ updateTemplates, templates, style }) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
-import Homepage from './homepage';
+import FirstPageView from './first-page/view';
 
 injectTapEventPlugin();
 
@@ -9,6 +9,6 @@ injectTapEventPlugin();
 // component for glueing components from different domain
 export default () => (
   <div>
-    <Homepage />
+    <FirstPageView />
   </div>
 );

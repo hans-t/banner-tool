@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 import SelectField from 'material-ui/lib/select-field';
-import { AVAILABLE_CHANNELS_OPTION } from './common/constants';
+import { AVAILABLE_CHANNELS_OPTION } from '../common/constants';
 
 
 const getTemplates = (channel, refreshTemplatesOption) => {

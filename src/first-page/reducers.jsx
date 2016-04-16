@@ -1,4 +1,4 @@
-import { AVAILABLE_COUNTRIES_OPTION } from './constants';
+import { AVAILABLE_COUNTRIES_OPTION } from '../common/constants';
 
 
 export function selectedChannel(state = '', action) {

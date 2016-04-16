@@ -1,6 +1,6 @@
 import React from 'react';
 import RaisedButton from 'material-ui/lib/raised-button';
-import { NextButtonContainer } from './common/containers';
+import { NextButtonContainer } from '../common/containers';
 
 
 export default () => (
