@@ -1,4 +1,6 @@
-Use redux and react-redux to store data.
-Break down components, reducers, actions, css by domain not by nature.
-common directory are for building blocks from which more complex components are built with.
-Upgrade material-ui when material-ui v0.15.0 is released and add it as dependency.
+- On Add Images button click, validate inputs in first-page and switch to second-page.
+- Work on second page.
+
+
+Notes:
+- Upgrade material-ui when material-ui v0.15.0 is released and add it as dependency.

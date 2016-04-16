@@ -12,6 +12,7 @@ const CountriesSelectBox = ({ style, onChange, countries }) => {
       style={{ ...defaultStyle, ...style }}
       labels={countries}
       onChange={onChange}
+      required
     />
   );
 };

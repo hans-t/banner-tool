@@ -12,6 +12,7 @@ const TemplatesSelectBox = ({ updateTemplates, templates, style }) => {
       style={{ ...defaultStyle, ...style }}
       labels={templates}
       onChange={updateTemplates}
+      required
     />
   );
 };

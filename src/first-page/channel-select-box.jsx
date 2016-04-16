@@ -45,6 +45,7 @@ const ChannelSelectBox = ({ style, updateChannel, refreshTemplatesOption, select
       value={selectedChannel}
       onChange={handleChange}
       floatingLabelText="Select Channel"
+      errorText={selectedChannel ? '' : 'Required'}
     >
       {channels.map((el, index) => (
         <MenuItem key={index} value={el} primaryText={el} />
