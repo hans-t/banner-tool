@@ -1,3 +1,6 @@
+import { AVAILABLE_COUNTRIES_OPTION } from './constants';
+
+
 export function selectedChannel(state = '', action) {
   switch (action.type) {
     case 'SELECT_CHANNEL':
@@ -9,10 +12,10 @@ export function selectedChannel(state = '', action) {
 }
 
 
-export function selectedTemplates(state = [], action) {
+export function countries(state = AVAILABLE_COUNTRIES_OPTION, action) {
   switch (action.type) {
-    case 'SELECT_TEMPLATES':
-      return action.templates;
+    case 'SELECT_COUNTRIES':
+      return action.countries;
 
     default:
       return state;
@@ -20,10 +23,10 @@ export function selectedTemplates(state = [], action) {
 }
 
 
-export function selectedCountries(state = [], action) {
+export function templates(state = [], action) {
   switch (action.type) {
-    case 'SELECT_COUNTRIES':
-      return action.countries;
+    case 'SELECT_TEMPLATES':
+      return action.templates;
 
     default:
       return state;

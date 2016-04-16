@@ -23,12 +23,11 @@ export const MultiSelectBox = ({ title, labels, style, onChange }) => {
   const handleChange = (event) => {
     event.stopPropagation();
     const checkboxes = event.currentTarget.querySelectorAll("input[type='checkbox']");
-    const checkedLabels = labels
-      .filter((el, index) => checkboxes[index].checked)
-      .map(el => el.value);
+    const newLabels = labels
+      .map((el, index) => ({ ...el, selected: checkboxes[index].checked }));
 
     // required because of Checkbox bug, see above.
-    setTimeout(() => onChange(checkedLabels), 0);
+    setTimeout(() => onChange(newLabels), 0);
   };
 
   return (
@@ -39,7 +38,7 @@ export const MultiSelectBox = ({ title, labels, style, onChange }) => {
         <Checkbox
           key={index}
           label={label.value}
-          defaultChecked={label.checked}
+          defaultChecked={label.selected}
           style={defaultStyle.checkbox}
         />
       ))}

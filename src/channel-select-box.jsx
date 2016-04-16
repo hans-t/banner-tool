@@ -4,7 +4,7 @@ import MenuItem from 'material-ui/lib/menus/menu-item';
 import SelectField from 'material-ui/lib/select-field';
 
 
-const SelectBox = ({ style, onChange, selectedChannel }) => {
+const ChannelSelectBox = ({ style, onChange, selectedChannel }) => {
   const channels = ['Mobile', 'GDN'];
   const defaultStyle = {};
   return (
@@ -21,7 +21,7 @@ const SelectBox = ({ style, onChange, selectedChannel }) => {
   );
 };
 
-SelectBox.propTypes = {
+ChannelSelectBox.propTypes = {
   style: React.PropTypes.object,
   onChange: React.PropTypes.func.isRequired,
   selectedChannel: React.PropTypes.string,
@@ -38,4 +38,4 @@ export default connect(
       channel,
     }),
   })
-)(SelectBox);
+)(ChannelSelectBox);
