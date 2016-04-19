@@ -3,6 +3,7 @@ import Menu from 'material-ui/lib/menus/menu';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 import Checkbox from 'material-ui/lib/checkbox';
 import Divider from 'material-ui/lib/divider';
+import { isAnySelected } from './helpers';
 import { easeInOutFunction } from 'material-ui/lib/styles/transitions';
 
 
@@ -36,7 +37,7 @@ export const MultiSelectBox = ({ title, labels, required, errorText, style, onCh
     setTimeout(() => onChange(newLabels), 0);
   };
 
-  const valid = required ? labels.some(el => el.selected) : true;
+  const valid = required ? isAnySelected(labels) : true;
   const errorStyle = valid ? null : { borderColor: '#F44336' };
 
   return (

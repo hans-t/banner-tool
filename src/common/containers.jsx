@@ -9,6 +9,8 @@ export const ScrollableContainer = ({ style, className, children }) => {
     padding: '2%',
   };
 
+  console.log({ ...defaultStyle, ...style });
+
   return (
     <Menu className={className} style={{ ...defaultStyle, ...style }}>
       {children}

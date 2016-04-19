@@ -29,13 +29,7 @@ CountriesSelectBox.defaultProps = {
 
 
 export default connect(
-  (state) => {
-    // temporary, for inspection
-    console.log(state);
-    return {
-      countries: state.countries,
-    };
-  },
+  state => ({ countries: state.countries }),
   dispatch => ({
     onChange: countries => dispatch({
       type: 'SELECT_COUNTRIES',

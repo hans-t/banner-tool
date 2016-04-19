@@ -9,3 +9,8 @@ export function setDefaultValue(val, defVal = null) {
 export function removeFromArray(arr, value) {
   return arr.filter(el => el !== value);
 }
+
+
+export function isAnySelected(arr) {
+  return arr.some(el => el.selected);
+}
