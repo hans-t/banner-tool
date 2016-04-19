@@ -1,5 +1,7 @@
-- On Add Images button click, validate inputs in first-page and switch to second-page.
-- Work on second page.
+- Make tabbed container
+- Think on how to process input from ImageSourcesBox.
+- Download templates specified in store.
+- Render banner per group
 
 
 Notes:
