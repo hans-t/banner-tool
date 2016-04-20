@@ -14,3 +14,13 @@ export function removeFromArray(arr, value) {
 export function isAnySelected(arr) {
   return arr.some(el => el.selected);
 }
+
+
+export function debounce(func, delay) {
+  // func should provide their own `this` context.
+  let timeout;
+  return (...args) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), delay);
+  };
+}

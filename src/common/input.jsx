@@ -23,14 +23,10 @@ export class TextFieldWithValidation extends React.Component {
   }
 
   handleChange(event) {
-    const { onChange, onValid } = this.props;
+    const { onChange } = this.props;
     const isValid = this.inputRef.checkValidity();
     this.setState({ valid: isValid });
-
-    onChange(event);
-    if (isValid) {
-      onValid(event);
-    }
+    onChange(event, isValid);
   }
 
   render() {
@@ -50,7 +46,6 @@ export class TextFieldWithValidation extends React.Component {
 TextFieldWithValidation.propTypes = {
   errorText: React.PropTypes.string.isRequired,
   required: React.PropTypes.bool,
-  onValid: React.PropTypes.func,
   onChange: React.PropTypes.func,
 };
 

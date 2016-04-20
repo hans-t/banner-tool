@@ -9,8 +9,6 @@ export const ScrollableContainer = ({ style, className, children }) => {
     padding: '2%',
   };
 
-  console.log({ ...defaultStyle, ...style });
-
   return (
     <Menu className={className} style={{ ...defaultStyle, ...style }}>
       {children}
@@ -56,8 +54,8 @@ ContentScrollableContainer.defaultProps = {
 };
 
 
-export const OuterContainer = ({ children }) => {
-  const style = {
+export const OuterContainer = ({ style, children }) => {
+  const defaultStyle = {
     width: '90%',
     height: '90vh',
     margin: '3vh auto',
@@ -66,7 +64,7 @@ export const OuterContainer = ({ children }) => {
   };
 
   return (
-    <Paper style={style} zDepth={2}>
+    <Paper style={{ ...defaultStyle, ...style }} zDepth={2}>
       {children}
     </Paper>
   );
@@ -74,6 +72,11 @@ export const OuterContainer = ({ children }) => {
 
 OuterContainer.propTypes = {
   children: React.PropTypes.node,
+  style: React.PropTypes.object,
+};
+
+OuterContainer.defaultProps = {
+  style: {},
 };
 
 

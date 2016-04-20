@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+
 import rootReducer from './reducers';
 import App from './app';
 
@@ -9,6 +10,7 @@ import App from './app';
 import * as constants from './common/constants';
 const countries = constants.AVAILABLE_COUNTRIES_OPTION;
 countries[0].selected = true;
+countries[1].selected = true;
 const initialState = {
   page: constants.PAGE.addImages,
   selectedChannel: constants.AVAILABLE_CHANNELS_OPTION[0],
@@ -22,7 +24,13 @@ const initialState = {
 
 
 ReactDOM.render(
-  <Provider store={createStore(rootReducer, initialState)}>
+  <Provider
+    store={createStore(
+      rootReducer,
+      initialState,
+      window.devToolsExtension ? window.devToolsExtension() : undefined
+    )}
+  >
     <App />
   </Provider>,
   document.getElementById('app')

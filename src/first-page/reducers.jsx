@@ -36,14 +36,3 @@ export function templates(state = [], action) {
       return state;
   }
 }
-
-
-export function currentCountry(state = '', action) {
-  switch (action.type) {
-    case 'SELECT_COUNTRY':
-      return action.country;
-
-    default:
-      return state;
-  }
-}
