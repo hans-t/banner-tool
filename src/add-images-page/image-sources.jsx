@@ -14,7 +14,7 @@ class ImageSources extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleAddBtnClick = this.handleAddBtnClick.bind(this);
     this.handleDeleteBtnClick = this.handleDeleteBtnClick.bind(this);
-    this.debouncedHandleChange = debounce(this._handleChange.bind(this), 1000);
+    this.debouncedHandleChange = debounce(this._handleChange.bind(this), 300);
 
     this.state = {
       ...props.countries.reduce((obj, curr) => {
@@ -52,7 +52,6 @@ class ImageSources extends React.Component {
   }
 
   _handleChange(index, values) {
-    console.log(index, values);
     const currentCountry = this.props.currentCountry;
     const valuesArray = this.state[currentCountry];
     const newValuesArray = valuesArray
@@ -92,9 +91,7 @@ class ImageSources extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     const { currentCountry } = this.props;
-
     return (
       <div style={{ ...this.style.container, ...this.props.style }}>
         <ContentScrollableContainer style={this.style.contentContainer}>
@@ -123,8 +120,8 @@ class ImageSources extends React.Component {
 
 ImageSources.propTypes = {
   style: React.PropTypes.object,
-  countries: React.PropTypes.array.isRequired,
-  currentCountry: React.PropTypes.string.isRequired,
+  countries: React.PropTypes.array,
+  currentCountry: React.PropTypes.string,
 };
 
 ImageSources.defaultProps = {
