@@ -17,6 +17,9 @@ export default class TabbedOuterContainer extends React.Component {
 
       tabs: {
         flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        overflowY: 'scroll',
       },
 
       content: {
