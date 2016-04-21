@@ -25,6 +25,8 @@ export default class TabbedOuterContainer extends React.Component {
       content: {
         flex: 6,
         height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
       },
     };
 

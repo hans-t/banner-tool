@@ -8,9 +8,20 @@ import App from './app';
 
 
 import * as constants from './common/constants';
-const countries = constants.AVAILABLE_COUNTRIES_OPTION;
+const countries = constants.AVAILABLE_COUNTRIES_OPTION.map(obj => ({ ...obj }));
 countries[0].selected = true;
 countries[1].selected = true;
+
+const bannerIds = ['1'];
+
+const propsById = {
+  1: {
+    width: 320,
+    height: 50,
+  },
+};
+
+
 const initialState = {
   page: constants.PAGE.addImages,
   selectedChannel: constants.AVAILABLE_CHANNELS_OPTION[0],
@@ -20,6 +31,8 @@ const initialState = {
     { value: '320x250_1', selected: true },
   ],
   countries,
+  propsById,
+  bannerIds,
 };
 
 
@@ -28,6 +41,7 @@ ReactDOM.render(
     store={createStore(
       rootReducer,
       initialState,
+      // {},
       window.devToolsExtension ? window.devToolsExtension() : undefined
     )}
   >

@@ -1,4 +1,6 @@
-- Make tabbed container
+- when rendering bannerView, draw the background from dataURI first, then according to
+`this.props.whatToRender`, render the thing on top of the background, save it as dataURL and pass it to image.
+
 - Think on how to process input from ImageSourcesBox.
 - Download templates specified in store.
 - Render banner per group

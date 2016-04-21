@@ -34,7 +34,6 @@ class ImageSources extends React.Component {
 
     this.style = {
       container: {
-        height: '20%',
         position: 'relative',
       },
       addButton: {
@@ -43,8 +42,7 @@ class ImageSources extends React.Component {
       },
       contentContainer: {
         width: '90%',
-        marginLeft: '3%',
-        marginRight: 'auto',
+        margin: '0 3% auto',
         padding: '3% 1% 0',
         height: '100%',
       },
