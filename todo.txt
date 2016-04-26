@@ -1,9 +1,9 @@
-- when rendering bannerView, draw the background from dataURI first, then according to
-`this.props.whatToRender`, render the thing on top of the background, save it as dataURL and pass it to image.
+- work on BannerView
+- when moving to next page and needs to render banners, use dataURI, but
+when moving to previous page, render the banner from scratch and replace dataURI.
 
 - Think on how to process input from ImageSourcesBox.
-- Download templates specified in store.
-- Render banner per group
+- Download templates specified in store and initialize propsById, etc.
 
 
 Notes:

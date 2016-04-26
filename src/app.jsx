@@ -10,9 +10,10 @@ injectTapEventPlugin();
 
 
 // component for glueing components from different domain
-const App = ({ page }) => {
+const App = ({ currentPage }) => {
   let view;
-  switch (page) {
+  switch (currentPage) {
+    default:
     case PAGE.index:
       view = <FirstPageView />;
       break;
@@ -20,20 +21,16 @@ const App = ({ page }) => {
     case PAGE.addImages:
       view = <AddImagesView />;
       break;
-
-    default:
-      view = <FirstPageView />;
-      break;
   }
 
   return <div>{view}</div>;
 };
 
 App.propTypes = {
-  page: React.PropTypes.string.isRequired,
+  currentPage: React.PropTypes.string,
 };
 
 
 export default connect(
-  state => ({ page: state.page })
+  state => ({ currentPage: state.page.value })
 )(App);

@@ -4,8 +4,8 @@ import ContentAdd from 'material-ui/lib/svg-icons/content/add';
 import FloatingActionButton from 'material-ui/lib/floating-action-button';
 
 import ImageSource from './image-source';
+import ContentScrollableContainer from '../common/content-scrollable-container';
 import { debounce } from '../common/helpers';
-import { ContentScrollableContainer } from '../common/containers';
 
 
 class ImageSources extends React.Component {
@@ -41,8 +41,7 @@ class ImageSources extends React.Component {
         top: -20,
       },
       contentContainer: {
-        width: '90%',
-        margin: '0 3% auto',
+        marginLeft: '2%',
         padding: '3% 1% 0',
         height: '100%',
       },

@@ -1,15 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
+
+import RaisedButton from 'material-ui/lib/raised-button';
+import NextButtonContainer from '../common/next-btn-container';
+
 import { PAGE } from '../common/constants';
 import { isAnySelected } from '../common/helpers';
-import RaisedButton from 'material-ui/lib/raised-button';
-import { NextButtonContainer } from '../common/containers';
 
 
 const addImagesBtn = ({ selectedChannel, countries, templates, changePage }) => {
   const onClick = () => {
     if (selectedChannel && isAnySelected(countries) && isAnySelected(templates)) {
-      changePage(PAGE.addImages);
+      changePage(PAGE.addImages, true);
     }
   };
 
@@ -35,9 +37,10 @@ export default connect(
     templates: state.templates,
   }),
   (dispatch) => ({
-    changePage: page => dispatch({
+    changePage: (value, isNextPage) => dispatch({
       type: 'CHANGE_PAGE',
-      page,
+      value,
+      isNextPage,
     }),
   })
 )(addImagesBtn);

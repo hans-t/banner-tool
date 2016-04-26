@@ -1,17 +1,30 @@
 import { setDefaultValue } from '../common/helpers';
 
 
-export function bannerIds(state = [], action) {
-  const id = action.id;
+export function bannerIdsByCountry(state = {}, action) {
+  const { id, ids, country, type } = action;
+  const bannerIds = country in state ? state[country] : [];
 
-  switch (action.type) {
+  switch (type) {
+    case 'ADD_BANNERS':
+      return {
+        ...state,
+        [country]: bannerIds.concat(ids),
+      };
+
     case 'ADD_BANNER':
-      return state.concat(id);
+      return {
+        ...state,
+        [country]: bannerIds.concat(id),
+      };
 
     case 'REMOVE_BANNER': {
-      const index = state.find(el => el === id);
-      const newState = index === -1 ? state : state.slice(0, index).concat(state.slice(index + 1));
-      return newState;
+      const index = bannerIds.find(el => el === id);
+      const newBannerIds = index === -1 ? bannerIds : bannerIds.slice(0, index).concat(bannerIds.slice(index + 1));
+      return {
+        ...state,
+        [country]: newBannerIds,
+      };
     }
 
     default:
@@ -21,14 +34,14 @@ export function bannerIds(state = [], action) {
 
 
 export function imagesById(state = {}, action) {
-  const id = action.id;
-  const images = setDefaultValue(state[action.id], []);
+  const { id, type, image } = action;
+  const images = setDefaultValue(state[id], []);
 
-  switch (action.type) {
+  switch (type) {
     case 'ADD_IMAGE':
       return {
         ...state,
-        [id]: images.concat(action.image),
+        [id]: images.concat(image),
       };
 
     default:

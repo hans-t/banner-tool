@@ -9,7 +9,7 @@
 */
 
 
-export function sourceUrls(state={}, action) {
+export function sourceUrls(state = {}, action) {
   const country = action.country;
   const url = action.url;
   const urls = state[country] || [];

@@ -12,10 +12,25 @@ const countries = constants.AVAILABLE_COUNTRIES_OPTION.map(obj => ({ ...obj }));
 countries[0].selected = true;
 countries[1].selected = true;
 
-const bannerIds = ['1'];
+const bannerIdsByCountry = {
+  SG: ['1', '2'],
+  MY: ['3', '4'],
+};
 
 const propsById = {
   1: {
+    width: 320,
+    height: 50,
+  },
+  2: {
+    width: 320,
+    height: 50,
+  },
+  3: {
+    width: 320,
+    height: 50,
+  },
+  4: {
     width: 320,
     height: 50,
   },
@@ -23,7 +38,10 @@ const propsById = {
 
 
 const initialState = {
-  page: constants.PAGE.addImages,
+  page: {
+    value: constants.PAGE.addImages,
+    isNextPage: false,
+  },
   selectedChannel: constants.AVAILABLE_CHANNELS_OPTION[0],
   templates: [
     { value: '320x50_1', selected: true },
@@ -32,9 +50,8 @@ const initialState = {
   ],
   countries,
   propsById,
-  bannerIds,
+  bannerIdsByCountry,
 };
-
 
 ReactDOM.render(
   <Provider

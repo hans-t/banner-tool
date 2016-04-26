@@ -2,21 +2,39 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import BannerList from './banner-list';
-import { ContentScrollableContainer } from '../common/containers';
+import ContentScrollableContainer from '../common/content-scrollable-container';
+
+
+function renderBannerListBySize({ bannerIds, propsById }) {
+  const bySize = {};
+  bannerIds.forEach(id => {
+    const { width, height } = propsById[id];
+    const sizeStr = `${width}x${height}`;
+    if (sizeStr in bySize) {
+      bySize[sizeStr].push(id);
+    } else {
+      bySize[sizeStr] = [id];
+    }
+  });
+
+  return (
+    Object.keys(bySize).map(sizeStr => (
+      <BannerList key={sizeStr} sizeStr={sizeStr} bannerIds={bannerIds} />
+    ))
+  );
+}
 
 
 class BannerResults extends React.Component {
   constructor(props) {
     super(props);
-    this.style = {
+    this.defaultStyle = {
       container: {
         position: 'relative',
       },
       contentContainer: {
-        width: '90%',
-        marginLeft: '3%',
-        marginRight: 'auto',
-        padding: '3% 1% 0',
+        marginLeft: '2%',
+        padding: '1% 1% 0',
         height: '100%',
       },
     };
@@ -24,9 +42,9 @@ class BannerResults extends React.Component {
 
   render() {
     return (
-      <div style={{ ...this.style.container, ...this.props.style }}>
-        <ContentScrollableContainer style={this.style.contentContainer}>
-          <BannerList bannerIds={this.props.bannerIds} />
+      <div style={{ ...this.defaultStyle.container, ...this.props.style }}>
+        <ContentScrollableContainer style={this.defaultStyle.contentContainer}>
+          {renderBannerListBySize(this.props)}
         </ContentScrollableContainer>
       </div>
     );
@@ -35,9 +53,9 @@ class BannerResults extends React.Component {
 
 BannerResults.propTypes = {
   style: React.PropTypes.object,
-  countries: React.PropTypes.array,
   currentCountry: React.PropTypes.string,
   bannerIds: React.PropTypes.array,
+  propsById: React.PropTypes.object,
 };
 
 BannerResults.defaultProps = {
@@ -46,5 +64,8 @@ BannerResults.defaultProps = {
 
 
 export default connect(
-  state => ({ bannerIds: state.bannerIds })
+  (state, ownProps) => ({
+    bannerIds: state.bannerIdsByCountry[ownProps.currentCountry],
+    propsById: state.propsById,
+  })
 )(BannerResults);

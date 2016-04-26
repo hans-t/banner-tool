@@ -27,6 +27,8 @@ export default class Canvas {
     this.ctx.drawImage(image, x, y);
   }
 
+  renderPreview() {}
+
   addText() {}
 
   drawBackground(dataURI) {

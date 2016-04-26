@@ -4,10 +4,8 @@ import ChannelSelectBox from './channel-select-box';
 import CountriesSelectBox from './countries-select-box';
 import TemplatesSelectBox from './templates-select-box';
 import AddImagesButton from './add-images-btn';
-import {
-  OuterContainer,
-  ContentScrollableContainer,
-} from '../common/containers';
+import ContentScrollableContainer from '../common/content-scrollable-container';
+import OuterContainer from '../common/outer-container';
 
 
 const Content = () => {

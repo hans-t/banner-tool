@@ -5,6 +5,7 @@ import Canvas from './canvas';
 
 
 class BannerView extends React.Component {
+  // work on rendering images specified in imagesById
   constructor(props) {
     super(props);
     const { width, height } = props.properties;
@@ -30,10 +31,10 @@ BannerView.propTypes = {
 export default connect(
   (state, ownProps) => {
     const id = ownProps.id;
-    const { propsById } = state;
-    console.log(ownProps);
+    const { propsById, page } = state;
     return {
       properties: propsById[id],
+      useDataURI: page.isNextPage,
     };
   },
   null

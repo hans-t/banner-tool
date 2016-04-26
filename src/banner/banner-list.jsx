@@ -11,13 +11,14 @@ class BannerList extends React.Component {
         overflowX: 'auto',
         margin: '0 0 24px 0',
         outline: '1px solid black',
+        padding: '5px 2px 0',
+        whiteSpace: 'nowrap',
       },
     };
   }
 
   render() {
     const { bannerIds } = this.props;
-
     return (
       <div style={this.styles.container}>
         {bannerIds.map(id => (

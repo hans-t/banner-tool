@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Tabs from '../common/tabs';
-import { OuterContainer } from './containers';
+import OuterContainer from './outer-container';
 
 
 export default class TabbedOuterContainer extends React.Component {
@@ -19,11 +19,11 @@ export default class TabbedOuterContainer extends React.Component {
         flex: 1,
         display: 'flex',
         flexDirection: 'column',
-        overflowY: 'scroll',
+        overflowY: 'auto',
       },
 
       content: {
-        flex: 6,
+        flex: 7,
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
