@@ -3,6 +3,30 @@ const countries = constants.AVAILABLE_COUNTRIES_OPTION.map(obj => ({ ...obj }));
 countries[0].selected = true;
 countries[1].selected = true;
 
+
+const imagesByCountry = {
+  SG: ['', '', ''],
+};
+
+
+const sourceURLsByCountry = {
+  SG: [
+    {
+      url: 'https://www.zalora.',
+      imageNumber: 1,
+    },
+    {
+      url: 'https://www.zalora.',
+      imageNumber: 1,
+    },
+    {
+      url: 'https://www.zalora.',
+      imageNumber: 1,
+    },
+  ],
+};
+
+
 const bannerIdsByCountry = {
   SG: ['1', '2', '5'],
   MY: ['3', '4'],
@@ -57,16 +81,25 @@ const propsById = {
 };
 
 
+const page = {
+  value: constants.PAGE.addImages,
+  isNextPage: true,
+};
+
+const selectedChannel = constants.AVAILABLE_CHANNELS_OPTION[0];
+
+const templates = [
+  { value: '320x50_1', selected: true },
+];
+
+
 export default {
-  page: {
-    value: constants.PAGE.addImages,
-    isNextPage: true,
-  },
-  selectedChannel: constants.AVAILABLE_CHANNELS_OPTION[0],
-  templates: [
-    { value: '320x50_1', selected: true },
-  ],
+  page,
+  selectedChannel,
+  templates,
   countries,
+  sourceURLsByCountry,
+  imagesByCountry,
   bannerIdsByCountry,
   propsById,
   imagesById,

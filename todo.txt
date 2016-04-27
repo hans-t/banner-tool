@@ -1,7 +1,8 @@
-- Add onChange event listener on sourceURL inputs that perform ajax requests and
-store image data URI on store.
+- bannerResults subscribes to imagesByCountry, get combination and render when the images are changed and all filled.
 
-- Store sourceUrls on store.
+- put minimal working 1200x627 template
+
+- solve sourceURL delete wrong input box.
 
 - rerender everything from scratch, see the performance, optimize later.
 

@@ -26,7 +26,7 @@ class ImageSource extends React.Component {
 
     this.setState(newState);
     if (isValid) {
-      onValid(newState, index);
+      onValid(index, newState);
     }
   }
 

@@ -1,4 +1,31 @@
-import { setDefaultValue } from '../common/helpers';
+import {
+  setDefaultValue,
+  groupReducerByCountry,
+  addToArray,
+  removeFromArray,
+  replaceValueInArray,
+} from '../common/helpers';
+
+
+function images(state = [], action) {
+  const { type, index, imageDataURI } = action;
+  switch (type) {
+    case 'ADD_IMAGE':
+      return addToArray(state, '');
+
+    case 'REPLACE_IMAGE':
+      return replaceValueInArray(state, index, imageDataURI);
+
+    case 'REMOVE_IMAGE':
+      return removeFromArray(state, index);
+
+    default:
+      return state;
+  }
+}
+
+
+export const imagesByCountry = groupReducerByCountry(images);
 
 
 export function bannerIdsByCountry(state = {}, action) {
@@ -34,16 +61,8 @@ export function bannerIdsByCountry(state = {}, action) {
 
 
 export function imagesById(state = {}, action) {
-  const { id, type, image } = action;
-  const images = setDefaultValue(state[id], []);
-
+  const { type } = action;
   switch (type) {
-    case 'ADD_IMAGE':
-      return {
-        ...state,
-        [id]: images.concat(image),
-      };
-
     default:
       return state;
   }

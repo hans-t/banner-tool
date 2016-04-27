@@ -1,35 +1,49 @@
-/*
-{
-  sourceUrlsByCountry: {
-    sg: ['url1', 'url2'],
-    id: ['url3'],
-  }
-}
-
-*/
+import { groupReducerByCountry } from '../common/helpers';
 
 
-export function sourceUrls(state = {}, action) {
-  const country = action.country;
-  const url = action.url;
-  const urls = state[country] || [];
+const defaultSourceURLValues = {
+  url: 'https://www.zalora.',
+  imageNumber: 1,
+};
+
+
+const defaultSourceURLValuesFactory = () => ({ ...defaultSourceURLValues });
+
+
+const initialStateFactory = () => (
+  Array(6)
+  .fill(0)
+  .map(defaultSourceURLValuesFactory)
+);
+
+
+function sourceURLs(state = [], action) {
+  const { index, values } = action;
 
   switch (action.type) {
     case 'ADD_SOURCE_URL':
-      return {
-        ...state,
-        [country]: [...urls, url],
-      };
+      return state.concat(defaultSourceURLValuesFactory());
+
+    case 'EDIT_SOURCE_URL':
+      return state
+        .slice(0, index)
+        .concat(values)
+        .concat(state.slice(index + 1));
 
     case 'REMOVE_SOURCE_URL': {
-      const index = urls.findIndex(el => el === url);
-      return {
-        ...state,
-        [country]: urls.slice(0, index).concat(index + 1),
-      };
+      if (state.length > 1) {
+        return state
+          .slice(0, index)
+          .concat(state.slice(index + 1));
+      } else {
+        return state;
+      }
     }
 
     default:
       return state;
   }
 }
+
+
+export const sourceURLsByCountry = groupReducerByCountry(sourceURLs, initialStateFactory);

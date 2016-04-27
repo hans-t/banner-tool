@@ -8,5 +8,8 @@ module.exports = {
   },
   "plugins": [
       "react"
-  ]
+  ],
+  "rules": {
+    "no-else-return": 0
+  }
 };
