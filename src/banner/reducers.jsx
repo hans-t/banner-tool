@@ -73,16 +73,10 @@ export function propsById(state = {}, action) {
         [id]: { ...props, selected: !props.showEditOverlay },
       };
 
-    case 'SET_BANNER_DATA_URI_PREVIEW':
-      return {
-        ...state,
-        [id]: { ...props, dataUriPreview: action.dataUriPreview },
-      };
-
     case 'SET_BANNER_DATA_URI':
       return {
         ...state,
-        [id]: { ...props, dataUri: action.dataUri },
+        [id]: { ...props, dataURI: action.dataURI },
       };
 
     case 'SET_BANNER_FORMAT':

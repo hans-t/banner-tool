@@ -1,9 +1,14 @@
-- work on BannerView
 - when moving to next page and needs to render banners, use dataURI, but
 when moving to previous page, render the banner from scratch and replace dataURI.
 
-- Think on how to process input from ImageSourcesBox.
 - Download templates specified in store and initialize propsById, etc.
+
+- Add onChange event listener on sourceURL inputs that perform ajax requests and
+store image data URI on store.
+
+- get combination of images according to the number of image boxes in the templates.
+
+- make/design templates.
 
 
 Notes:
