@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import BannerList from './banner-list';
+import BannerList from './list';
 import ContentScrollableContainer from '../common/content-scrollable-container';
 
 

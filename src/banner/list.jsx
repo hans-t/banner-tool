@@ -1,5 +1,5 @@
 import React from 'react';
-import BannerView from './banner-view';
+import BannerView from './view';
 
 
 class BannerList extends React.Component {
