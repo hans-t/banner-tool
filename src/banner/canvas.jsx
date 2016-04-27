@@ -46,6 +46,7 @@ export default class Canvas {
     // canvas is a Canvas instance.
     this.clear();
     this.addImage(canvas.toDataURI(), dx, dy, dWidth, dHeight);
+    return this.toDataURI();
   }
 
   addText() {}

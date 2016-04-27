@@ -1,10 +1,11 @@
-- when moving to next page and needs to render banners, use dataURI, but
-when moving to previous page, render the banner from scratch and replace dataURI.
-
-- Download templates specified in store and initialize propsById, etc.
-
 - Add onChange event listener on sourceURL inputs that perform ajax requests and
 store image data URI on store.
+
+- Store sourceUrls on store.
+
+- rerender everything from scratch, see the performance, optimize later.
+
+- Download templates specified in store and initialize propsById, etc.
 
 - get combination of images according to the number of image boxes in the templates.
 

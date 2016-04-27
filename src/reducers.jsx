@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
 import * as firstPage from './first-page/reducers';
+import * as addImagesPage from './add-images-page/reducers';
 import * as banner from './banner/reducers';
 
 
@@ -22,5 +23,6 @@ export function page(state = {}, action) {
 export default combineReducers({
   page,
   ...firstPage,
+  ...addImagesPage,
   ...banner,
 });

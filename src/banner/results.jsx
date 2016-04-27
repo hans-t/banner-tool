@@ -19,7 +19,7 @@ function renderBannerListBySize({ bannerIds, propsById }) {
 
   return (
     Object.keys(bySize).map(sizeStr => (
-      <BannerList key={sizeStr} sizeStr={sizeStr} bannerIds={bannerIds} />
+      <BannerList key={sizeStr} sizeStr={sizeStr} bannerIds={bySize[sizeStr]} />
     ))
   );
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import ContentAdd from 'material-ui/lib/svg-icons/content/add';
 import FloatingActionButton from 'material-ui/lib/floating-action-button';
@@ -17,7 +18,7 @@ class ImageSources extends React.Component {
     this.debouncedHandleChange = debounce(this._handleChange.bind(this), 300);
 
     this.state = {
-      ...props.countries.reduce((obj, curr) => {
+      ...props.countries.reduce((obj, country) => {
         const defaultArray = Array(6)
           .fill(0)
           .map(() => ({
@@ -27,7 +28,7 @@ class ImageSources extends React.Component {
 
         return {
           ...obj,
-          [curr]: defaultArray,
+          [country]: defaultArray,
         };
       }, {}),
     };

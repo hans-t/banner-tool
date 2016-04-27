@@ -2,42 +2,59 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Canvas from './canvas';
-import { PAGE } from '../common/constants';
 
 
-const previewWidth = 250;
-const previewHeight = 250;
+function drawOnCanvas(canvas, props) {
+  const { images } = props;
+
+  images.forEach(({ dataURI, dx, dy, dWidth, dHeight }) => (
+    canvas.addImage(dataURI, dx, dy, dWidth, dHeight)
+  ));
+}
 
 
-function computePreviewDimension(width, height) {
+function fitImageInsideBox(width, height, boxWidth, boxHeight) {
   let dimension;
   if (width > height) {
-    const resizedHeight = previewWidth / width * height;
+    const resizedHeight = boxWidth / width * height;
     dimension = {
       dx: 0,
-      dy: (previewHeight - resizedHeight) / 2,
-      dWidth: previewWidth,
+      dy: (boxHeight - resizedHeight) / 2,
+      dWidth: boxWidth,
       dHeight: resizedHeight,
     };
   } else {
-    const resizedWidth = previewHeight / height * width;
+    const resizedWidth = boxHeight / height * width;
     dimension = {
-      dx: (previewWidth - resizedWidth) / 2,
+      dx: (boxWidth - resizedWidth) / 2,
       dy: 0,
       dWidth: resizedWidth,
-      dHeight: previewHeight,
+      dHeight: boxHeight,
     };
   }
   return dimension;
 }
 
 
+function computePreviewDimension(width, height) {
+  return {
+    previewWidth: width / 2,
+    previewHeight: height / 2,
+  };
+}
+
+
 class BannerView extends React.Component {
-  // work on rendering images specified in imagesById
   constructor(props) {
     super(props);
     const { width, height } = props.properties;
-    const { dx, dy, dWidth, dHeight } = computePreviewDimension(width, height);
+    const { previewWidth, previewHeight } = computePreviewDimension(width, height);
+    const { dx, dy, dWidth, dHeight } = fitImageInsideBox(
+      width,
+      height,
+      previewWidth,
+      previewHeight
+    );
     this.dx = dx;
     this.dy = dy;
     this.dWidth = dWidth;
@@ -52,32 +69,13 @@ class BannerView extends React.Component {
   }
 
   componentWillMount() {
-    // manipulate canvas before mounting
-    const { properties, useDataURI, currentPage, images } = this.props;
-
-    // if useDataURI, draw background of canvas using dataURI
-    // else, draw images if at addImages page, draw images and texts if at addTexts page.
-    // is there a better/smarter way of doing this?
-    if (useDataURI) {
-      this.canvas.drawBackground(properties.dataURI);
-    }
-
-    switch(currentPage) {
-      case PAGE.addImages:
-        images.forEach(({ dataURI, dx, dy, dWidth, dHeight }) => (
-          this.canvas.addImage(dataURI, dx, dy, dWidth, dHeight)
-        ));
-    }
-  }
-
-  componentWillUnmount() {
-    const dataURI = this.canvas.toDataURI();
-    this.props.setCanvasDataURI(dataURI);
+    drawOnCanvas(this.canvas, this.props);
   }
 
   render() {
-    this.previewCanvas.renderPreview(this.canvas, this.dx, this.dy, this.dWidth, this.dHeight);
-    const dataURI = this.previewCanvas.toDataURI();
+    const dataURI = this
+      .previewCanvas
+      .renderPreview(this.canvas, this.dx, this.dy, this.dWidth, this.dHeight);
     return <img src={dataURI} role="presentation" style={this.style}></img>;
   }
 }
@@ -86,8 +84,7 @@ BannerView.propTypes = {
   id: React.PropTypes.string,
   properties: React.PropTypes.object,
   images: React.PropTypes.array,
-  useDataURI: React.PropTypes.bool,
-  setCanvasDataURI: React.PropTypes.func,
+  currentPage: React.PropTypes.string,
 };
 
 
@@ -99,15 +96,7 @@ export default connect(
       properties: propsById[id],
       images: imagesById[id],
       currentPage: page.value,
-      useDataURI: page.isNextPage,
     };
   },
-  dispatch => ({
-    setCanvasDataURI: dataURI => (
-      dispatch({
-        type: 'SET_BANNER_DATA_URI',
-        dataURI,
-      })
-    ),
-  })
+  null
 )(BannerView);

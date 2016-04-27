@@ -19,6 +19,7 @@ class BannerList extends React.Component {
 
   render() {
     const { bannerIds, sizeStr } = this.props;
+    console.log(this.props);
     return (
       <div>
         <p>{sizeStr}</p>
