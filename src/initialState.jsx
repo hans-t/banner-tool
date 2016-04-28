@@ -28,11 +28,6 @@ const sourceURLsByCountry = {
 };
 
 
-const templateLabels = [
-  { value: '320x50_1', selected: true },
-];
-
-
 const templates = [
   require('../static/templates/mobile_320x50_1.js'),
 ];
@@ -62,7 +57,6 @@ export default {
   page,
   selectedChannel,
   templates,
-  templateLabels,
   countries,
   sourceURLsByCountry,
   imagesByCountry,

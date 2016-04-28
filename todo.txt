@@ -1,22 +1,13 @@
-- templates in store should be the real template not only the name of the template.
-
 - imageSources get combinations and store it in imagesById.
 
+- get combination of images according to the number of image boxes in the templates.
+
 - BannerResults render the images.
-
-- rename templates to templateList
-
-- put minimal working 1200x627 template
 
 - solve sourceURL delete wrong input box.
 
 - rerender everything from scratch, see the performance, optimize later.
 
-- Download templates specified in store and initialize propsById, etc.
-
-- get combination of images according to the number of image boxes in the templates.
-
-- make/design templates.
 
 
 Notes:

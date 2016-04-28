@@ -3,7 +3,15 @@ import { connect } from 'react-redux';
 import { MultiSelectBox } from '../common/multi-select';
 
 
-const TemplatesSelectBox = ({ updateTemplates, templateLabels, style }) => {
+function getTemplateLabels(templates) {
+  return Object.keys(templates).map(templateName => ({
+    value: templateName,
+    selected: templates[templateName].selected,
+  }));
+}
+
+
+const TemplatesSelectBox = ({ selectTemplates, templateLabels, style }) => {
   const defaultStyle = {};
 
   return (
@@ -11,14 +19,14 @@ const TemplatesSelectBox = ({ updateTemplates, templateLabels, style }) => {
       title="Select Templates"
       style={{ ...defaultStyle, ...style }}
       labels={templateLabels}
-      onChange={updateTemplates}
+      onChange={selectTemplates}
       required
     />
   );
 };
 
 TemplatesSelectBox.propTypes = {
-  updateTemplates: React.PropTypes.func.isRequired,
+  selectTemplates: React.PropTypes.func.isRequired,
   templateLabels: React.PropTypes.array.isRequired,
   style: React.PropTypes.object,
 };
@@ -29,10 +37,10 @@ TemplatesSelectBox.defaultProps = {
 
 
 export default connect(
-  state => ({ templateLabels: state.templateLabels }),
+  state => ({ templateLabels: getTemplateLabels(state.templates) }),
   dispatch => ({
-    updateTemplates: labels => dispatch({
-      type: 'SELECT_TEMPLATE_LABELS',
+    selectTemplates: labels => dispatch({
+      type: 'SELECT_TEMPLATES',
       labels,
     }),
   })

@@ -8,9 +8,15 @@ import { PAGE } from '../common/constants';
 import { isAnySelected } from '../common/helpers';
 
 
+function isAnyTemplatesSelected(templates) {
+  const templateValues = Object.keys(templates).map(name => templates[name]);
+  return isAnySelected(templateValues);
+}
+
+
 const addImagesBtn = ({ selectedChannel, countries, templates, changePage }) => {
   const onClick = () => {
-    if (selectedChannel && isAnySelected(countries) && isAnySelected(templates)) {
+    if (selectedChannel && isAnySelected(countries) && isAnyTemplatesSelected(templates)) {
       changePage(PAGE.addImages, true);
     }
   };
@@ -25,7 +31,7 @@ const addImagesBtn = ({ selectedChannel, countries, templates, changePage }) => 
 addImagesBtn.propTypes = {
   selectedChannel: React.PropTypes.string.isRequired,
   countries: React.PropTypes.array.isRequired,
-  templates: React.PropTypes.array.isRequired,
+  templates: React.PropTypes.object.isRequired,
   changePage: React.PropTypes.func.isRequired,
 };
 

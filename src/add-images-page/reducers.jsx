@@ -30,7 +30,7 @@ function sourceURLs(state = [], action) {
       return addToArray(state, defaultSourceURLValuesFactory());
 
     case 'EDIT_SOURCE_URL':
-      return replaceValueInArray(state, values);
+      return replaceValueInArray(state, index, values);
 
     case 'REMOVE_SOURCE_URL': {
       if (state.length > 1) {

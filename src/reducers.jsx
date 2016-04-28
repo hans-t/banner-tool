@@ -10,7 +10,7 @@ export function page(state = {}, action) {
   switch (action.type) {
     case 'CHANGE_PAGE':
       return {
-        value: action.page,
+        value: action.value,
         isNextPage: action.isNextPage,
       };
 
