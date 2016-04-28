@@ -69,13 +69,13 @@ class ImageSources extends React.Component {
             <ContentAdd />
           </FloatingActionButton>
           {sourceURLs.map((defaultValues, index) => (
-              <ImageSource
-                key={`${currentCountry}${index}`}
-                index={index}
-                defaultValues={defaultValues}
-                onValid={this.handleChange}
-                onDelete={this.handleDelete}
-              />
+            <ImageSource
+              key={`${currentCountry}${index}`}
+              index={index}
+              defaultValues={defaultValues}
+              onValid={this.handleChange}
+              onDelete={this.handleDelete}
+            />
           ))}
         </ContentScrollableContainer>
       </div>
@@ -99,9 +99,6 @@ ImageSources.propTypes = {
 ImageSources.defaultProps = {
   style: {},
 };
-
-
-// sourceURLs is an array of objects
 
 
 export default connect(

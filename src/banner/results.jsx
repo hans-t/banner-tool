@@ -7,7 +7,8 @@ import ContentScrollableContainer from '../common/content-scrollable-container';
 
 function renderBannerListBySize({ bannerIds, propsById }) {
   const bySize = {};
-  bannerIds.forEach(id => {
+  bannerIds.forEach(obj => {
+    const id = obj.id;
     const { width, height } = propsById[id];
     const sizeStr = `${width}x${height}`;
     if (sizeStr in bySize) {

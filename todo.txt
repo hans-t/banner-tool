@@ -1,4 +1,6 @@
-- bannerResults subscribes to imagesByCountry, get combination and render when the images are changed and all filled.
+- imageSources get templates and combinations and store it in imagesById.
+
+- BannerResutls render the images.
 
 - put minimal working 1200x627 template
 

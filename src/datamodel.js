@@ -5,26 +5,26 @@ inStore = {
   channelSelected: 'MOBILE',
 
   countries: [
-    { value: 'SG', selected: false },
+    { value: 'SG', selected: true },
     { value: 'MY', selected: false },
     { value: 'TH', selected: false },
     { value: 'ID', selected: false },
-    { value: 'VN', selected: true },
+    { value: 'VN', selected: false },
     { value: 'PH', selected: false },
     { value: 'TW', selected: false },
     { value: 'HK', selected: false },
   ],
 
   templates: [
-    { value: '320x250_1', selected: false },
+    { value: '320x250_1', selected: true },
     { value: '320x250_2', selected: false },
-    { value: '600x600_1', selected: true },
+    { value: '600x600_1', selected: false },
   ],
 
   currentCountry: 'SG',
 
   bannerIdsByCountry: {
-    VN: ['1', '2'],
+    SG: [{ id: '1', selected: true }, { id: '2', selected: false }],
   },
 
   imagesById: {
@@ -98,12 +98,6 @@ insideComponents = {
 
     {...},
   ],
-
-  // only needed when putting images together
-  sourceUrls: {
-    SG: ['SG_url1', 'SG_url2'],
-    ID: ['ID_url3', 'ID_url4'],
-  },
 
   // last step, in render page
   renderSettings: {

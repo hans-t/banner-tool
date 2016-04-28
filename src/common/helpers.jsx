@@ -41,13 +41,16 @@ export function debounce(func, delay = 500) {
 }
 
 
-export function groupReducerByCountry(reducer, initialStateFactory) {
+export function groupReducerByCountry(reducer, initialStateFactory = () => []) {
+  console.log(initialStateFactory);
   return (state = {}, action) => {
     if (action.type === 'SELECT_COUNTRIES') {
-      return action.countries.reduce((obj, country) => ({
-        ...obj,
-        [country]: initialStateFactory(),
-      }), {});
+      return action.countries
+        .filter(obj => obj.selected)
+        .reduce((obj, elm) => ({
+          ...obj,
+          [elm.value]: initialStateFactory(),
+        }), {});
     } else if (action.country) {
       const { country } = action;
       return {

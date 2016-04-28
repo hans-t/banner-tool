@@ -28,38 +28,6 @@ function images(state = [], action) {
 export const imagesByCountry = groupReducerByCountry(images);
 
 
-export function bannerIdsByCountry(state = {}, action) {
-  const { id, ids, country, type } = action;
-  const bannerIds = country in state ? state[country] : [];
-
-  switch (type) {
-    case 'ADD_BANNERS':
-      return {
-        ...state,
-        [country]: bannerIds.concat(ids),
-      };
-
-    case 'ADD_BANNER':
-      return {
-        ...state,
-        [country]: bannerIds.concat(id),
-      };
-
-    case 'REMOVE_BANNER': {
-      const index = bannerIds.find(el => el === id);
-      const newBannerIds = index === -1 ? bannerIds : bannerIds.slice(0, index).concat(bannerIds.slice(index + 1));
-      return {
-        ...state,
-        [country]: newBannerIds,
-      };
-    }
-
-    default:
-      return state;
-  }
-}
-
-
 export function imagesById(state = {}, action) {
   const { type } = action;
   switch (type) {
