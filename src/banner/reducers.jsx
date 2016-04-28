@@ -28,9 +28,11 @@ function images(state = [], action) {
 export const imagesByCountry = groupReducerByCountry(images);
 
 
-export function imagesById(state = {}, action) {
-  const { type } = action;
-  switch (type) {
+export function imageCombinationsById(state = {}, action) {
+  switch (action.type) {
+    case 'ADD_OR_REPLACE_COMBINATIONS':
+      return action.combinations;
+
     default:
       return state;
   }
@@ -46,12 +48,6 @@ export function propsById(state = {}, action) {
       return {
         ...state,
         [id]: { ...props, cta_url: action.cta_url },
-      };
-
-    case 'TOGGLE_BANNER_SELECTION':
-      return {
-        ...state,
-        [id]: { ...props, selected: !props.selected },
       };
 
     case 'TOGGLE_BANNER_EDIT_OVERLAY':

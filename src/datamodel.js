@@ -27,7 +27,7 @@ inStore = {
     SG: [{ id: '1', selected: true }, { id: '2', selected: false }],
   },
 
-  imagesById: {
+  imageCombinationsById: {
     '38201': [
       {..., url: 'url1'},
       {..., url: 'url2'},
@@ -49,7 +49,6 @@ inStore = {
       cta_url: 'cta_url1',
       dataUriPreview: '',
       dataUri: '',
-      selected: true,
       showEditOverlay: true,
       format: '',
       compressionLevel: 8,

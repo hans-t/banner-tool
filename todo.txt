@@ -1,6 +1,8 @@
 - imageSources get templates and combinations and store it in imagesById.
 
-- BannerResutls render the images.
+- BannerResults render the images.
+
+- rename templates to templateList
 
 - put minimal working 1200x627 template
 
