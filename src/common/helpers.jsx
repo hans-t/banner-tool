@@ -42,7 +42,6 @@ export function debounce(func, delay = 500) {
 
 
 export function groupReducerByCountry(reducer, initialStateFactory = () => []) {
-  console.log(initialStateFactory);
   return (state = {}, action) => {
     if (action.type === 'SELECT_COUNTRIES') {
       return action.countries

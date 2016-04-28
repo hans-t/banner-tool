@@ -23,13 +23,25 @@ export function countries(state = AVAILABLE_COUNTRIES_OPTION, action) {
 }
 
 
+export function templateLabels(state = [], action) {
+  const { type, labels } = action;
+
+  switch (type) {
+    case 'ADD_OR_REPLACE_TEMPLATE_LABELS':
+      return labels;
+
+    case 'SELECT_TEMPLATE_LABELS':
+      return labels;
+
+    default:
+      return state;
+  }
+}
+
+
 export function templates(state = [], action) {
   switch (action.type) {
-    case 'REFRESH_TEMPLATE_OPTIONS': {
-      return action.templates;
-    }
-
-    case 'SELECT_TEMPLATES':
+    case 'ADD_OR_REPLACE_TEMPLATES':
       return action.templates;
 
     default:

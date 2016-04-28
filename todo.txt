@@ -1,4 +1,6 @@
-- imageSources get templates and combinations and store it in imagesById.
+- templates in store should be the real template not only the name of the template.
+
+- imageSources get combinations and store it in imagesById.
 
 - BannerResults render the images.
 
