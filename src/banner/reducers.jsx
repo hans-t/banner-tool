@@ -32,10 +32,13 @@ function bannerIds(state = [], action) {
 export const bannerIdsByCountry = groupReducerByCountry(bannerIds);
 
 
-export function imageCombinationsById(state = {}, action) {
+export function imageSetsById(state = {}, action) {
   switch (action.type) {
     case ADD_BANNER_IDS:
-      return action.imageCombinations;
+      return {
+        ...state,
+        ...action.imageSetsById,
+      };
 
     case REMOVE_BANNER_IDS:
       return omitKeys(state, action.ids);
@@ -52,7 +55,10 @@ export function propsById(state = {}, action) {
 
   switch (action.type) {
     case ADD_BANNER_IDS:
-      return action.props;
+      return {
+        ...state,
+        ...action.propsById,
+      };
 
     case REMOVE_BANNER_IDS:
       return omitKeys(state, action.ids);
@@ -99,7 +105,10 @@ export function textsById(state = {}, action) {
 
   switch (action.type) {
     case ADD_BANNER_IDS:
-      return action.texts;
+      return {
+        ...state,
+        ...action.textsById,
+      };
 
     case REMOVE_BANNER_IDS:
       return omitKeys(state, action.ids);

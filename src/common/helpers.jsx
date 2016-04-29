@@ -45,7 +45,7 @@ export function omitKeys(obj, omitted) {
   const newObj = { ...obj };
   omitted.forEach(key => {
     delete newObj[key];
-  })
+  });
   return newObj;
 }
 

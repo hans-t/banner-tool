@@ -91,10 +91,10 @@ BannerView.propTypes = {
 export default connect(
   (state, ownProps) => {
     const id = ownProps.id;
-    const { page, propsById, imagesById } = state;
+    const { page, propsById, imageSetsById } = state;
     return {
       properties: propsById[id],
-      images: imagesById[id],
+      images: imageSetsById[id],
       currentPage: page.value,
     };
   }

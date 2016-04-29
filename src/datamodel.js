@@ -27,7 +27,7 @@ inStore = {
     SG: [{ id: '1', selected: true }, { id: '2', selected: false }],
   },
 
-  imageCombinationsById: {
+  imageSetsById: {
     '38201': [
       {..., url: 'url1'},
       {..., url: 'url2'},

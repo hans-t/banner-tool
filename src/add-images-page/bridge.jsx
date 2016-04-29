@@ -1,6 +1,10 @@
 import React from 'react';
+import { generate as generateId } from 'shortid';
 import { connect } from 'react-redux';
 import { combination } from 'js-combinatorics';
+
+
+const textsKeys = ['headline', 'title', 'copy1', 'copy2', 'copy3'];
 
 
 function isImagesReady(images) {
@@ -8,12 +12,45 @@ function isImagesReady(images) {
 }
 
 
-function getImageCombinations(templates, images) {
-  console.log('Getting image combinations...failed....')
-  // const combinationsByTemplates = templates.map(template => {
-  //   const imageCombinations = combination(images, template.images.length);
-  // });
-  // return combinationsByTemplates
+function isArrayEqual(arr1, arr2) {
+  return arr1.every((el, idx) => el === arr2[idx]);
+}
+
+
+function cloneInsideObjects(obj, keys) {
+  const clonedObj = {};
+  keys.forEach(key => {
+    if (key in obj) {
+      clonedObj[key] = { ...obj[key] };
+    }
+  });
+  return clonedObj;
+}
+
+
+function getCombinations(templates, images) {
+  // first get combination of images first.
+  const imageSetsById = {};
+  const bannerIds = [];
+  const propsById = [];
+  const textsById = [];
+
+  templates.forEach(template => {
+    const combinedImages = combination(images, template.images.length);
+    for (const image of combinedImages) {
+      const id = generateId();
+      const imageSets = template.images.map(imageObj => ({
+        ...imageObj,
+        dataURI: image,
+      }));
+
+      bannerIds.push({ id, selected: false });
+      imageSetsById[id] = imageSets;
+      propsById[id] = template.props;
+      textsById[id] = cloneInsideObjects(template.texts, textsKeys);
+    }
+  });
+  return { bannerIds, imageSetsById, propsById, textsById };
 }
 
 
@@ -24,21 +61,24 @@ function getSelectedTemplates(templates) {
 }
 
 
+// TODO: rename updateCombinations, 'ADD_BANNER_IDS' action.
+
+
 class Bridge extends React.Component {
   componentWillReceiveProps(nextProps) {
     const {
-      style,
       bannerIds,
       templates,
       images,
       removeBannerIds,
+      updateCombinations,
     } = nextProps;
 
-    if (isImagesReady(images)) {
+    // When images change and have non-empty dataURIs.
+    if (!isArrayEqual(images, this.props.images) && isImagesReady(images)) {
       removeBannerIds(bannerIds);
-      console.log('Delete old bannerIds');
-      // somehow get these 4 things:
-      // addBannerIds(newBannerIds, imageCombinations, props, texts)
+      const combinations = getCombinations(templates, images);
+      updateCombinations(combinations);
     }
   }
 
@@ -55,7 +95,7 @@ Bridge.propTypes = {
   currentCountry: React.PropTypes.string.isRequired,
   images: React.PropTypes.array.isRequired,
   templates: React.PropTypes.array.isRequired,
-  addBannerIds: React.PropTypes.func.isRequired,
+  updateCombinations: React.PropTypes.func.isRequired,
   removeBannerIds: React.PropTypes.func.isRequired,
   style: React.PropTypes.object,
 };
@@ -76,18 +116,18 @@ function mapStateToProps(state, ownProps) {
 
 
 function mapDispatchToProps(dispatch, ownProps) {
+  const country = ownProps.currentCountry;
   return {
-    addBannerIds: (bannerIds, imageCombinations, props, texts) => dispatch({
+    updateCombinations: (combinations) => dispatch({
       type: 'ADD_BANNER_IDS',
-      bannerIds,
-      imageCombinations,
-      props,
-      texts,
+      country,
+      ...combinations,
     }),
     removeBannerIds: ids => ids.length > 0 && dispatch({
       type: 'REMOVE_BANNER_IDS',
+      country,
       ids,
-    })
+    }),
   };
 }
 

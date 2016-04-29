@@ -38,7 +38,7 @@ const bannerIdsByCountry = {
 };
 
 
-const imageCombinationsById = {};
+const imageSetsById = {};
 
 
 const propsById = {};
@@ -62,5 +62,5 @@ export default {
   imagesByCountry,
   bannerIdsByCountry,
   propsById,
-  imageCombinationsById,
+  imageSetsById,
 };

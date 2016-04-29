@@ -9,7 +9,8 @@ import ContentScrollableContainer from '../common/content-scrollable-container';
 import { debounce } from '../common/helpers';
 
 
-const placeholder = require('../../static/placeholder.js');
+// const placeholder = require('../../static/placeholder.js');
+import shortid from 'shortid';
 
 
 class ImageSources extends React.Component {
@@ -43,7 +44,7 @@ class ImageSources extends React.Component {
   _handleChange(index, values) {
     const { editSourceURL, replaceImage } = this.props;
     editSourceURL(index, values);
-    const simulateAJAXCall = () => replaceImage(index, placeholder);
+    const simulateAJAXCall = () => replaceImage(index, shortid.generate());
     simulateAJAXCall();
   }
 
