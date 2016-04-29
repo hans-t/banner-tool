@@ -97,6 +97,5 @@ export default connect(
       images: imagesById[id],
       currentPage: page.value,
     };
-  },
-  null
+  }
 )(BannerView);

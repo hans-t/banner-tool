@@ -46,19 +46,17 @@ function sourceURLs(state = [], action) {
 }
 
 
-function bannerIds(state = [], action) {
-  switch (action.type) {
-    case 'ADD_BANNER_IDS':
-      return action.bannerIds;
+function images(state = [], action) {
+  const { type, index, imageDataURI } = action;
+  switch (type) {
+    case 'ADD_IMAGE':
+      return addToArray(state, '');
 
-    case 'TOGGLE_BANNER_ID_SELECTION': {
-      const index = action.index;
-      const bannerId = state[index];
-      return replaceValueInArray(state, index, { ...bannerId, selected: !bannerId.selected });
-    }
+    case 'REPLACE_IMAGE':
+      return replaceValueInArray(state, index, imageDataURI);
 
-    case 'REMOVE_BANNER_IDS':
-      return [];
+    case 'REMOVE_IMAGE':
+      return removeFromArray(state, index);
 
     default:
       return state;
@@ -66,5 +64,5 @@ function bannerIds(state = [], action) {
 }
 
 
-export const bannerIdsByCountry = groupReducerByCountry(bannerIds);
+export const imagesByCountry = groupReducerByCountry(images);
 export const sourceURLsByCountry = groupReducerByCountry(sourceURLs, initialStateFactory);

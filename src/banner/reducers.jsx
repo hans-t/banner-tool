@@ -1,37 +1,44 @@
 import {
   setDefaultValue,
+  omitKeys,
   groupReducerByCountry,
-  addToArray,
-  removeFromArray,
   replaceValueInArray,
 } from '../common/helpers';
 
 
-function images(state = [], action) {
-  const { type, index, imageDataURI } = action;
-  switch (type) {
-    case 'ADD_IMAGE':
-      return addToArray(state, '');
+const ADD_BANNER_IDS = 'ADD_BANNER_IDS';
+const REMOVE_BANNER_IDS = 'REMOVE_BANNER_IDS';
 
-    case 'REPLACE_IMAGE':
-      return replaceValueInArray(state, index, imageDataURI);
 
-    case 'REMOVE_IMAGE':
-      return removeFromArray(state, index);
+function bannerIds(state = [], action) {
+  switch (action.type) {
+    case ADD_BANNER_IDS:
+      return action.bannerIds;
+
+    case 'TOGGLE_BANNER_ID_SELECTION': {
+      const index = action.index;
+      const bannerId = state[index];
+      return replaceValueInArray(state, index, { ...bannerId, selected: !bannerId.selected });
+    }
+
+    case REMOVE_BANNER_IDS:
+      return [];
 
     default:
       return state;
   }
 }
 
-
-export const imagesByCountry = groupReducerByCountry(images);
+export const bannerIdsByCountry = groupReducerByCountry(bannerIds);
 
 
 export function imageCombinationsById(state = {}, action) {
   switch (action.type) {
-    case 'ADD_OR_REPLACE_COMBINATIONS':
-      return action.combinations;
+    case ADD_BANNER_IDS:
+      return action.imageCombinations;
+
+    case REMOVE_BANNER_IDS:
+      return omitKeys(state, action.ids);
 
     default:
       return state;
@@ -44,6 +51,12 @@ export function propsById(state = {}, action) {
   const props = setDefaultValue(state[id], {});
 
   switch (action.type) {
+    case ADD_BANNER_IDS:
+      return action.props;
+
+    case REMOVE_BANNER_IDS:
+      return omitKeys(state, action.ids);
+
     case 'SET_BANNER_CTA_URL':
       return {
         ...state,
@@ -85,6 +98,12 @@ export function textsById(state = {}, action) {
   const texts = setDefaultValue(state[id], {});
 
   switch (action.type) {
+    case ADD_BANNER_IDS:
+      return action.texts;
+
+    case REMOVE_BANNER_IDS:
+      return omitKeys(state, action.ids);
+
     case 'SET_HEADLINE':
       return {
         ...state,

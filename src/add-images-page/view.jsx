@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import Bridge from './bridge';
 import ImageSourcesBox from './image-sources';
 import BannerResultsBox from '../banner/results';
 import TabbedOuterContainer from '../common/tabbed-outer-container';
@@ -9,10 +10,11 @@ import TabbedOuterContainer from '../common/tabbed-outer-container';
 const View = ({ countries }) => (
   <TabbedOuterContainer countries={countries}>
     <ImageSourcesBox style={{ height: '20%' }} />
-    <span style={{ height: '2%' }} />
+    <Bridge style={{ height: '2%' }} />
     <BannerResultsBox style={{ height: '78%' }} />
   </TabbedOuterContainer>
 );
+
 
 View.propTypes = {
   countries: React.PropTypes.array.isRequired,

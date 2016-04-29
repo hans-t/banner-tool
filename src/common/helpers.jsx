@@ -41,6 +41,15 @@ export function debounce(func, delay = 500) {
 }
 
 
+export function omitKeys(obj, omitted) {
+  const newObj = { ...obj };
+  omitted.forEach(key => {
+    delete newObj[key];
+  })
+  return newObj;
+}
+
+
 export function groupReducerByCountry(reducer, initialStateFactory = () => []) {
   return (state = {}, action) => {
     if (action.type === 'SELECT_COUNTRIES') {

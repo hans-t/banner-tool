@@ -12,11 +12,6 @@ import { debounce } from '../common/helpers';
 const placeholder = require('../../static/placeholder.js');
 
 
-function getCombinations() {
-
-}
-
-
 class ImageSources extends React.Component {
   constructor(props) {
     super(props);
@@ -105,17 +100,9 @@ ImageSources.defaultProps = {
 };
 
 
-function getSelectedTemplates(templates) {
-  return Object.keys(templates)
-    .map(name => templates[name])
-    .filter(template => template.selected);
-}
-
-
 export default connect(
   (state, ownProps) => ({
     sourceURLs: state.sourceURLsByCountry[ownProps.currentCountry],
-    templates: getSelectedTemplates(state.templates),
     currentCountry: ownProps.currentCountry,
   }),
   (dispatch, ownProps) => {
@@ -124,11 +111,6 @@ export default connect(
       addImage: () => dispatch({
         type: 'ADD_IMAGE',
         country,
-      }),
-
-      addImageCombinations: combinations => dispatch({
-        type: 'ADD_OR_REPLACE_COMBINATIONS',
-        combinations,
       }),
 
       replaceImage: (index, imageDataURI) => dispatch({
