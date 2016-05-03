@@ -1,3 +1,4 @@
+import { generate as generateId } from 'shortid';
 import {
   groupReducerByCountry,
   addToArray,
@@ -12,7 +13,7 @@ const defaultSourceURLValues = {
 };
 
 
-const defaultSourceURLValuesFactory = () => ({ ...defaultSourceURLValues });
+const defaultSourceURLValuesFactory = () => ({ ...defaultSourceURLValues, id: generateId() });
 
 
 const initialStateFactory = () => (

@@ -13,18 +13,22 @@ const imagesByCountry = {
 const sourceURLsByCountry = {
   SG: [
     {
+      id: '3820cw',
       url: 'https://www.zalora.',
       imageNumber: 1,
     },
     {
+      id: 'i72eiw',
       url: 'https://www.zalora.',
       imageNumber: 1,
     },
     {
+      id: 'bu2919',
       url: 'https://www.zalora.',
       imageNumber: 1,
     },
     {
+      id: 'i0182m',
       url: 'https://www.zalora.',
       imageNumber: 1,
     },

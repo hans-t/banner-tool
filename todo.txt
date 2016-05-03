@@ -1,12 +1,6 @@
-- BannerResults render the images.
-    - Render more results. Use dummy image.
-
-- Tidy up code before end of the day.
-
-- solve sourceURL delete wrong input box using shortId.
-
-- optimize if slow.
-    - pass dataURI by reference.
+- optimize because it's slow.
+    - try passing dataURI by reference, or
+    - refer to imagesByCountry instead of copying dataURI.
 
 
 

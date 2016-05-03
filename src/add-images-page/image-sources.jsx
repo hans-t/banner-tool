@@ -63,7 +63,7 @@ class ImageSources extends React.Component {
   }
 
   render() {
-    const { currentCountry, sourceURLs, style } = this.props;
+    const { sourceURLs, style } = this.props;
     const { container, contentContainer, addButton } = this.style;
     return (
       <div style={{ ...container, ...style }}>
@@ -78,7 +78,7 @@ class ImageSources extends React.Component {
           </FloatingActionButton>
           {sourceURLs.map((defaultValues, index) => (
             <ImageSource
-              key={`${currentCountry}${index}`}
+              key={defaultValues.id}
               index={index}
               defaultValues={defaultValues}
               onValid={this.handleChange}
