@@ -22,7 +22,14 @@ const initialStateFactory = () => (
   .map(defaultSourceURLValuesFactory)
 );
 
-
+/**
+ * State is an array of objects, where each contains the following information,
+ * about a source URL input:
+ * @param {string} id: Unique ID as key for React.
+ * @param {string} url: Zalora product page.
+ * @param {number} imageNumber: Which image that the user want in product page.
+ * 1 is the first image.
+ */
 function sourceURLs(state = [], action) {
   const { index, values } = action;
 
@@ -48,10 +55,12 @@ function sourceURLs(state = [], action) {
 
 
 /**
- * Images state is an array of image objects which the following information about the image:
- * dataURI: base 64 encoded image data.
- * width: width of the image.
- * height: height of the image.
+ * Images state is an array of image objects, where each contains
+ * the following information about an image:
+ * @param {number} index: Index of object in the container array.
+ * @param {string} dataURI: base 64 encoded image data.
+ * @param {number} width: width of the image.
+ * @param {number} height: height of the image.
  */
 function images(state = [], action) {
   const { type, index, image } = action;

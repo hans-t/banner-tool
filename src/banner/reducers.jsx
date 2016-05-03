@@ -10,6 +10,11 @@ const ADD_BANNER_IDS = 'ADD_BANNER_IDS';
 const REMOVE_BANNER_IDS = 'REMOVE_BANNER_IDS';
 
 
+/**
+ * State is an array of objects, where each contains the following information about a banner:
+ * @param {string} id: Unique ID of a banner.
+ * @param {boolean} selected: Boolean that tells whether a banner is selected by user.
+ */
 function bannerIds(state = [], action) {
   switch (action.type) {
     case ADD_BANNER_IDS:
