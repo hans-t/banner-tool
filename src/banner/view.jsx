@@ -8,9 +8,13 @@ import {
 } from './helper';
 
 
+/**
+ dx, dy, dWidth, dHeight are defined in: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage
+ */
 function drawOnCanvas(canvas, props) {
-  const { imageSets } = props;
-  imageSets.forEach(({ dataURI, width, height, boxX, boxY, boxWidth, boxHeight }) => {
+  const { imageSets, images } = props;
+  imageSets.forEach(({ index, boxX, boxY, boxWidth, boxHeight }) => {
+    const { width, height, dataURI } = images[index];
     const { dx, dy, dWidth, dHeight } = fitImageInsideBox({
       width,
       height,
@@ -61,21 +65,21 @@ class BannerView extends React.Component {
 }
 
 BannerView.propTypes = {
-  id: React.PropTypes.string,
+  id: React.PropTypes.string.isRequired,
+  currentCountry: React.PropTypes.string.isRequired,
   properties: React.PropTypes.object,
   imageSets: React.PropTypes.array,
-  currentPage: React.PropTypes.string,
 };
 
 
 export default connect(
   (state, ownProps) => {
-    const id = ownProps.id;
-    const { page, propsById, imageSetsById } = state;
+    const { id, currentCountry } = ownProps;
+    const { propsById, imageSetsById, imagesByCountry } = state;
     return {
       properties: propsById[id],
       imageSets: imageSetsById[id],
-      currentPage: page.value,
+      images: imagesByCountry[currentCountry],
     };
   }
 )(BannerView);

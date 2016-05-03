@@ -50,6 +50,7 @@ class ImageSources extends React.Component {
     fetch(imageURL)
       .then(response => response.text())
       .then(response => replaceImage(index, ({
+        index,
         dataURI: response,
         width: 762,
         height: 1100,

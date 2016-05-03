@@ -29,26 +29,26 @@ function cloneInsideObjects(obj, keys) {
 
 
 function getCombinations(templates, images) {
-  let imageSet;
+  let imageBoxes;
   const imageSetsById = {};
   const bannerIds = [];
   const propsById = [];
   const textsById = [];
 
-  const assignImage = (imageBox, index) => ({
-    ...imageBox,
-    ...imageSet[index],
+  const assignImageToBox = (image, imageSetIndex) => ({
+    ...imageBoxes[imageSetIndex],
+    index: image.index,
   });
 
   templates.forEach(template => {
-    const combinedImages = combination(images, template.images.length);
+    let imageSet;
+    imageBoxes = template.imageBoxes;
+    const combinedImages = combination(images, imageBoxes.length);
 
     while (imageSet = combinedImages.next()) {  // eslint-disable-line no-cond-assign
       const id = generateId();
-      const imageSets = template.images.map(assignImage);
-
       bannerIds.push({ id, selected: false });
-      imageSetsById[id] = imageSets;
+      imageSetsById[id] = imageSet.map(assignImageToBox);
       propsById[id] = template.props;
       textsById[id] = cloneInsideObjects(template.texts, textsKeys);
     }

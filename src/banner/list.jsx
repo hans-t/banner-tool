@@ -18,13 +18,17 @@ class BannerList extends React.Component {
   }
 
   render() {
-    const { bannerIds, sizeStr } = this.props;
+    const { bannerIds, sizeStr, currentCountry } = this.props;
     return (
       <div>
         <p>{sizeStr}</p>
         <div style={this.styles.container}>
           {bannerIds.map(id => (
-            <BannerView key={id} id={id} />
+            <BannerView
+              key={id}
+              id={id}
+              currentCountry={currentCountry}
+            />
           ))}
         </div>
       </div>
@@ -35,6 +39,7 @@ class BannerList extends React.Component {
 BannerList.propTypes = {
   bannerIds: React.PropTypes.array.isRequired,
   sizeStr: React.PropTypes.string.isRequired,
+  currentCountry: React.PropTypes.string.isRequired,
 };
 
 

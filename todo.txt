@@ -1,7 +1,6 @@
-- optimize because it's slow.
-    - try passing dataURI by reference, or
-    - refer to imagesByCountry instead of copying dataURI.
+- load templates in add-images-page view
 
+- Try adding new templates and see whether it's working and its performance.
 
 
 Notes:

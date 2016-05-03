@@ -5,7 +5,7 @@ import BannerList from './list';
 import ContentScrollableContainer from '../common/content-scrollable-container';
 
 
-function renderBannerListBySize({ bannerIds, propsById }) {
+function renderBannerListBySize({ currentCountry, bannerIds, propsById }) {
   const bySize = {};
   bannerIds.forEach(obj => {
     const id = obj.id;
@@ -20,7 +20,12 @@ function renderBannerListBySize({ bannerIds, propsById }) {
 
   return (
     Object.keys(bySize).map(sizeStr => (
-      <BannerList key={sizeStr} sizeStr={sizeStr} bannerIds={bySize[sizeStr]} />
+      <BannerList
+        key={sizeStr}
+        sizeStr={sizeStr}
+        bannerIds={bySize[sizeStr]}
+        currentCountry={currentCountry}
+      />
     ))
   );
 }
