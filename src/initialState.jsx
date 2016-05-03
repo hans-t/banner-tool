@@ -36,9 +36,9 @@ const sourceURLsByCountry = {
 };
 
 
-const templates = [
-  require('../static/templates/mobile_320x50_1.js'),
-];
+const templates = {
+  mobile_320x50_1: require('../static/templates/mobile_320x50_1.js'),
+};
 
 
 const bannerIdsByCountry = {

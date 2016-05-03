@@ -5,13 +5,19 @@ import SelectField from 'material-ui/lib/select-field';
 import { AVAILABLE_CHANNELS_OPTION } from '../common/constants';
 
 
-function getTemplates(channel, addTemplates) {
-  // TODO: replace with ajax
-  if (channel === 'Mobile') {
-    const templates = {
-      '320x50_1': require('../../static/templates/mobile_320x50_1.js'),
-    };
-    addTemplates(templates);
+function getTemplates(channel, addTemplate) {
+  const templatesPath = 'static/templates';
+  if (channel === 'mobile') {
+    const mobileTemplatesPath = `${templatesPath}/mobile`;
+    fetch(`${mobileTemplatesPath}/templates.json`)
+      .then(response => response.json())
+      .then(templateList => {
+        templateList.forEach(templateName => {
+          fetch(`${mobileTemplatesPath}/${templateName}.json`)
+            .then(response => response.json())
+            .then(template => addTemplate({ name: templateName, template }));
+        });
+      });
   }
 }
 
@@ -19,16 +25,18 @@ function getTemplates(channel, addTemplates) {
 const ChannelSelectBox = (props) => {
   const {
     style,
-    updateChannel,
-    addTemplates,
     selectedChannel,
+    updateChannel,
+    addTemplate,
+    removeTemplates,
   } = props;
 
   const channels = AVAILABLE_CHANNELS_OPTION;
   const defaultStyle = {};
   const handleChange = (event, index, channel) => {
     updateChannel(channel);
-    getTemplates(channel, addTemplates);
+    removeTemplates();
+    getTemplates(channel, addTemplate);
   };
 
   return (
@@ -40,7 +48,7 @@ const ChannelSelectBox = (props) => {
       errorText={selectedChannel ? '' : 'Required'}
     >
       {channels.map((el, index) => (
-        <MenuItem key={index} value={el} primaryText={el} />
+        <MenuItem key={index} value={el.toLowerCase()} primaryText={el} />
       ))}
     </SelectField>
   );
@@ -50,7 +58,8 @@ ChannelSelectBox.propTypes = {
   style: React.PropTypes.object,
   selectedChannel: React.PropTypes.string,
   updateChannel: React.PropTypes.func.isRequired,
-  addTemplates: React.PropTypes.func.isRequired,
+  addTemplate: React.PropTypes.func.isRequired,
+  removeTemplates: React.PropTypes.func.isRequired,
 };
 
 
@@ -63,9 +72,11 @@ export default connect(
       type: 'SELECT_CHANNEL',
       channel,
     }),
-    addTemplates: templates => dispatch({
-      type: 'ADD_OR_REPLACE_TEMPLATES',
-      templates,
+    addTemplate: ({ name, template }) => dispatch({
+      type: 'ADD_TEMPLATE',
+      name,
+      template,
     }),
+    removeTemplates: () => dispatch({ type: 'REMOVE_TEMPLATES' }),
   })
 )(ChannelSelectBox);

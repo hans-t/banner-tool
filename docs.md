@@ -1,0 +1,1 @@
+Templates will be loaded to store after the user selects a channel.

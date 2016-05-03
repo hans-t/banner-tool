@@ -22,11 +22,21 @@ export function countries(state = AVAILABLE_COUNTRIES_OPTION, action) {
   }
 }
 
+/**
+ * templates is an object whose key is the name of the template and whose value
+ * is an object that describes a banner template.
+ */
 
 export function templates(state = {}, action) {
   switch (action.type) {
-    case 'ADD_OR_REPLACE_TEMPLATES':
-      return action.templates;
+    case 'ADD_TEMPLATE':
+      return {
+        ...state,
+        [action.name]: action.template,
+      };
+
+    case 'REMOVE_TEMPLATES':
+      return {};
 
     case 'SELECT_TEMPLATES': {
       const newState = {};

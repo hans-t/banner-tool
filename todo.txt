@@ -1,6 +1,4 @@
-- load templates in add-images-page view
-
-- Try adding new templates and see whether it's working and its performance.
+- Try adding new templates and see whether it's working and pay attention to the performance.
 
 
 Notes:
