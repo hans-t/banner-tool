@@ -1,12 +1,12 @@
-- imageSources get combinations and store it in imagesById.
-
-- get combination of images according to the number of image boxes in the templates.
-
 - BannerResults render the images.
+    - Render more results. Use dummy image.
 
-- solve sourceURL delete wrong input box.
+- Tidy up code before end of the day.
 
-- rerender everything from scratch, see the performance, optimize later.
+- solve sourceURL delete wrong input box using shortId.
+
+- optimize if slow.
+    - pass dataURI by reference.
 
 
 

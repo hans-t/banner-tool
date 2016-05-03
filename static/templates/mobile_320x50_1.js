@@ -1,8 +1,8 @@
 module.exports = {
   "images": [
-    { "dx": 10, "dy": 5, "dWidth": 40, "dHeight": 40, "dataURI": "" },
-    { "dx": 60, "dy": 5, "dWidth": 40, "dHeight": 40, "dataURI": "" },
-    { "dx": 110, "dy": 5, "dWidth": 40, "dHeight": 40, "dataURI": "" },
+    { "boxX": 10, "boxY": 5, "boxWidth": 40, "boxHeight": 40 },
+    { "boxX": 60, "boxY": 5, "boxWidth": 40, "boxHeight": 40 },
+    { "boxX": 110, "boxY": 5, "boxWidth": 40, "boxHeight": 40 },
   ],
 
   "props": {

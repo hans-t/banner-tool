@@ -9,16 +9,13 @@ import ContentScrollableContainer from '../common/content-scrollable-container';
 import { debounce } from '../common/helpers';
 
 
-// const placeholder = require('../../static/placeholder.js');
-import shortid from 'shortid';
-
-
 class ImageSources extends React.Component {
   constructor(props) {
     super(props);
     this.handleAdd = this.handleAdd.bind(this);
     this.handleChange = debounce(this._handleChange.bind(this), 700);
     this.handleDelete = this.handleDelete.bind(this);
+    this.simulateAJAXCall = this.simulateAJAXCall.bind(this);
     this.style = {
       container: {
         position: 'relative',
@@ -42,10 +39,21 @@ class ImageSources extends React.Component {
   }
 
   _handleChange(index, values) {
-    const { editSourceURL, replaceImage } = this.props;
+    const { editSourceURL } = this.props;
     editSourceURL(index, values);
-    const simulateAJAXCall = () => replaceImage(index, shortid.generate());
-    simulateAJAXCall();
+    this.simulateAJAXCall(index);
+  }
+
+  simulateAJAXCall(index) {
+    const { replaceImage } = this.props;
+    const imageURL = `static/dummy/${index}.b64`;
+    fetch(imageURL)
+      .then(response => response.text())
+      .then(response => replaceImage(index, ({
+        dataURI: response,
+        width: 762,
+        height: 1100,
+      })));
   }
 
   handleDelete(index) {
@@ -114,11 +122,11 @@ export default connect(
         country,
       }),
 
-      replaceImage: (index, imageDataURI) => dispatch({
+      replaceImage: (index, image) => dispatch({
         type: 'REPLACE_IMAGE',
         country,
         index,
-        imageDataURI,
+        image,
       }),
 
       removeImage: (index) => dispatch({

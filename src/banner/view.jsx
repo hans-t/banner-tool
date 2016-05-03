@@ -2,45 +2,25 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Canvas from './canvas';
+import {
+  fitImageInsideBox,
+  computePreviewDimension,
+} from './helper';
 
 
 function drawOnCanvas(canvas, props) {
-  const { images } = props;
-
-  images.forEach(({ dataURI, dx, dy, dWidth, dHeight }) => (
-    canvas.addImage(dataURI, dx, dy, dWidth, dHeight)
-  ));
-}
-
-
-function fitImageInsideBox(width, height, boxWidth, boxHeight) {
-  let dimension;
-  if (width > height) {
-    const resizedHeight = boxWidth / width * height;
-    dimension = {
-      dx: 0,
-      dy: (boxHeight - resizedHeight) / 2,
-      dWidth: boxWidth,
-      dHeight: resizedHeight,
-    };
-  } else {
-    const resizedWidth = boxHeight / height * width;
-    dimension = {
-      dx: (boxWidth - resizedWidth) / 2,
-      dy: 0,
-      dWidth: resizedWidth,
-      dHeight: boxHeight,
-    };
-  }
-  return dimension;
-}
-
-
-function computePreviewDimension(width, height) {
-  return {
-    previewWidth: width / 2,
-    previewHeight: height / 2,
-  };
+  const { imageSets } = props;
+  imageSets.forEach(({ dataURI, width, height, boxX, boxY, boxWidth, boxHeight }) => {
+    const { dx, dy, dWidth, dHeight } = fitImageInsideBox({
+      width,
+      height,
+      boxWidth,
+      boxHeight,
+      dx: boxX,
+      dy: boxY,
+    });
+    canvas.addImage(dataURI, dx, dy, dWidth, dHeight);
+  });
 }
 
 
@@ -49,12 +29,12 @@ class BannerView extends React.Component {
     super(props);
     const { width, height } = props.properties;
     const { previewWidth, previewHeight } = computePreviewDimension(width, height);
-    const { dx, dy, dWidth, dHeight } = fitImageInsideBox(
+    const { dx, dy, dWidth, dHeight } = fitImageInsideBox({
       width,
       height,
-      previewWidth,
-      previewHeight
-    );
+      boxWidth: previewWidth,
+      boxHeight: previewHeight,
+    });
     this.dx = dx;
     this.dy = dy;
     this.dWidth = dWidth;
@@ -83,7 +63,7 @@ class BannerView extends React.Component {
 BannerView.propTypes = {
   id: React.PropTypes.string,
   properties: React.PropTypes.object,
-  images: React.PropTypes.array,
+  imageSets: React.PropTypes.array,
   currentPage: React.PropTypes.string,
 };
 
@@ -94,7 +74,7 @@ export default connect(
     const { page, propsById, imageSetsById } = state;
     return {
       properties: propsById[id],
-      images: imageSetsById[id],
+      imageSets: imageSetsById[id],
       currentPage: page.value,
     };
   }

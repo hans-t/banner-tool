@@ -6,12 +6,16 @@ countries[0].selected = true;
 
 
 const imagesByCountry = {
-  SG: ['', '', ''],
+  SG: ['', '', '', ''],
 };
 
 
 const sourceURLsByCountry = {
   SG: [
+    {
+      url: 'https://www.zalora.',
+      imageNumber: 1,
+    },
     {
       url: 'https://www.zalora.',
       imageNumber: 1,

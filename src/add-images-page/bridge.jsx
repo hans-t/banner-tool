@@ -29,20 +29,23 @@ function cloneInsideObjects(obj, keys) {
 
 
 function getCombinations(templates, images) {
-  // first get combination of images first.
+  let imageSet;
   const imageSetsById = {};
   const bannerIds = [];
   const propsById = [];
   const textsById = [];
 
+  const assignImage = (imageBox, index) => ({
+    ...imageBox,
+    ...imageSet[index],
+  });
+
   templates.forEach(template => {
     const combinedImages = combination(images, template.images.length);
-    for (const image of combinedImages) {
+
+    while (imageSet = combinedImages.next()) {  // eslint-disable-line no-cond-assign
       const id = generateId();
-      const imageSets = template.images.map(imageObj => ({
-        ...imageObj,
-        dataURI: image,
-      }));
+      const imageSets = template.images.map(assignImage);
 
       bannerIds.push({ id, selected: false });
       imageSetsById[id] = imageSets;
@@ -109,7 +112,7 @@ function mapStateToProps(state, ownProps) {
   const { currentCountry } = ownProps;
   return {
     images: state.imagesByCountry[currentCountry],
-    bannerIds: state.bannerIdsByCountry[currentCountry],
+    bannerIds: state.bannerIdsByCountry[currentCountry].map(el => el.id),
     templates: getSelectedTemplates(state.templates),
   };
 }

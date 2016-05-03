@@ -46,14 +46,20 @@ function sourceURLs(state = [], action) {
 }
 
 
+/**
+ * Images state is an array of image objects which the following information about the image:
+ * dataURI: base 64 encoded image data.
+ * width: width of the image.
+ * height: height of the image.
+ */
 function images(state = [], action) {
-  const { type, index, imageDataURI } = action;
+  const { type, index, image } = action;
   switch (type) {
     case 'ADD_IMAGE':
       return addToArray(state, '');
 
     case 'REPLACE_IMAGE':
-      return replaceValueInArray(state, index, imageDataURI);
+      return replaceValueInArray(state, index, image);
 
     case 'REMOVE_IMAGE':
       return removeFromArray(state, index);
