@@ -1,7 +1,11 @@
 import React from 'react';
-import { generate as generateId } from 'shortid';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { generate as generateId } from 'shortid';
 import { combination } from 'js-combinatorics';
+
+import * as actionCreators from '../banner/actionCreators';
+import { bindCountryToDispatchProps } from '../common/helpers';
 
 
 const textsKeys = ['headline', 'title', 'copy1', 'copy2', 'copy3'];
@@ -118,21 +122,24 @@ function mapStateToProps(state, ownProps) {
 }
 
 
-function mapDispatchToProps(dispatch, ownProps) {
-  const country = ownProps.currentCountry;
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(actionCreators, dispatch);
+}
+
+
+function mergeProps(stateProps, dispatchProps, ownProps) {
+  const { currentCountry } = ownProps;
+  const boundDispatchProps = bindCountryToDispatchProps(dispatchProps, currentCountry);
   return {
-    updateCombinations: (combinations) => dispatch({
-      type: 'ADD_BANNER_IDS',
-      country,
-      ...combinations,
-    }),
-    removeBannerIds: ids => ids.length > 0 && dispatch({
-      type: 'REMOVE_BANNER_IDS',
-      country,
-      ids,
-    }),
+    ...stateProps,
+    ...boundDispatchProps,
+    ...ownProps,
   };
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Bridge);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+  mergeProps
+)(Bridge);

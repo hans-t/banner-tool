@@ -1,6 +1,6 @@
-- Please tidy up the code. Organize reducers, actions, etc.
+- Add go back and forward buttons.
 
-- Try offloading the hard work of combining images to HTML5 Web Workers.
+- Bottleneck is at toDataURL. Try showing canvas instead of img elements.
 
 
 Notes:

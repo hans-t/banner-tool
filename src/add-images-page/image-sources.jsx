@@ -6,8 +6,8 @@ import ContentAdd from 'material-ui/lib/svg-icons/content/add';
 import FloatingActionButton from 'material-ui/lib/floating-action-button';
 
 import ImageSource from './image-source';
-import { debounce } from '../common/helpers';
 import * as actionCreators from './actionCreators';
+import { debounce, bindCountryToDispatchProps } from '../common/helpers';
 import ContentScrollableContainer from '../common/content-scrollable-container';
 
 
@@ -125,14 +125,7 @@ function mapDispatchToProps(dispatch) {
 
 function mergeProps(stateProps, dispatchProps, ownProps) {
   const { currentCountry } = ownProps;
-  const boundDispatchProps = Object.keys(dispatchProps).reduce((obj, key) => {
-    const dispatcher = dispatchProps[key];
-    /* eslint-disable no-param-reassign */
-    obj[key] = (...args) => dispatcher(currentCountry, ...args);
-    /* eslint-enable no-param-reassign */
-    return obj;
-  }, {});
-
+  const boundDispatchProps = bindCountryToDispatchProps(dispatchProps, currentCountry);
   return {
     ...stateProps,
     ...boundDispatchProps,

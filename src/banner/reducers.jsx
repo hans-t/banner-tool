@@ -5,9 +5,11 @@ import {
   replaceValueInArray,
 } from '../common/helpers';
 
-
-const ADD_BANNER_IDS = 'ADD_BANNER_IDS';
-const REMOVE_BANNER_IDS = 'REMOVE_BANNER_IDS';
+import {
+  ADD_BANNER_IDS,
+  REMOVE_BANNER_IDS,
+  UPDATE_COMBINATIONS,
+} from './actions';
 
 
 /**
@@ -16,18 +18,23 @@ const REMOVE_BANNER_IDS = 'REMOVE_BANNER_IDS';
  * @param {boolean} selected: Boolean that tells whether a banner is selected by user.
  */
 function bannerIds(state = [], action) {
-  switch (action.type) {
+  const { type, index } = action;
+  switch (type) {
+    case UPDATE_COMBINATIONS:
     case ADD_BANNER_IDS:
       return action.bannerIds;
 
     case 'TOGGLE_BANNER_ID_SELECTION': {
-      const index = action.index;
       const bannerId = state[index];
       return replaceValueInArray(state, index, { ...bannerId, selected: !bannerId.selected });
     }
 
     case REMOVE_BANNER_IDS:
-      return [];
+      if (action.bannerIds.length > 0) {
+        return [];
+      } else {
+        return state;
+      }
 
     default:
       return state;
@@ -39,6 +46,7 @@ export const bannerIdsByCountry = groupReducerByCountry(bannerIds);
 
 export function imageSetsById(state = {}, action) {
   switch (action.type) {
+    case UPDATE_COMBINATIONS:
     case ADD_BANNER_IDS:
       return {
         ...state,
@@ -46,7 +54,7 @@ export function imageSetsById(state = {}, action) {
       };
 
     case REMOVE_BANNER_IDS:
-      return omitKeys(state, action.ids);
+      return omitKeys(state, action.bannerIds);
 
     default:
       return state;
@@ -59,6 +67,7 @@ export function propsById(state = {}, action) {
   const props = setDefaultValue(state[id], {});
 
   switch (action.type) {
+    case UPDATE_COMBINATIONS:
     case ADD_BANNER_IDS:
       return {
         ...state,
@@ -66,7 +75,7 @@ export function propsById(state = {}, action) {
       };
 
     case REMOVE_BANNER_IDS:
-      return omitKeys(state, action.ids);
+      return omitKeys(state, action.bannerIds);
 
     case 'SET_BANNER_CTA_URL':
       return {
@@ -109,6 +118,7 @@ export function textsById(state = {}, action) {
   const texts = setDefaultValue(state[id], {});
 
   switch (action.type) {
+    case UPDATE_COMBINATIONS:
     case ADD_BANNER_IDS:
       return {
         ...state,
@@ -116,7 +126,7 @@ export function textsById(state = {}, action) {
       };
 
     case REMOVE_BANNER_IDS:
-      return omitKeys(state, action.ids);
+      return omitKeys(state, action.bannerIds);
 
     case 'SET_HEADLINE':
       return {
