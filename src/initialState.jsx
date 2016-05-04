@@ -37,7 +37,7 @@ const sourceURLsByCountry = {
 
 
 const templates = {
-  mobile_320x50_1: require('../static/templates/mobile_320x50_1.js'),
+  '320x50_1': require('../static/templates/mobile/320x50_1.js'),
 };
 
 
@@ -58,7 +58,7 @@ const page = {
 };
 
 
-const selectedChannel = constants.AVAILABLE_CHANNELS_OPTION[0];
+const selectedChannel = 'mobile';
 
 
 export default {

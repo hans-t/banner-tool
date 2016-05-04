@@ -7,6 +7,9 @@ import {
 } from '../common/helpers';
 
 
+const INITIAL_NUMBER_OF_SOURCE_URLS = 6;
+
+
 const defaultSourceURLValues = {
   url: 'https://www.zalora.',
   imageNumber: 1,
@@ -16,10 +19,10 @@ const defaultSourceURLValues = {
 const defaultSourceURLValuesFactory = () => ({ ...defaultSourceURLValues, id: generateId() });
 
 
-const initialStateFactory = () => (
-  Array(6)
-  .fill(0)
-  .map(defaultSourceURLValuesFactory)
+const initialSourceURLStateFactory = () => (
+  Array(INITIAL_NUMBER_OF_SOURCE_URLS)
+    .fill('')
+    .map(defaultSourceURLValuesFactory)
 );
 
 /**
@@ -53,6 +56,15 @@ function sourceURLs(state = [], action) {
   }
 }
 
+/**
+ * Initialize images with empty string.
+ * The number of default images is the same as the number of source URLs.
+ */
+const initialImagesStateFactory = () => (
+  Array(INITIAL_NUMBER_OF_SOURCE_URLS)
+    .fill('')
+);
+
 
 /**
  * Images state is an array of image objects, where each contains
@@ -80,5 +92,5 @@ function images(state = [], action) {
 }
 
 
-export const imagesByCountry = groupReducerByCountry(images);
-export const sourceURLsByCountry = groupReducerByCountry(sourceURLs, initialStateFactory);
+export const imagesByCountry = groupReducerByCountry(images, initialImagesStateFactory);
+export const sourceURLsByCountry = groupReducerByCountry(sourceURLs, initialSourceURLStateFactory);
