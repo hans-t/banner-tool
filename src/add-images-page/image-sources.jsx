@@ -1,12 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import ContentAdd from 'material-ui/lib/svg-icons/content/add';
 import FloatingActionButton from 'material-ui/lib/floating-action-button';
 
 import ImageSource from './image-source';
-import ContentScrollableContainer from '../common/content-scrollable-container';
 import { debounce } from '../common/helpers';
+import * as actionCreators from './actionCreators';
+import ContentScrollableContainer from '../common/content-scrollable-container';
 
 
 class ImageSources extends React.Component {
@@ -110,49 +112,37 @@ ImageSources.defaultProps = {
 };
 
 
-export default connect(
-  (state, ownProps) => ({
+function mapStateToProps(state, ownProps) {
+  return {
     sourceURLs: state.sourceURLsByCountry[ownProps.currentCountry],
     currentCountry: ownProps.currentCountry,
-  }),
-  (dispatch, ownProps) => {
-    const country = ownProps.currentCountry;
-    return {
-      addImage: () => dispatch({
-        type: 'ADD_IMAGE',
-        country,
-      }),
+  };
+}
 
-      replaceImage: (index, image) => dispatch({
-        type: 'REPLACE_IMAGE',
-        country,
-        index,
-        image,
-      }),
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(actionCreators, dispatch);
+}
 
-      removeImage: (index) => dispatch({
-        type: 'REMOVE_IMAGE',
-        country,
-        index,
-      }),
+function mergeProps(stateProps, dispatchProps, ownProps) {
+  const { currentCountry } = ownProps;
+  const boundDispatchProps = Object.keys(dispatchProps).reduce((obj, key) => {
+    const dispatcher = dispatchProps[key];
+    /* eslint-disable no-param-reassign */
+    obj[key] = (...args) => dispatcher(currentCountry, ...args);
+    /* eslint-enable no-param-reassign */
+    return obj;
+  }, {});
 
-      addSourceURL: () => dispatch({
-        type: 'ADD_SOURCE_URL',
-        country,
-      }),
+  return {
+    ...stateProps,
+    ...boundDispatchProps,
+    ...ownProps,
+  };
+}
 
-      editSourceURL: (index, values) => dispatch({
-        type: 'EDIT_SOURCE_URL',
-        country,
-        index,
-        values,
-      }),
 
-      removeSourceURL: (index) => dispatch({
-        type: 'REMOVE_SOURCE_URL',
-        country,
-        index,
-      }),
-    };
-  }
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+  mergeProps
 )(ImageSources);

@@ -1,4 +1,15 @@
-import { generate as generateId } from 'shortid';
+import {
+  ADD_SOURCE_URL,
+  EDIT_SOURCE_URL,
+  REMOVE_SOURCE_URL,
+  ADD_IMAGE,
+  REPLACE_IMAGE,
+  REMOVE_IMAGE,
+  sourceURLFactory,
+  initSourceURL,
+  initImages,
+} from './actions';
+
 import {
   groupReducerByCountry,
   addToArray,
@@ -6,24 +17,6 @@ import {
   replaceValueInArray,
 } from '../common/helpers';
 
-
-const INITIAL_NUMBER_OF_SOURCE_URLS = 6;
-
-
-const defaultSourceURLValues = {
-  url: 'https://www.zalora.',
-  imageNumber: 1,
-};
-
-
-const defaultSourceURLValuesFactory = () => ({ ...defaultSourceURLValues, id: generateId() });
-
-
-const initialSourceURLStateFactory = () => (
-  Array(INITIAL_NUMBER_OF_SOURCE_URLS)
-    .fill('')
-    .map(defaultSourceURLValuesFactory)
-);
 
 /**
  * State is an array of objects, where each contains the following information,
@@ -37,13 +30,13 @@ function sourceURLs(state = [], action) {
   const { index, values } = action;
 
   switch (action.type) {
-    case 'ADD_SOURCE_URL':
-      return addToArray(state, defaultSourceURLValuesFactory());
+    case ADD_SOURCE_URL:
+      return addToArray(state, sourceURLFactory());
 
-    case 'EDIT_SOURCE_URL':
+    case EDIT_SOURCE_URL:
       return replaceValueInArray(state, index, values);
 
-    case 'REMOVE_SOURCE_URL': {
+    case REMOVE_SOURCE_URL: {
       if (state.length > 1) {
         return removeFromArray(state, index);
       } else {
@@ -55,15 +48,6 @@ function sourceURLs(state = [], action) {
       return state;
   }
 }
-
-/**
- * Initialize images with empty string.
- * The number of default images is the same as the number of source URLs.
- */
-const initialImagesStateFactory = () => (
-  Array(INITIAL_NUMBER_OF_SOURCE_URLS)
-    .fill('')
-);
 
 
 /**
@@ -77,13 +61,13 @@ const initialImagesStateFactory = () => (
 function images(state = [], action) {
   const { type, index, image } = action;
   switch (type) {
-    case 'ADD_IMAGE':
+    case ADD_IMAGE:
       return addToArray(state, '');
 
-    case 'REPLACE_IMAGE':
+    case REPLACE_IMAGE:
       return replaceValueInArray(state, index, image);
 
-    case 'REMOVE_IMAGE':
+    case REMOVE_IMAGE:
       return removeFromArray(state, index);
 
     default:
@@ -92,5 +76,5 @@ function images(state = [], action) {
 }
 
 
-export const imagesByCountry = groupReducerByCountry(images, initialImagesStateFactory);
-export const sourceURLsByCountry = groupReducerByCountry(sourceURLs, initialSourceURLStateFactory);
+export const sourceURLsByCountry = groupReducerByCountry(sourceURLs, initSourceURL);
+export const imagesByCountry = groupReducerByCountry(images, initImages);
