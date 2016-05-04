@@ -1,9 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { countriesSelectionActionCreators } from './actionCreators';
 import { MultiSelectBox } from '../common/multi-select';
 
 
-const CountriesSelectBox = ({ style, onChange, countries }) => {
+const CountriesSelectBox = ({ style, selectCountries, countries }) => {
   const defaultStyle = {};
 
   return (
@@ -11,14 +14,14 @@ const CountriesSelectBox = ({ style, onChange, countries }) => {
       title="Select Countries"
       style={{ ...defaultStyle, ...style }}
       labels={countries}
-      onChange={onChange}
+      onChange={selectCountries}
       required
     />
   );
 };
 
 CountriesSelectBox.propTypes = {
-  onChange: React.PropTypes.func.isRequired,
+  selectCountries: React.PropTypes.func.isRequired,
   countries: React.PropTypes.array.isRequired,
   style: React.PropTypes.object,
 };
@@ -30,10 +33,5 @@ CountriesSelectBox.defaultProps = {
 
 export default connect(
   state => ({ countries: state.countries }),
-  dispatch => ({
-    onChange: countries => dispatch({
-      type: 'SELECT_COUNTRIES',
-      countries,
-    }),
-  })
+  dispatch => bindActionCreators(countriesSelectionActionCreators, dispatch)
 )(CountriesSelectBox);

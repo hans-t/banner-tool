@@ -1,0 +1,13 @@
+/**
+ * Action types
+ */
+
+export const SELECT_CHANNEL = 'SELECT_CHANNEL';
+
+export const SELECT_COUNTRIES = 'SELECT_COUNTRIES';
+
+export const ADD_TEMPLATE = 'ADD_TEMPLATE';
+
+export const REMOVE_TEMPLATES = 'REMOVE_TEMPLATES';
+
+export const SELECT_TEMPLATES = 'SELECT_TEMPLATES';

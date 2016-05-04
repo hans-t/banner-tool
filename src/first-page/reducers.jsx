@@ -1,9 +1,17 @@
 import { AVAILABLE_COUNTRIES_OPTION } from '../common/constants';
 
+import {
+  SELECT_CHANNEL,
+  SELECT_COUNTRIES,
+  ADD_TEMPLATE,
+  REMOVE_TEMPLATES,
+  SELECT_TEMPLATES,
+} from './actions';
+
 
 export function selectedChannel(state = '', action) {
   switch (action.type) {
-    case 'SELECT_CHANNEL':
+    case SELECT_CHANNEL:
       return action.channel;
 
     default:
@@ -14,7 +22,7 @@ export function selectedChannel(state = '', action) {
 
 export function countries(state = AVAILABLE_COUNTRIES_OPTION, action) {
   switch (action.type) {
-    case 'SELECT_COUNTRIES':
+    case SELECT_COUNTRIES:
       return action.countries;
 
     default:
@@ -29,16 +37,16 @@ export function countries(state = AVAILABLE_COUNTRIES_OPTION, action) {
 
 export function templates(state = {}, action) {
   switch (action.type) {
-    case 'ADD_TEMPLATE':
+    case ADD_TEMPLATE:
       return {
         ...state,
         [action.name]: action.template,
       };
 
-    case 'REMOVE_TEMPLATES':
+    case REMOVE_TEMPLATES:
       return {};
 
-    case 'SELECT_TEMPLATES': {
+    case SELECT_TEMPLATES: {
       const newState = {};
       action.labels.forEach(({ name, selected }) => {
         newState[name] = { ...state[name], selected };

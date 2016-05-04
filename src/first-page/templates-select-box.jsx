@@ -1,6 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 import { MultiSelectBox } from '../common/multi-select';
+import { templateSelectionActionCreators } from './actionCreators';
 
 
 function getTemplateLabels(templates) {
@@ -38,10 +41,5 @@ TemplatesSelectBox.defaultProps = {
 
 export default connect(
   state => ({ templateLabels: getTemplateLabels(state.templates) }),
-  dispatch => ({
-    selectTemplates: labels => dispatch({
-      type: 'SELECT_TEMPLATES',
-      labels,
-    }),
-  })
+  dispatch => bindActionCreators(templateSelectionActionCreators, dispatch)
 )(TemplatesSelectBox);

@@ -1,7 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 import MenuItem from 'material-ui/lib/menus/menu-item';
 import SelectField from 'material-ui/lib/select-field';
+
+import { channelSelectionActionCreators } from './actionCreators';
 import { AVAILABLE_CHANNELS_OPTION } from '../common/constants';
 
 
@@ -67,16 +71,5 @@ export default connect(
   state => ({
     selectedChannel: state.selectedChannel,
   }),
-  dispatch => ({
-    updateChannel: channel => dispatch({
-      type: 'SELECT_CHANNEL',
-      channel,
-    }),
-    addTemplate: ({ name, template }) => dispatch({
-      type: 'ADD_TEMPLATE',
-      name,
-      template,
-    }),
-    removeTemplates: () => dispatch({ type: 'REMOVE_TEMPLATES' }),
-  })
+  dispatch => bindActionCreators(channelSelectionActionCreators, dispatch)
 )(ChannelSelectBox);
