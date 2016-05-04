@@ -22,8 +22,21 @@ export function fitImageInsideBox({ width, height, boxWidth, boxHeight, dx = 0, 
 
 
 export function computePreviewDimension(width, height) {
-  return {
-    previewWidth: width,
-    previewHeight: height,
-  };
+  let previewWidth;
+  let previewHeight;
+
+  if (width > 600 || height > 600) {
+    if (width > height) {
+      previewWidth = 600;
+      previewHeight = previewWidth / width * height;
+    } else {
+      previewHeight = 600;
+      previewWidth = previewHeight / height * width;
+    }
+  } else {
+    previewWidth = width;
+    previewHeight = height;
+  }
+
+  return { previewWidth, previewHeight };
 }

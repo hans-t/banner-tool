@@ -38,6 +38,7 @@ const sourceURLsByCountry = {
 
 const templates = {
   '320x50_1': require('../static/templates/mobile/320x50_1.js'),
+  '1200x627_1': require('../static/templates/mobile/1200x627_1.js'),
 };
 
 
