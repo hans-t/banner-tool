@@ -1,3 +1,6 @@
+import { SELECT_COUNTRIES } from '../index-page/actions';
+
+
 export function setDefaultValue(val, defVal = null) {
   if (typeof val === 'undefined') {
     return defVal;
@@ -52,7 +55,7 @@ export function omitKeys(obj, omitted) {
 
 export function groupReducerByCountry(reducer, initialStateFactory = () => []) {
   return (state = {}, action) => {
-    if (action.type === 'SELECT_COUNTRIES') {
+    if (action.type === SELECT_COUNTRIES) {
       return action.countries
         .filter(obj => obj.selected)
         .reduce((obj, elm) => ({

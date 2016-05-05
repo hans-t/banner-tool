@@ -7,10 +7,10 @@ import { PAGE } from '../common/constants';
 import { changePage } from '../common/actionCreators';
 
 
-const EditImagesBtn = connect(
+const IndexBtn = connect(
   null,
   dispatch => ({
-    onClick: () => dispatch(changePage(PAGE.addTexts)),
+    onClick: () => dispatch(changePage(PAGE.index)),
   }),
   (stateProps, dispatchProps) => ({
     ...dispatchProps,
@@ -23,7 +23,7 @@ const EditImagesBtn = connect(
 const AddTextsBtn = connect(
   null,
   dispatch => ({
-    onClick: () => dispatch(changePage(PAGE.index)),
+    onClick: () => dispatch(changePage(PAGE.addTexts)),
   }),
   (stateProps, dispatchProps) => ({
     ...dispatchProps,
@@ -33,6 +33,6 @@ const AddTextsBtn = connect(
 
 
 export default {
-  prevBtn: <EditImagesBtn />,
+  prevBtn: <IndexBtn />,
   nextBtn: <AddTextsBtn />,
 };
