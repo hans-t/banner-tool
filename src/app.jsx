@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
-import FirstPageView from './first-page/view';
+import IndexView from './first-page/view';
 import AddImagesView from './add-images-page/view';
 import { PAGE } from './common/constants';
 
@@ -15,7 +15,7 @@ const App = ({ currentPage }) => {
   switch (currentPage) {
     default:
     case PAGE.index:
-      view = <FirstPageView />;
+      view = <IndexView />;
       break;
 
     case PAGE.addImages:
@@ -32,5 +32,5 @@ App.propTypes = {
 
 
 export default connect(
-  state => ({ currentPage: state.page.value })
+  state => ({ currentPage: state.page })
 )(App);

@@ -5,6 +5,7 @@ import RaisedButton from 'material-ui/lib/raised-button';
 import NextButtonContainer from '../common/next-btn-container';
 
 import { PAGE } from '../common/constants';
+import { changePage } from '../common/actionCreators';
 import { isAnySelected } from '../common/helpers';
 
 
@@ -14,10 +15,10 @@ function isAnyTemplatesSelected(templates) {
 }
 
 
-const addImagesBtn = ({ selectedChannel, countries, templates, changePage }) => {
+const addImagesBtn = ({ selectedChannel, countries, templates, onAddImagesBtnClick }) => {
   const onClick = () => {
     if (selectedChannel && isAnySelected(countries) && isAnyTemplatesSelected(templates)) {
-      changePage(PAGE.addImages, true);
+      onAddImagesBtnClick();
     }
   };
 
@@ -32,7 +33,7 @@ addImagesBtn.propTypes = {
   selectedChannel: React.PropTypes.string.isRequired,
   countries: React.PropTypes.array.isRequired,
   templates: React.PropTypes.object.isRequired,
-  changePage: React.PropTypes.func.isRequired,
+  onAddImagesBtnClick: React.PropTypes.func.isRequired,
 };
 
 
@@ -43,10 +44,6 @@ export default connect(
     templates: state.templates,
   }),
   (dispatch) => ({
-    changePage: (value, isNextPage) => dispatch({
-      type: 'CHANGE_PAGE',
-      value,
-      isNextPage,
-    }),
+    onAddImagesBtnClick: () => dispatch(changePage(PAGE.addImages)),
   })
 )(addImagesBtn);
