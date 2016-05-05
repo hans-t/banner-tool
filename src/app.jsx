@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
-import IndexView from './first-page/view';
+import IndexView from './index-page/view';
 import AddImagesView from './add-images-page/view';
 import { PAGE } from './common/constants';
 
