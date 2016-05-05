@@ -12,7 +12,8 @@ import {
  dx, dy, dWidth, dHeight are defined in: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage
  */
 function drawOnCanvas(canvas, props) {
-  const { imageSets, images } = props;
+  const { imageSets, images, properties } = props;
+  canvas.colorBackground(properties.backgroundColor);
   imageSets.forEach(({ index, boxX, boxY, boxWidth, boxHeight }) => {
     const { width, height, dataURI } = images[index];
     const { dx, dy, dWidth, dHeight } = fitImageInsideBox({

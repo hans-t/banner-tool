@@ -1,6 +1,6 @@
 import {
   UPDATE_COMBINATIONS,
-  REMOVE_BANNER_IDS
+  REMOVE_BANNER_IDS,
 } from './actions';
 
 

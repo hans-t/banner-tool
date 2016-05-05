@@ -3,6 +3,7 @@ export default class Canvas {
     this.canvas = document.createElement('canvas');
     this.canvas.width = width;
     this.canvas.height = height;
+    this.previewQuality = 85;
     this.ctx = this.canvas.getContext('2d');
 
     this.clear = this.clear.bind(this);
@@ -45,7 +46,8 @@ export default class Canvas {
   renderPreview(canvas, dx, dy, dWidth, dHeight) {
     // canvas is a Canvas instance.
     this.clear();
-    this.addImage(canvas.toDataURI(), dx, dy, dWidth, dHeight);
+    const dataURI = canvas.toDataURI('image/jpeg', this.previewQuality);
+    this.addImage(dataURI, dx, dy, dWidth, dHeight);
     return this.toDataURI();
   }
 
