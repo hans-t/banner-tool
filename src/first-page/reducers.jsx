@@ -48,8 +48,8 @@ export function templates(state = {}, action) {
 
     case SELECT_TEMPLATES: {
       const newState = {};
-      action.labels.forEach(({ name, selected }) => {
-        newState[name] = { ...state[name], selected };
+      action.labels.forEach(({ value, selected }) => {
+        newState[value] = { ...state[value], selected };
       });
       return newState;
     }

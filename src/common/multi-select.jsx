@@ -7,6 +7,11 @@ import { isAnySelected } from './helpers';
 import { easeInOutFunction } from 'material-ui/lib/styles/transitions';
 
 
+/**
+ onChange props should accept an array of label objects. Label object has 2 keys:
+ `value` and `selected`. `value` is a string that represents the label value. `selected` is
+ a boolean that indicates whether the corresponding label is selected.
+ */
 export const MultiSelectBox = ({ title, labels, required, errorText, style, onChange }) => {
   // BUG: Checkbox won't tick when parent setState.
   // https://github.com/callemall/material-ui/issues/2983
