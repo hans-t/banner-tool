@@ -31,7 +31,7 @@ const defaultSourceURL = { url: 'https://www.zalora.', imageNumber: 1 };
  * Factory functions
  */
 
-const sourceURLFactory = () => ({
+export const sourceURLFactory = () => ({
   ...defaultSourceURL,
   id: generateId(),
 });
