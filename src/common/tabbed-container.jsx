@@ -12,10 +12,10 @@ export default class TabbedContainer extends React.Component {
     this.styles = {
       container: {
         width: '100%',
-        height: '90%',
-        overflowY: 'hidden',
-        marginBottom: '2%',
+        height: '95%',
+        marginBottom: '1%',
         padding: 0,
+        overflowY: 'hidden',
         display: 'flex',
       },
 

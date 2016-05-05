@@ -11,6 +11,8 @@ import OuterContainer from '../common/outer-container';
 const Content = () => {
   const style = {
     container: {
+      height: '95%',
+      marginBottom: '1%',
       display: 'flex',
       alignItems: 'center',
       alignContent: 'center',

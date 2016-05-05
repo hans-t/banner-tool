@@ -1,4 +1,4 @@
-- Add go back and forward buttons.
+- Bug: When going back to index page and then press addImages, tabs are missing.
 
 - Bottleneck is at toDataURL. Try showing canvas instead of img elements.
 
