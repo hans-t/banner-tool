@@ -1,8 +1,5 @@
 - Refactor add-images-btn.jsx
 
-- Bug: When going back to index page and then press addImages, tabs are missing.
-Only after rendering banners.
-
 - Bottleneck is at toDataURL. Try showing canvas instead of img elements.
 
 

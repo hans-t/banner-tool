@@ -4,6 +4,11 @@ import Tabs from '../common/tabs';
 import Paper from 'material-ui/lib/paper';
 
 
+/**
+ * Apparently TabbedContainer requires hack for tabs and childrenContainer, because
+ * collapsing tabs. Bug: after rendering banners, going back to index page and then
+ * go back again to images, tabs collapse.
+ */
 export default class TabbedContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -24,6 +29,7 @@ export default class TabbedContainer extends React.Component {
         display: 'flex',
         flexDirection: 'column',
         overflowY: 'auto',
+        minWidth: '12%', // hack: floor(1/(1+7))
       },
 
       childrenContainer: {
@@ -31,6 +37,7 @@ export default class TabbedContainer extends React.Component {
         boxSizing: 'border-box',
         padding: '2% 2% 0',
         height: '100%',
+        minWidth: '87%', // hack: floor(7/(1+7))
       },
     };
 
