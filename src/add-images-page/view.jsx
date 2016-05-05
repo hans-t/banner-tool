@@ -1,28 +1,15 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
-import Bridge from './bridge';
-import ImageSourcesBox from './image-sources';
-import BannerResultsBox from '../banner/results';
 import TabbedOuterContainer from '../common/tabbed-outer-container';
+import ImageSourcesBox from './image-sources';
+import Bridge from './bridge';
+import BannerResultsBox from '../banner/results';
 
 
-const View = ({ countries }) => (
-  <TabbedOuterContainer countries={countries}>
+export default () => (
+  <TabbedOuterContainer>
     <ImageSourcesBox style={{ height: '20%' }} />
     <Bridge style={{ height: '2%' }} />
     <BannerResultsBox style={{ height: '78%' }} />
   </TabbedOuterContainer>
 );
-
-
-View.propTypes = {
-  countries: React.PropTypes.array.isRequired,
-};
-
-export default connect(
-  state => ({
-    countries: state.countries.filter(country => country.selected).map(el => el.value),
-  }),
-  null
-)(View);

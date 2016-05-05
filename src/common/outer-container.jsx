@@ -8,6 +8,7 @@ const OuterContainer = ({ style, children }) => {
     height: '90vh',
     margin: '3vh auto',
     padding: '2% 3%',
+    boxSizing: 'border-box',
     overflowY: 'hidden',
   };
 

@@ -39,9 +39,9 @@ class BannerResults extends React.Component {
         position: 'relative',
       },
       contentContainer: {
-        marginLeft: '2%',
         padding: '1% 1% 0',
         height: '100%',
+        marginBottom: 0,
       },
     };
   }

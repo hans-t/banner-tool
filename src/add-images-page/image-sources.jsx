@@ -27,9 +27,7 @@ class ImageSources extends React.Component {
         top: -20,
       },
       contentContainer: {
-        marginLeft: '2%',
         padding: '3% 1% 0',
-        height: '100%',
       },
     };
   }
