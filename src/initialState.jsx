@@ -53,10 +53,7 @@ const imageSetsById = {};
 const propsById = {};
 
 
-const page = {
-  value: constants.PAGE.addImages,
-  isNextPage: true,
-};
+const page = constants.PAGE.addImages;
 
 
 const selectedChannel = 'mobile';
