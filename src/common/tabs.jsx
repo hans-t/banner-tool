@@ -39,7 +39,7 @@ const SelectableList = wrapState(SelectableContainerEnhance(List));
 /* eslint-enable new-cap */
 
 
-const Tabs = ({ style, items, onItemClick }) => {
+const Tabs = ({ style, tabs, onTabClick }) => {
   const defaultStyles = {
     list: {},
   };
@@ -50,12 +50,12 @@ const Tabs = ({ style, items, onItemClick }) => {
       zDepth={1}
       style={{ ...defaultStyles.list, ...style }}
     >
-      {items.map((el, idx) => (
+      {tabs.map((el, idx) => (
         <ListItem
           key={el}
           value={idx}
           primaryText={el}
-          onClick={() => onItemClick(el)}
+          onClick={() => onTabClick(el)}
         />
       ))}
     </SelectableList>
@@ -64,13 +64,13 @@ const Tabs = ({ style, items, onItemClick }) => {
 
 Tabs.propTypes = {
   style: React.PropTypes.object,
-  items: React.PropTypes.array.isRequired,
-  onItemClick: React.PropTypes.func,
+  tabs: React.PropTypes.array.isRequired,
+  onTabClick: React.PropTypes.func,
 };
 
 Tabs.defaultProps = {
   style: {},
-  onItemClick: () => {},
+  onTabClick: () => {},
 };
 
 export default Tabs;

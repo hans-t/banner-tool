@@ -7,7 +7,11 @@ import OuterContainer from './outer-container';
 
 const TabbedOuterContainer = ({ children, countries }) => (
   <OuterContainer>
-    <TabbedContainer countries={countries}>
+    <TabbedContainer
+      tabs={countries}
+      tabsPropName="countries"
+      currentTabPropName="currentCountry"
+    >
       {children}
     </TabbedContainer>
   </OuterContainer>

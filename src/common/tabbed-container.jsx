@@ -35,40 +35,46 @@ export default class TabbedContainer extends React.Component {
     };
 
     this.state = {
-      currentCountry: props.countries[0],
+      currentTab: props.tabs[0],
     };
   }
 
-  handleTabClick(selectedCountry) {
-    this.setState({ currentCountry: selectedCountry });
+  handleTabClick(currentTab) {
+    this.setState({ currentTab });
   }
 
   render() {
-    const { container, tabs, childrenContainer } = this.styles;
-    const { countries } = this.props;
+    const { tabs, currentTabPropName, tabsPropName } = this.props;
     const proppedChildren = React.Children.map(this.props.children, child => (
       // Children can't set these props to isRequired
       // https://github.com/facebook/react/issues/4494
       React.cloneElement(child, {
-        currentCountry: this.state.currentCountry,
-        countries,
+        [currentTabPropName]: this.state.currentTab,
+        [tabsPropName]: tabs,
       })
     ));
 
     return (
-      <Paper style={container}>
+      <Paper style={this.styles.container}>
         <Tabs
-          items={countries}
-          onItemClick={this.handleTabClick}
-          style={tabs}
+          tabs={tabs}
+          onTabClick={this.handleTabClick}
+          style={this.styles.tabs}
         />
-        <div style={childrenContainer}>{proppedChildren}</div>
+        <div style={this.styles.childrenContainer}>{proppedChildren}</div>
       </Paper>
     );
   }
 }
 
 TabbedContainer.propTypes = {
-  countries: React.PropTypes.array.isRequired,
+  tabs: React.PropTypes.array.isRequired,
   children: React.PropTypes.node.isRequired,
+  currentTabPropName: React.PropTypes.string,
+  tabsPropName: React.PropTypes.string,
+};
+
+TabbedContainer.defaultProps = {
+  currentTabPropName: 'currentTab',
+  tabsPropName: 'tabs',
 };
