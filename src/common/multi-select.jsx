@@ -30,6 +30,18 @@ export const MultiSelectBox = ({ title, labels, required, errorText, style, onCh
       paddingLeft: 8,
       paddingRight: 8,
     },
+    menuErrorStyle: {
+      borderColor: '#F44336',
+    },
+    errorTextStyle: {
+      position: 'relative',
+      top: 13,
+      left: -1,
+      fontSize: 12,
+      color: '#F44336',
+      transition: `opacity 450ms ${easeInOutFunction}`,
+      opacity: 1,
+    },
   };
 
   const handleChange = (event) => {
@@ -43,33 +55,29 @@ export const MultiSelectBox = ({ title, labels, required, errorText, style, onCh
   };
 
   const valid = required ? isAnySelected(labels) : true;
-  const errorStyle = valid ? null : { borderColor: '#F44336' };
+  if (valid) {
+    defaultStyle.menuErrorStyle = {};
+    defaultStyle.errorTextStyle.opacity = 0;
+  }
 
   return (
-    <Menu style={{ ...defaultStyle.menu, ...style, ...errorStyle }} onChange={handleChange}>
-      <MenuItem primaryText={title} />
-      <Divider />
-      {labels.map((label, index) => (
-        <Checkbox
-          key={index}
-          label={label.value}
-          defaultChecked={label.selected}
-          style={defaultStyle.checkbox}
-        />
-      ))}
-      <div style={{
-        position: 'absolute',
-        bottom: -30,
-        left: -2,
-        fontSize: 12,
-        color: '#F44336',
-        transition: `opacity 450ms ${easeInOutFunction}`,
-        opacity: valid ? 0 : 1,
-      }}
+    <div style={style}>
+      <Menu style={{ ...defaultStyle.menu, ...defaultStyle.menuErrorStyle }}
+        onChange={handleChange}
       >
-        {errorText}
-      </div>
-    </Menu>
+        <MenuItem primaryText={title} />
+        <Divider />
+        {labels.map((label, index) => (
+          <Checkbox
+            key={index}
+            label={label.value}
+            defaultChecked={label.selected}
+            style={defaultStyle.checkbox}
+          />
+        ))}
+      </Menu>
+      <div style={defaultStyle.errorTextStyle}>{errorText}</div>
+    </div>
   );
 };
 
