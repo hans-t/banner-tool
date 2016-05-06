@@ -19,5 +19,10 @@ NavBtnContainer.propTypes = {
   nextBtn: React.PropTypes.node.isRequired,
 };
 
+NavBtnContainer.defaultProps = {
+  prevBtn: <span />,
+  nextBtn: <span />,
+};
+
 
 export default NavBtnContainer;

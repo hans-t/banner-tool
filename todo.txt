@@ -1,6 +1,9 @@
-- Refactor add-images-btn.jsx
+- design banner results
 
 - Bottleneck is at toDataURL. Try showing canvas instead of img elements.
+
+- users need to be able to select banners.
+
 
 
 Notes:

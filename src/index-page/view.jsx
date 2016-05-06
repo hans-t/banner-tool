@@ -3,9 +3,11 @@ import React from 'react';
 import ChannelSelectBox from './channel-select-box';
 import CountriesSelectBox from './countries-select-box';
 import TemplatesSelectBox from './templates-select-box';
-import AddImagesButton from './add-images-btn';
+import navButtons from './nav-buttons';
+
 import ContentScrollableContainer from '../common/content-scrollable-container';
 import OuterContainer from '../common/outer-container';
+import NavBtnContainer from '../common/nav-btn-container';
 
 
 const Content = () => {
@@ -40,6 +42,6 @@ const Content = () => {
 export default () => (
   <OuterContainer>
     <Content />
-    <AddImagesButton />
+    <NavBtnContainer {...navButtons} />
   </OuterContainer>
 );
