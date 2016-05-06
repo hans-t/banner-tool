@@ -102,18 +102,5 @@ BannerView.propTypes = {
 
 
 export default connect(
-  (state, ownProps) => {
-    const { id, currentCountry } = ownProps;
-    const { propsById, imageSetsById, imagesByCountry } = state;
-    return {
-      properties: propsById[id],
-      imageSets: imageSetsById[id],
-      images: imagesByCountry[currentCountry],
-    };
-  },
-  dispatch => ({}),
-  (stateProps, dispatchProps) => ({
-    ...stateProps,
-    ...dispatchProps,
-  })
+  (state, ownProps) => ({ imageSets: state.imageSetsById[ownProps.id] })
 )(BannerView);

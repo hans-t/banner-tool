@@ -5,7 +5,7 @@ import BannerList from './list';
 import ContentScrollableContainer from '../common/content-scrollable-container';
 
 
-function renderBannerListBySize({ currentCountry, bannerIds, propsById }) {
+function renderBannerListBySize({ images, bannerIds, propsById }) {
   const bySize = {};
   bannerIds.forEach(obj => {
     const id = obj.id;
@@ -24,7 +24,8 @@ function renderBannerListBySize({ currentCountry, bannerIds, propsById }) {
         key={sizeStr}
         sizeStr={sizeStr}
         bannerIds={bySize[sizeStr]}
-        currentCountry={currentCountry}
+        propsById={propsById}
+        images={images}
       />
     ))
   );
@@ -59,10 +60,10 @@ class BannerResults extends React.Component {
 }
 
 BannerResults.propTypes = {
+  bannerIds: React.PropTypes.array.isRequired,
+  propsById: React.PropTypes.object.isRequired,
+  images: React.PropTypes.array.isRequired,
   style: React.PropTypes.object,
-  currentCountry: React.PropTypes.string,
-  bannerIds: React.PropTypes.array,
-  propsById: React.PropTypes.object,
 };
 
 BannerResults.defaultProps = {
@@ -71,8 +72,18 @@ BannerResults.defaultProps = {
 
 
 export default connect(
-  (state, ownProps) => ({
-    bannerIds: state.bannerIdsByCountry[ownProps.currentCountry],
-    propsById: state.propsById,
+  (state, ownProps) => {
+    const { bannerIdsByCountry, propsById, imagesByCountry } = state;
+    const { currentCountry } = ownProps;
+    return {
+      bannerIds: bannerIdsByCountry[currentCountry],
+      images: imagesByCountry[currentCountry],
+      propsById,
+    };
+  },
+  null,
+  (stateProps, dispatchProps, ownProps) => ({
+    ...stateProps,
+    style: ownProps.style,
   })
 )(BannerResults);

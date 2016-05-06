@@ -68,9 +68,6 @@ function getSelectedTemplates(templates) {
 }
 
 
-// TODO: rename updateCombinations, 'ADD_BANNER_IDS' action.
-
-
 class Bridge extends React.Component {
   componentWillReceiveProps(nextProps) {
     const {

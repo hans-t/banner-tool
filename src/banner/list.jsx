@@ -24,7 +24,7 @@ class BannerList extends React.Component {
   }
 
   render() {
-    const { bannerIds, sizeStr, currentCountry } = this.props;
+    const { bannerIds, sizeStr, propsById, images } = this.props;
     return (
       <div style={this.styles.container}>
         <p style={this.styles.header}>{sizeStr}</p>
@@ -33,7 +33,8 @@ class BannerList extends React.Component {
             <BannerView
               key={id}
               id={id}
-              currentCountry={currentCountry}
+              properties={propsById[id]}
+              images={images}
             />
           ))}
         </div>
@@ -43,9 +44,10 @@ class BannerList extends React.Component {
 }
 
 BannerList.propTypes = {
-  bannerIds: React.PropTypes.array.isRequired,
   sizeStr: React.PropTypes.string.isRequired,
-  currentCountry: React.PropTypes.string.isRequired,
+  bannerIds: React.PropTypes.array.isRequired,
+  propsById: React.PropTypes.object.isRequired,
+  images: React.PropTypes.array.isRequired,
 };
 
 
