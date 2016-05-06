@@ -17,6 +17,7 @@ export const PAGE = {
   index: 'index',
   addImages: 'addImages',
   addTexts: 'addTexts',
+  results: 'results',
   editBanner: 'editBanner',
   makeGif: 'makeGif',
 };

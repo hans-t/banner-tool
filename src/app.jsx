@@ -4,6 +4,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import IndexView from './index-page/view';
 import AddImagesView from './add-images-page/view';
+import AddTextsView from './add-texts-page/view';
 import { PAGE } from './common/constants';
 
 injectTapEventPlugin();
@@ -20,6 +21,10 @@ const App = ({ currentPage }) => {
 
     case PAGE.addImages:
       view = <AddImagesView />;
+      break;
+
+    case PAGE.addTexts:
+      view = <AddTextsView />;
       break;
   }
 
