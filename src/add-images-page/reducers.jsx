@@ -54,7 +54,7 @@ function sourceURLs(state = [], action) {
  * Images state is an array of image objects, where each contains
  * the following information about an image:
  * @param {number} index: Index of object in the container array.
- * @param {string} dataURI: base 64 encoded image data.
+ * @param {string} image: img element.
  * @param {number} width: width of the image.
  * @param {number} height: height of the image.
  */

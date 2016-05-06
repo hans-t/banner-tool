@@ -30,9 +30,10 @@ export default class Canvas {
     return this.element.toDataURL(...args);
   }
 
-  addImage(dataURI, ...args) {
-    const image = new Image;
-    image.src = dataURI;
+  /**
+   * image needs to be a <canvas/>, <img>, or <video>
+   */
+  addImage(image, ...args) {
     this.ctx.drawImage(image, ...args);
   }
 
@@ -44,7 +45,7 @@ export default class Canvas {
 
   addText() {}
 
-  drawBackground(dataURI) {
-    this.addImage(dataURI, 0, 0);
+  drawBackground(image) {
+    this.addImage(image, 0, 0);
   }
 }

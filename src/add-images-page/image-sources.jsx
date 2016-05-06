@@ -17,7 +17,7 @@ class ImageSources extends React.Component {
     this.handleAdd = this.handleAdd.bind(this);
     this.handleChange = debounce(this._handleChange.bind(this), 700);
     this.handleDelete = this.handleDelete.bind(this);
-    this.simulateAJAXCall = this.simulateAJAXCall.bind(this);
+    this.fetchImage = this.fetchImage.bind(this);
     this.style = {
       container: {
         position: 'relative',
@@ -41,20 +41,23 @@ class ImageSources extends React.Component {
   _handleChange(index, values) {
     const { editSourceURL } = this.props;
     editSourceURL(index, values);
-    this.simulateAJAXCall(index);
+    this.fetchImage(index, values);
   }
 
-  simulateAJAXCall(index) {
+  fetchImage(index, sourceURL) { // eslint-disable-line no-unused-vars
+    // TODO: ajax call to backend using sourceURL
     const { replaceImage } = this.props;
-    const imageURL = `static/dummy/${index}.b64`;
-    fetch(imageURL)
-      .then(response => response.text())
-      .then(response => replaceImage(index, ({
+    const imageURL = `static/dummy/${index}.jpg`;
+    const image = new Image;
+    image.src = imageURL;
+    image.onload = () => {
+      replaceImage(index, {
         index,
-        dataURI: response,
-        width: 762,
-        height: 1100,
-      })));
+        image,
+        width: image.naturalWidth,
+        height: image.naturalHeight,
+      });
+    };
   }
 
   handleDelete(index) {

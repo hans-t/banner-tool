@@ -55,7 +55,7 @@ class BannerView extends React.Component {
     const { imageSets, images, properties } = props;
     canvas.colorBackground(properties.backgroundColor);
     imageSets.forEach(({ index, boxX, boxY, boxWidth, boxHeight }) => {
-      const { width, height, dataURI } = images[index];
+      const { width, height, image } = images[index];
       const { dx, dy, dWidth, dHeight } = fitImageInsideBox({
         width,
         height,
@@ -64,7 +64,7 @@ class BannerView extends React.Component {
         dx: boxX,
         dy: boxY,
       });
-      canvas.addImage(dataURI, dx, dy, dWidth, dHeight);
+      canvas.addImage(image, dx, dy, dWidth, dHeight);
     });
   }
 
