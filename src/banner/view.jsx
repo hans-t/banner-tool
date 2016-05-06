@@ -48,8 +48,17 @@ class BannerView extends React.Component {
     this.height = height;
     this.canvas = new Canvas(width, height);
     this.previewCanvas = new Canvas(previewWidth, previewHeight);
-    this.style = {
-      margin: '0 2px',
+    this.styles = {
+      container: {
+        boxSizing: 'border-box',
+        display: 'inline-block',
+        padding: 0,
+        margin: '0 4px 0 0',
+      },
+      content: {
+        margin: 0,
+        padding: 0,
+      },
     };
   }
 
@@ -61,7 +70,11 @@ class BannerView extends React.Component {
     const dataURI = this
       .previewCanvas
       .renderPreview(this.canvas, this.dx, this.dy, this.dWidth, this.dHeight);
-    return <img src={dataURI} role="presentation" style={this.style}></img>;
+    return (
+      <div style={this.styles.container}>
+        <img src={dataURI} role="presentation" style={this.styles.content}></img>
+      </div>
+    );
   }
 }
 

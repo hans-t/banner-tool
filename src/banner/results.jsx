@@ -42,6 +42,7 @@ class BannerResults extends React.Component {
         padding: '1% 1% 0',
         height: '100%',
         marginBottom: 0,
+        backgroundColor: '#EEEEEE',
       },
     };
   }
