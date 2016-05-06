@@ -9,8 +9,9 @@ import {
   TOGGLE_BANNER_SELECTION,
   REMOVE_BANNER_IDS,
   UPDATE_COMBINATIONS,
-  TOGGLE_BANNERS_VISIBILITY,
 } from './actions';
+
+import { CHANGE_PAGE } from '../common/actions';
 
 
 /**
@@ -29,13 +30,6 @@ function bannerIds(state = [], action) {
       return replaceValueInArray(state, index, { ...bannerId, selected: !bannerId.selected });
     }
 
-    case TOGGLE_BANNERS_VISIBILITY: {
-      return state.map(el => ({
-        ...el,
-        visible: el.selected,
-      }));
-    }
-
     case REMOVE_BANNER_IDS:
       if (action.bannerIds.length > 0) {
         return [];
@@ -48,7 +42,27 @@ function bannerIds(state = [], action) {
   }
 }
 
-export const bannerIdsByCountry = groupReducerByCountry(bannerIds);
+export const bannerIdsByCountry = groupReducerByCountry(
+  bannerIds,
+  undefined,
+  (state, action) => {
+    switch (action.type) {
+      case CHANGE_PAGE: {
+        const newState = {};
+        Object.keys(state).forEach(country => {
+          newState[country] = state[country].map(el => ({
+            ...el,
+            visible: el.selected,
+          }));
+        });
+        return newState;
+      }
+
+      default:
+        return state;
+    }
+  }
+);
 
 
 export function imageSetsById(state = {}, action) {

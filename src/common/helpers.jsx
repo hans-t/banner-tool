@@ -53,7 +53,11 @@ export function omitKeys(obj, omitted) {
 }
 
 
-export function groupReducerByCountry(reducer, initialStateFactory = () => []) {
+export function groupReducerByCountry(
+  reducer,
+  initialStateFactory = () => [],
+  defaultReducer = state => state
+) {
   return (state = {}, action) => {
     if (action.type === SELECT_COUNTRIES) {
       return action.countries
@@ -69,7 +73,7 @@ export function groupReducerByCountry(reducer, initialStateFactory = () => []) {
         [country]: reducer(state[country], action),
       };
     } else {
-      return state;
+      return defaultReducer(state, action);
     }
   };
 }
