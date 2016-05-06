@@ -1,4 +1,4 @@
-- users need to be able to select banners.
+- initBannerId
 
 - Maximize available space. Example: source URLS container and results should be
 separated by dividers not by cards. Read: https://www.google.com/design/spec/layout/structure.html#structure-ui-regions

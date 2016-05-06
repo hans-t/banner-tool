@@ -21,5 +21,6 @@ export const removeBannerIds = (country, bannerIds) => ({
 
 export const toggleBannerSelection = (country, index) => ({
   type: TOGGLE_BANNER_SELECTION,
+  country,
   index,
-})
+});

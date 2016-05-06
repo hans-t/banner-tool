@@ -3,20 +3,23 @@ import { connect } from 'react-redux';
 
 import BannerList from './list';
 import ContentScrollableContainer from '../common/content-scrollable-container';
+import { toggleBannerSelection } from './actionCreators';
 
 
-function renderBannerListBySize({ images, bannerIds, propsById }) {
+function renderBannerListBySize({ bannerIds, ...props }) {
+  const { propsById } = props;
   const bySize = {};
-  bannerIds.forEach(obj => {
-    const id = obj.id;
-    const { width, height } = propsById[id];
-    const sizeStr = `${width}x${height}`;
-    if (sizeStr in bySize) {
-      bySize[sizeStr].push(id);
-    } else {
-      bySize[sizeStr] = [id];
-    }
-  });
+  bannerIds
+    .filter(bannerId => bannerId.visible)
+    .forEach(bannerId => {
+      const { width, height } = propsById[bannerId.id];
+      const sizeStr = `${width}x${height}`;
+      if (sizeStr in bySize) {
+        bySize[sizeStr].push(bannerId);
+      } else {
+        bySize[sizeStr] = [bannerId];
+      }
+    });
 
   return (
     Object.keys(bySize).map(sizeStr => (
@@ -24,8 +27,7 @@ function renderBannerListBySize({ images, bannerIds, propsById }) {
         key={sizeStr}
         sizeStr={sizeStr}
         bannerIds={bySize[sizeStr]}
-        propsById={propsById}
-        images={images}
+        {...props}
       />
     ))
   );
@@ -60,6 +62,7 @@ class BannerResults extends React.Component {
 }
 
 BannerResults.propTypes = {
+  setSelection: React.PropTypes.func.isRequired,
   bannerIds: React.PropTypes.array.isRequired,
   propsById: React.PropTypes.object.isRequired,
   images: React.PropTypes.array.isRequired,
@@ -81,9 +84,15 @@ export default connect(
       propsById,
     };
   },
-  null,
+  (dispatch, ownProps) => {
+    const { currentCountry } = ownProps;
+    return {
+      setSelection: (index) => dispatch(toggleBannerSelection(currentCountry, index)),
+    };
+  },
   (stateProps, dispatchProps, ownProps) => ({
     ...stateProps,
+    ...dispatchProps,
     style: ownProps.style,
   })
 )(BannerResults);

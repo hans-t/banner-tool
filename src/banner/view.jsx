@@ -2,11 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Canvas from './canvas';
+import CheckCircleIcon from './checkCircleIcon';
 import {
   fitImageInsideBox,
   computePreviewDimension,
 } from './helper';
-import { toggleBannerSelection } from './actionCreators';
 
 
 /**
@@ -31,6 +31,7 @@ class BannerView extends React.Component {
         display: 'inline-block',
         padding: '1px 0 0 1px',
         margin: '0 4px 0 0',
+        position: 'relative',
       },
       content: {
         margin: 0,
@@ -82,8 +83,10 @@ class BannerView extends React.Component {
   }
 
   render() {
+    const { onClick, selected } = this.props;
     return (
-      <div style={this.styles.container}>
+      <div style={this.styles.container} onClick={onClick}>
+        <CheckCircleIcon selected={selected} />
         <canvas
           width={this.previewWidth}
           height={this.previewHeight}
@@ -96,13 +99,16 @@ class BannerView extends React.Component {
 }
 
 BannerView.propTypes = {
-  properties: React.PropTypes.object,
-  imageSets: React.PropTypes.array,
-  images: React.PropTypes.array,
+  imageSets: React.PropTypes.array.isRequired,
+  images: React.PropTypes.array.isRequired,
+  selected: React.PropTypes.bool.isRequired,
+  properties: React.PropTypes.object.isRequired,
+  onClick: React.PropTypes.func.isRequired,
 };
 
 
 export default connect(
-  (state, ownProps) => ({ imageSets: state.imageSetsById[ownProps.id] }),
-  dispatch => ({}) // needs to pass index
+  (state, ownProps) => ({
+    imageSets: state.imageSetsById[ownProps.id],
+  })
 )(BannerView);

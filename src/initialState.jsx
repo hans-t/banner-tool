@@ -61,14 +61,14 @@ const templates = {
 
 const bannerIdsByCountry = {
   SG: [
-    { id: 'SJNorAFb', selected: false },
-    { id: 'HyxEoH0tW', selected: false },
-    { id: 'Bk-4oSAYZ', selected: false },
-    { id: 'B1fEoSRYb', selected: false },
-    { id: 'Skm4irCtb', selected: false },
-    { id: 'HkE4srCFW', selected: false },
-    { id: 'BJB4oHAtW', selected: false },
-    { id: 'HkLVirRtZ', selected: false },
+    { id: 'SJNorAFb', selected: false, index: 0, visible: true },
+    { id: 'HyxEoH0tW', selected: false, index: 1, visible: true },
+    { id: 'Bk-4oSAYZ', selected: false, index: 2, visible: true },
+    { id: 'B1fEoSRYb', selected: false, index: 3, visible: true },
+    { id: 'Skm4irCtb', selected: false, index: 4, visible: true },
+    { id: 'HkE4srCFW', selected: false, index: 5, visible: true },
+    { id: 'BJB4oHAtW', selected: false, index: 6, visible: true },
+    { id: 'HkLVirRtZ', selected: false, index: 7, visible: true },
   ],
 };
 

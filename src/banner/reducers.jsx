@@ -9,6 +9,7 @@ import {
   TOGGLE_BANNER_SELECTION,
   REMOVE_BANNER_IDS,
   UPDATE_COMBINATIONS,
+  TOGGLE_BANNERS_VISIBILITY,
 } from './actions';
 
 
@@ -26,6 +27,13 @@ function bannerIds(state = [], action) {
     case TOGGLE_BANNER_SELECTION: {
       const bannerId = state[index];
       return replaceValueInArray(state, index, { ...bannerId, selected: !bannerId.selected });
+    }
+
+    case TOGGLE_BANNERS_VISIBILITY: {
+      return state.map(el => ({
+        ...el,
+        visible: el.selected,
+      }));
     }
 
     case REMOVE_BANNER_IDS:

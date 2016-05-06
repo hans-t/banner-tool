@@ -51,7 +51,12 @@ function getCombinations(templates, images) {
 
     while (imageSet = combinedImages.next()) {  // eslint-disable-line no-cond-assign
       const id = generateId();
-      bannerIds.push({ id, selected: false });
+      bannerIds.push({
+        id,
+        index: bannerIds.length,
+        selected: false,
+        visible: true,
+      });
       imageSetsById[id] = imageSet.map(assignImageToBox);
       propsById[id] = template.props;
       textsById[id] = cloneInsideObjects(template.texts, textsKeys);
