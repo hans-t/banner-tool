@@ -1,4 +1,5 @@
-- Bottleneck is at toDataURL. Try showing canvas instead of img elements.
+- instead of using dataURI when adding image, we can preload those images' dataURI to canvas
+and when rendering banner, we just need to copy it from a canvas instead of loading from dataURI.
 
 - Maximize available space. Example: source URLS container and results should be
 separated by dividers not by cards. Read: https://www.google.com/design/spec/layout/structure.html#structure-ui-regions

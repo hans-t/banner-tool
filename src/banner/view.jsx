@@ -9,24 +9,9 @@ import {
 
 
 /**
- dx, dy, dWidth, dHeight are defined in: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage
+ * dx, dy, dWidth, dHeight are defined in: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage
+ * Render preview using canvas not img.
  */
-function drawOnCanvas(canvas, props) {
-  const { imageSets, images, properties } = props;
-  canvas.colorBackground(properties.backgroundColor);
-  imageSets.forEach(({ index, boxX, boxY, boxWidth, boxHeight }) => {
-    const { width, height, dataURI } = images[index];
-    const { dx, dy, dWidth, dHeight } = fitImageInsideBox({
-      width,
-      height,
-      boxWidth,
-      boxHeight,
-      dx: boxX,
-      dy: boxY,
-    });
-    canvas.addImage(dataURI, dx, dy, dWidth, dHeight);
-  });
-}
 
 
 class BannerView extends React.Component {
@@ -34,55 +19,85 @@ class BannerView extends React.Component {
     super(props);
     const { width, height } = props.properties;
     const { previewWidth, previewHeight } = computePreviewDimension(width, height);
+    this.width = width;
+    this.height = height;
+    this.previewWidth = previewWidth;
+    this.previewHeight = previewHeight;
+    this.canvas = new Canvas(width, height);
+    this.styles = {
+      container: {
+        boxSizing: 'border-box',
+        display: 'inline-block',
+        padding: '1px 0 0 1px',
+        margin: '0 4px 0 0',
+      },
+      content: {
+        margin: 0,
+        padding: 0,
+        outline: '1px solid black',
+      },
+    };
+
+    this.drawOnCanvas = this.drawOnCanvas.bind(this);
+    this.renderPreview = this.renderPreview.bind(this);
+  }
+
+  componentWillMount() {
+    this.drawOnCanvas();
+  }
+
+  componentDidMount() {
+    this.renderPreview();
+  }
+
+  drawOnCanvas() {
+    const { canvas, props } = this;
+    const { imageSets, images, properties } = props;
+    canvas.colorBackground(properties.backgroundColor);
+    imageSets.forEach(({ index, boxX, boxY, boxWidth, boxHeight }) => {
+      const { width, height, dataURI } = images[index];
+      const { dx, dy, dWidth, dHeight } = fitImageInsideBox({
+        width,
+        height,
+        boxWidth,
+        boxHeight,
+        dx: boxX,
+        dy: boxY,
+      });
+      canvas.addImage(dataURI, dx, dy, dWidth, dHeight);
+    });
+  }
+
+  renderPreview() {
+    const { width, height, previewWidth, previewHeight } = this;
     const { dx, dy, dWidth, dHeight } = fitImageInsideBox({
       width,
       height,
       boxWidth: previewWidth,
       boxHeight: previewHeight,
     });
-    this.dx = dx;
-    this.dy = dy;
-    this.dWidth = dWidth;
-    this.dHeight = dHeight;
-    this.width = width;
-    this.height = height;
-    this.canvas = new Canvas(width, height);
-    this.previewCanvas = new Canvas(previewWidth, previewHeight);
-    this.styles = {
-      container: {
-        boxSizing: 'border-box',
-        display: 'inline-block',
-        padding: 0,
-        margin: '0 4px 0 0',
-      },
-      content: {
-        margin: 0,
-        padding: 0,
-      },
-    };
-  }
-
-  componentWillMount() {
-    drawOnCanvas(this.canvas, this.props);
+    this.previewCtx = this.previewCanvas.getContext('2d');
+    this.previewCtx.drawImage(this.canvas.element, dx, dy, dWidth, dHeight);
   }
 
   render() {
-    const dataURI = this
-      .previewCanvas
-      .renderPreview(this.canvas, this.dx, this.dy, this.dWidth, this.dHeight);
     return (
       <div style={this.styles.container}>
-        <img src={dataURI} role="presentation" style={this.styles.content}></img>
+        <canvas
+          width={this.previewWidth}
+          height={this.previewHeight}
+          ref={e => this.previewCanvas = e} // eslint-disable-line no-return-assign
+          style={this.styles.content}
+        />
       </div>
     );
   }
 }
 
 BannerView.propTypes = {
-  id: React.PropTypes.string.isRequired,
-  currentCountry: React.PropTypes.string.isRequired,
   properties: React.PropTypes.object,
   imageSets: React.PropTypes.array,
+  images: React.PropTypes.array,
 };
 
 
@@ -95,5 +110,10 @@ export default connect(
       imageSets: imageSetsById[id],
       images: imagesByCountry[currentCountry],
     };
-  }
+  },
+  dispatch => ({}),
+  (stateProps, dispatchProps) => ({
+    ...stateProps,
+    ...dispatchProps,
+  })
 )(BannerView);
