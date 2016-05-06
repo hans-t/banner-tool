@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { generate as generateId } from 'shortid';
 import { combination } from 'js-combinatorics';
 
-import * as actionCreators from '../banner/actionCreators';
+import { initBannerId } from './actions';
 import { bindCountryToDispatchProps } from '../common/helpers';
+import * as actionCreators from '../banner/actionCreators';
 
 
 const textsKeys = ['headline', 'title', 'copy1', 'copy2', 'copy3'];
@@ -50,13 +50,10 @@ function getCombinations(templates, images) {
     const combinedImages = combination(images, imageBoxes.length);
 
     while (imageSet = combinedImages.next()) {  // eslint-disable-line no-cond-assign
-      const id = generateId();
-      bannerIds.push({
-        id,
-        index: bannerIds.length,
-        selected: false,
-        visible: true,
-      });
+      const bannerId = initBannerId(bannerIds.length);
+      bannerIds.push(bannerId);
+
+      const { id } = bannerId;
       imageSetsById[id] = imageSet.map(assignImageToBox);
       propsById[id] = template.props;
       textsById[id] = cloneInsideObjects(template.texts, textsKeys);

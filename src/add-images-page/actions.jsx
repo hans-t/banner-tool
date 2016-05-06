@@ -53,3 +53,14 @@ export const initImages = () => (
   Array(DEFAULT_NUMBER_OF_SOURCE_URLS)
     .fill('')
 );
+
+
+/**
+ * Initialize bannerId object.
+ */
+export const initBannerId = (index) => ({
+  id: generateId(),
+  index,
+  selected: false,
+  visible: true,
+});
