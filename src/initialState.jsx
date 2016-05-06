@@ -1,12 +1,29 @@
 import * as constants from './common/constants';
 
+const dummyDir = 'static/dummy';
+
+
+function loadImages() {
+  const n = 4;
+  return Array(n).fill(null).map((el, index) => {
+    const image = new Image;
+    image.src = `${dummyDir}/${index}.jpg`;
+    return {
+      index,
+      image,
+      width: 762,
+      height: 1100,
+    };
+  });
+}
+
 
 const countries = constants.AVAILABLE_COUNTRIES_OPTION.map(obj => ({ ...obj }));
 countries[0].selected = true;
 
 
 const imagesByCountry = {
-  SG: ['', '', '', ''],
+  SG: loadImages(),
 };
 
 
@@ -43,14 +60,73 @@ const templates = {
 
 
 const bannerIdsByCountry = {
-  SG: [],
+  SG: [
+    { id: 'SJNorAFb', selected: false },
+    { id: 'HyxEoH0tW', selected: false },
+    { id: 'Bk-4oSAYZ', selected: false },
+    { id: 'B1fEoSRYb', selected: false },
+    { id: 'Skm4irCtb', selected: false },
+    { id: 'HkE4srCFW', selected: false },
+    { id: 'BJB4oHAtW', selected: false },
+    { id: 'HkLVirRtZ', selected: false },
+  ],
 };
 
 
-const imageSetsById = {};
+const imageSetsById = {
+  SJNorAFb: [
+    { boxX: 10, boxY: 5, boxWidth: 40, boxHeight: 40, index: 0 },
+    { boxX: 60, boxY: 5, boxWidth: 40, boxHeight: 40, index: 1 },
+    { boxX: 110, boxY: 5, boxWidth: 40, boxHeight: 40, index: 2 },
+  ],
+  HyxEoH0tW: [
+    { boxX: 10, boxY: 5, boxWidth: 40, boxHeight: 40, index: 0 },
+    { boxX: 60, boxY: 5, boxWidth: 40, boxHeight: 40, index: 1 },
+    { boxX: 110, boxY: 5, boxWidth: 40, boxHeight: 40, index: 3 },
+  ],
+  'Bk-4oSAYZ': [
+    { boxX: 10, boxY: 5, boxWidth: 40, boxHeight: 40, index: 0 },
+    { boxX: 60, boxY: 5, boxWidth: 40, boxHeight: 40, index: 2 },
+    { boxX: 110, boxY: 5, boxWidth: 40, boxHeight: 40, index: 3 },
+  ],
+  B1fEoSRYb: [
+    { boxX: 10, boxY: 5, boxWidth: 40, boxHeight: 40, index: 1 },
+    { boxX: 60, boxY: 5, boxWidth: 40, boxHeight: 40, index: 2 },
+    { boxX: 110, boxY: 5, boxWidth: 40, boxHeight: 40, index: 3 },
+  ],
+  Skm4irCtb: [
+    { boxX: 20, boxY: 26, boxWidth: 373, boxHeight: 454, index: 0 },
+    { boxX: 414, boxY: 26, boxWidth: 373, boxHeight: 454, index: 1 },
+    { boxX: 806, boxY: 26, boxWidth: 373, boxHeight: 454, index: 2 },
+  ],
+  HkE4srCFW: [
+    { boxX: 20, boxY: 26, boxWidth: 373, boxHeight: 454, index: 0 },
+    { boxX: 414, boxY: 26, boxWidth: 373, boxHeight: 454, index: 1 },
+    { boxX: 806, boxY: 26, boxWidth: 373, boxHeight: 454, index: 3 },
+  ],
+  BJB4oHAtW: [
+    { boxX: 20, boxY: 26, boxWidth: 373, boxHeight: 454, index: 0 },
+    { boxX: 414, boxY: 26, boxWidth: 373, boxHeight: 454, index: 2 },
+    { boxX: 806, boxY: 26, boxWidth: 373, boxHeight: 454, index: 3 },
+  ],
+  HkLVirRtZ: [
+    { boxX: 20, boxY: 26, boxWidth: 373, boxHeight: 454, index: 1 },
+    { boxX: 414, boxY: 26, boxWidth: 373, boxHeight: 454, index: 2 },
+    { boxX: 806, boxY: 26, boxWidth: 373, boxHeight: 454, index: 3 },
+  ],
+};
 
 
-const propsById = {};
+const propsById = {
+  SJNorAFb: { width: 320, height: 50, backgroundColor: 'white' },
+  HyxEoH0tW: { width: 320, height: 50, backgroundColor: 'white' },
+  'Bk-4oSAYZ': { width: 320, height: 50, backgroundColor: 'white' },
+  B1fEoSRYb: { width: 320, height: 50, backgroundColor: 'white' },
+  Skm4irCtb: { width: 1200, height: 627, backgroundColor: 'white' },
+  HkE4srCFW: { width: 1200, height: 627, backgroundColor: 'white' },
+  BJB4oHAtW: { width: 1200, height: 627, backgroundColor: 'white' },
+  HkLVirRtZ: { width: 1200, height: 627, backgroundColor: 'white' },
+};
 
 
 const page = constants.PAGE.addImages;
