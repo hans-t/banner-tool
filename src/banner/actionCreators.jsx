@@ -1,6 +1,7 @@
 import {
   UPDATE_COMBINATIONS,
   REMOVE_BANNER_IDS,
+  TOGGLE_BANNER_SELECTION,
 } from './actions';
 
 
@@ -16,3 +17,9 @@ export const removeBannerIds = (country, bannerIds) => ({
   country,
   bannerIds,
 });
+
+
+export const toggleBannerSelection = (country, index) => ({
+  type: TOGGLE_BANNER_SELECTION,
+  index,
+})

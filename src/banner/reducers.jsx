@@ -6,7 +6,7 @@ import {
 } from '../common/helpers';
 
 import {
-  ADD_BANNER_IDS,
+  TOGGLE_BANNER_SELECTION,
   REMOVE_BANNER_IDS,
   UPDATE_COMBINATIONS,
 } from './actions';
@@ -21,10 +21,9 @@ function bannerIds(state = [], action) {
   const { type, index } = action;
   switch (type) {
     case UPDATE_COMBINATIONS:
-    case ADD_BANNER_IDS:
       return action.bannerIds;
 
-    case 'TOGGLE_BANNER_ID_SELECTION': {
+    case TOGGLE_BANNER_SELECTION: {
       const bannerId = state[index];
       return replaceValueInArray(state, index, { ...bannerId, selected: !bannerId.selected });
     }
@@ -47,7 +46,6 @@ export const bannerIdsByCountry = groupReducerByCountry(bannerIds);
 export function imageSetsById(state = {}, action) {
   switch (action.type) {
     case UPDATE_COMBINATIONS:
-    case ADD_BANNER_IDS:
       return {
         ...state,
         ...action.imageSetsById,
@@ -68,7 +66,6 @@ export function propsById(state = {}, action) {
 
   switch (action.type) {
     case UPDATE_COMBINATIONS:
-    case ADD_BANNER_IDS:
       return {
         ...state,
         ...action.propsById,
@@ -119,7 +116,6 @@ export function textsById(state = {}, action) {
 
   switch (action.type) {
     case UPDATE_COMBINATIONS:
-    case ADD_BANNER_IDS:
       return {
         ...state,
         ...action.textsById,

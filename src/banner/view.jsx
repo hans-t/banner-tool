@@ -6,6 +6,7 @@ import {
   fitImageInsideBox,
   computePreviewDimension,
 } from './helper';
+import { toggleBannerSelection } from './actionCreators';
 
 
 /**
@@ -102,5 +103,6 @@ BannerView.propTypes = {
 
 
 export default connect(
-  (state, ownProps) => ({ imageSets: state.imageSetsById[ownProps.id] })
+  (state, ownProps) => ({ imageSets: state.imageSetsById[ownProps.id] }),
+  dispatch => ({}) // needs to pass index
 )(BannerView);
