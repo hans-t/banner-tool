@@ -4,9 +4,9 @@ import Paper from 'material-ui/lib/paper';
 
 const OuterContainer = ({ style, children }) => {
   const defaultStyle = {
-    width: '90%',
+    width: '95vw',
     height: '90vh',
-    margin: '3vh auto',
+    margin: '5vh auto 0',
     padding: '2% 3%',
     boxSizing: 'border-box',
     overflowY: 'hidden',
