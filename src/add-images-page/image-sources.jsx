@@ -6,6 +6,7 @@ import ContentAdd from 'material-ui/lib/svg-icons/content/add';
 import FloatingActionButton from 'material-ui/lib/floating-action-button';
 
 import ImageSource from './image-source';
+import { initImage } from './actions';
 import * as actionCreators from './actionCreators';
 import { debounce, bindCountryToDispatchProps } from '../common/helpers';
 import ContentScrollableContainer from '../common/content-scrollable-container';
@@ -50,14 +51,7 @@ class ImageSources extends React.Component {
     const imageURL = `static/dummy/${index}.jpg`;
     const image = new Image;
     image.src = imageURL;
-    image.onload = () => {
-      replaceImage(index, {
-        index,
-        image,
-        width: image.naturalWidth,
-        height: image.naturalHeight,
-      });
-    };
+    image.onload = () => replaceImage(index, initImage({ index, image }));
   }
 
   handleDelete(index) {

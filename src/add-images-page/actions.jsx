@@ -64,3 +64,14 @@ export const initBannerId = ({ index, pageNum }) => ({
   selected: false,
   visibleOnPageNum: pageNum,
 });
+
+
+/**
+ * Initialize image object.
+ */
+export const initImage = ({ index, image }) => ({
+  index,
+  image,
+  width: image.naturalWidth,
+  height: image.naturalHeight,
+});

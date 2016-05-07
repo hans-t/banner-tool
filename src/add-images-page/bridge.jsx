@@ -71,6 +71,14 @@ function getSelectedTemplates(templates) {
 
 
 class Bridge extends React.Component {
+  /**
+   * If only image value change, we don't need to re-compute the combinations, because
+   * image is referred in the combinations by index. We only need to re-render banner results.
+   * But if number of sources changes, we need to re-compute combinations and also
+   * re-render banner results.
+   *
+   * But can we remove Bridge?
+   */
   componentWillReceiveProps(nextProps) {
     const {
       bannerIds,
