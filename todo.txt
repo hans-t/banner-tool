@@ -1,8 +1,7 @@
-- stylize CheckCircleIcon
-
 - CHANGE_PAGE needs to be broken down to GO_TO_NEXT_PAGE and GO_TO_PREV_PAGE so
 that we don't toggle visibility when going to previous page.
 
+- Work on texts page
 
 - Maximize available space. Example: source URLS container and results should be
 separated by dividers not by cards. Read: https://www.google.com/design/spec/layout/structure.html#structure-ui-regions

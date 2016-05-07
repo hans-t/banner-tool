@@ -1,4 +1,6 @@
 import React from 'react';
+
+import Colors from 'material-ui/lib/styles/colors';
 import ActionCheckCircle from 'material-ui/lib/svg-icons/action/check-circle';
 
 
@@ -10,7 +12,7 @@ const CheckCircleIcon = ({ selected }) => {
   };
 
   return (
-    <ActionCheckCircle style={style} />
+    <ActionCheckCircle style={style} color={Colors.blueA200} />
   );
 };
 
