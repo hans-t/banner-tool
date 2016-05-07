@@ -10,9 +10,18 @@ export function setDefaultValue(val, defVal = null) {
 
 
 export function removeFromArray(arr, index) {
-  return arr
-    .slice(0, index)
-    .concat(arr.slice(index + 1));
+  const newArray = [];
+  arr.forEach((el, currentIndex) => {
+    if (currentIndex < index) {
+      newArray.push(el);
+    } else if (currentIndex > index) {
+      newArray.push({
+        ...el,
+        index: currentIndex - 1,
+      });
+    }
+  });
+  return newArray;
 }
 
 

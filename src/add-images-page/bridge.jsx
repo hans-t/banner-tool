@@ -47,16 +47,17 @@ function getCombinations(templates, images) {
   templates.forEach(template => {
     let imageSet;
     imageBoxes = template.imageBoxes;
-    const combinedImages = combination(images, imageBoxes.length);
+    if (images.length >= imageBoxes.length) {
+      const combinedImages = combination(images, imageBoxes.length);
+      while (imageSet = combinedImages.next()) {  // eslint-disable-line no-cond-assign
+        const bannerId = initBannerId({ index: bannerIds.length, pageNum: 1 });
+        bannerIds.push(bannerId);
 
-    while (imageSet = combinedImages.next()) {  // eslint-disable-line no-cond-assign
-      const bannerId = initBannerId({ index: bannerIds.length, pageNum: 1 });
-      bannerIds.push(bannerId);
-
-      const { id } = bannerId;
-      imageSetsById[id] = imageSet.map(assignImageToBox);
-      propsById[id] = template.props;
-      textsById[id] = cloneInsideObjects(template.texts, textsKeys);
+        const { id } = bannerId;
+        imageSetsById[id] = imageSet.map(assignImageToBox);
+        propsById[id] = template.props;
+        textsById[id] = cloneInsideObjects(template.texts, textsKeys);
+      }
     }
   });
 
