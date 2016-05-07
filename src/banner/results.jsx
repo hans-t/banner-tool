@@ -6,11 +6,11 @@ import ContentScrollableContainer from '../common/content-scrollable-container';
 import { toggleBannerSelection } from './actionCreators';
 
 
-function renderBannerListBySize({ bannerIds, ...props }) {
+function renderBannerListBySize({ bannerIds, currentPageNum, ...props }) {
   const { propsById } = props;
   const bySize = {};
   bannerIds
-    .filter(bannerId => bannerId.visible)
+    .filter(bannerId => bannerId.visibleOnPageNum >= currentPageNum)
     .forEach(bannerId => {
       const { width, height } = propsById[bannerId.id];
       const sizeStr = `${width}x${height}`;
@@ -66,6 +66,7 @@ BannerResults.propTypes = {
   bannerIds: React.PropTypes.array.isRequired,
   propsById: React.PropTypes.object.isRequired,
   images: React.PropTypes.array.isRequired,
+  currentPageNum: React.PropTypes.number.isRequired,
   style: React.PropTypes.object,
 };
 
@@ -76,9 +77,10 @@ BannerResults.defaultProps = {
 
 export default connect(
   (state, ownProps) => {
-    const { bannerIdsByCountry, propsById, imagesByCountry } = state;
+    const { bannerIdsByCountry, propsById, imagesByCountry, pageNum } = state;
     const { currentCountry } = ownProps;
     return {
+      currentPageNum: pageNum,
       bannerIds: bannerIdsByCountry[currentCountry],
       images: imagesByCountry[currentCountry],
       propsById,

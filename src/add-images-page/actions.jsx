@@ -58,9 +58,9 @@ export const initImages = () => (
 /**
  * Initialize bannerId object.
  */
-export const initBannerId = (index) => ({
+export const initBannerId = ({ index, pageNum }) => ({
   id: generateId(),
   index,
   selected: false,
-  visible: true,
+  visibleOnPageNum: pageNum,
 });

@@ -5,37 +5,27 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import IndexView from './index-page/view';
 import AddImagesView from './add-images-page/view';
 import AddTextsView from './add-texts-page/view';
-import { PAGE } from './common/constants';
 
 injectTapEventPlugin();
 
 
+const pages = [
+  <IndexView />,
+  <AddImagesView />,
+  <AddTextsView />,
+];
+
+
 // component for glueing components from different domain
-const App = ({ currentPage }) => {
-  let view;
-  switch (currentPage) {
-    default:
-    case PAGE.index:
-      view = <IndexView />;
-      break;
-
-    case PAGE.addImages:
-      view = <AddImagesView />;
-      break;
-
-    case PAGE.addTexts:
-      view = <AddTextsView />;
-      break;
-  }
-
-  return <div>{view}</div>;
-};
+const App = ({ currentPageNum }) => (
+  <div>{pages[currentPageNum]}</div>
+);
 
 App.propTypes = {
-  currentPage: React.PropTypes.string,
+  currentPageNum: React.PropTypes.number.isRequired,
 };
 
 
 export default connect(
-  state => ({ currentPage: state.page })
+  state => ({ currentPageNum: state.pageNum })
 )(App);

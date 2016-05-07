@@ -1,11 +1,19 @@
-import { CHANGE_PAGE } from './actions';
-import { PAGE } from './constants';
+import {
+  GO_TO_NEXT_PAGE,
+  GO_TO_PREV_PAGE,
+} from './actions';
 
 
-export function page(state = PAGE.index, action) {
+/**
+ * Beware of going out of bounds. E.g. state = -1 or state >= pages.length.
+ */
+export function pageNum(state = 0, action) {
   switch (action.type) {
-    case CHANGE_PAGE:
-      return action.page;
+    case GO_TO_NEXT_PAGE:
+      return state + 1;
+
+    case GO_TO_PREV_PAGE:
+      return state - 1;
 
     default:
       return state;

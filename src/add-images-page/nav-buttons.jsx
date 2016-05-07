@@ -3,14 +3,13 @@ import { connect } from 'react-redux';
 
 import NavButton from '../common/nav-btn';
 
-import { PAGE } from '../common/constants';
-import { changePage } from '../common/actionCreators';
+import { goToNextPage, goToPrevPage } from '../common/actionCreators';
 
 
 const IndexBtn = connect(
   null,
   dispatch => ({
-    onClick: () => dispatch(changePage(PAGE.index)),
+    onClick: () => dispatch(goToPrevPage()),
   }),
   (stateProps, dispatchProps) => ({
     ...dispatchProps,
@@ -23,7 +22,7 @@ const IndexBtn = connect(
 const AddTextsBtn = connect(
   null,
   dispatch => ({
-    onClick: () => dispatch(changePage(PAGE.addTexts)),
+    onClick: () => dispatch(goToNextPage()),
   }),
   (stateProps, dispatchProps) => ({
     ...dispatchProps,

@@ -61,14 +61,14 @@ const templates = {
 
 const bannerIdsByCountry = {
   SG: [
-    { id: 'SJNorAFb', selected: false, index: 0, visible: true },
-    { id: 'HyxEoH0tW', selected: false, index: 1, visible: true },
-    { id: 'Bk-4oSAYZ', selected: false, index: 2, visible: true },
-    { id: 'B1fEoSRYb', selected: false, index: 3, visible: true },
-    { id: 'Skm4irCtb', selected: false, index: 4, visible: true },
-    { id: 'HkE4srCFW', selected: false, index: 5, visible: true },
-    { id: 'BJB4oHAtW', selected: false, index: 6, visible: true },
-    { id: 'HkLVirRtZ', selected: false, index: 7, visible: true },
+    { id: 'SJNorAFb', selected: false, index: 0, visibleOnPageNum: 1 },
+    { id: 'HyxEoH0tW', selected: false, index: 1, visibleOnPageNum: 1 },
+    { id: 'Bk-4oSAYZ', selected: false, index: 2, visibleOnPageNum: 1 },
+    { id: 'B1fEoSRYb', selected: false, index: 3, visibleOnPageNum: 1 },
+    { id: 'Skm4irCtb', selected: false, index: 4, visibleOnPageNum: 1 },
+    { id: 'HkE4srCFW', selected: false, index: 5, visibleOnPageNum: 1 },
+    { id: 'BJB4oHAtW', selected: false, index: 6, visibleOnPageNum: 1 },
+    { id: 'HkLVirRtZ', selected: false, index: 7, visibleOnPageNum: 1 },
   ],
 };
 
@@ -129,14 +129,14 @@ const propsById = {
 };
 
 
-const page = constants.PAGE.addImages;
+const pageNum = 1;
 
 
 const selectedChannel = 'mobile';
 
 
 export default {
-  page,
+  pageNum,
   selectedChannel,
   templates,
   countries,

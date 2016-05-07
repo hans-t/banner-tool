@@ -3,14 +3,13 @@ import { connect } from 'react-redux';
 
 import NavButton from '../common/nav-btn';
 
-import { PAGE } from '../common/constants';
-import { changePage } from '../common/actionCreators';
+import { goToPrevPage } from '../common/actionCreators';
 
 
 const AddImagesBtn = connect(
   null,
   dispatch => ({
-    onClick: () => dispatch(changePage(PAGE.addImages)),
+    onClick: () => dispatch(goToPrevPage()),
   }),
   (stateProps, dispatchProps) => ({
     ...dispatchProps,
@@ -20,19 +19,19 @@ const AddImagesBtn = connect(
 )(NavButton);
 
 
-const ResultsBtn = connect(
-  null,
-  dispatch => ({
-    onClick: () => dispatch(changePage(PAGE.results)),
-  }),
-  (stateProps, dispatchProps) => ({
-    ...dispatchProps,
-    label: 'See results',
-  })
-)(NavButton);
+// const ResultsBtn = connect(
+//   null,
+//   dispatch => ({
+//     onClick: () => dispatch(goToNextPage())),
+//   }),
+//   (stateProps, dispatchProps) => ({
+//     ...dispatchProps,
+//     label: 'See results',
+//   })
+// )(NavButton);
 
 
 export default {
   prevBtn: <AddImagesBtn />,
-  nextBtn: <ResultsBtn />,
+  // nextBtn: <ResultsBtn />,
 };

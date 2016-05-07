@@ -11,7 +11,7 @@ import {
   UPDATE_COMBINATIONS,
 } from './actions';
 
-import { CHANGE_PAGE } from '../common/actions';
+import { GO_TO_NEXT_PAGE } from '../common/actions';
 
 
 /**
@@ -42,17 +42,21 @@ function bannerIds(state = [], action) {
   }
 }
 
+
 export const bannerIdsByCountry = groupReducerByCountry(
   bannerIds,
   undefined,
   (state, action) => {
     switch (action.type) {
-      case CHANGE_PAGE: {
+      /**
+       * When moving to next page, increment visibleOnPageNum if the banner is selected.
+       */
+      case GO_TO_NEXT_PAGE: {
         const newState = {};
         Object.keys(state).forEach(country => {
           newState[country] = state[country].map(el => ({
             ...el,
-            visible: el.selected,
+            visibleOnPageNum: el.selected ? el.visibleOnPageNum + 1 : el.visibleOnPageNum,
           }));
         });
         return newState;

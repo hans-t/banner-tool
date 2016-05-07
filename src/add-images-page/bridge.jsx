@@ -50,7 +50,7 @@ function getCombinations(templates, images) {
     const combinedImages = combination(images, imageBoxes.length);
 
     while (imageSet = combinedImages.next()) {  // eslint-disable-line no-cond-assign
-      const bannerId = initBannerId(bannerIds.length);
+      const bannerId = initBannerId({ index: bannerIds.length, pageNum: 1 });
       bannerIds.push(bannerId);
 
       const { id } = bannerId;

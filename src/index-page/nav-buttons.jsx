@@ -3,14 +3,13 @@ import { connect } from 'react-redux';
 
 import NavButton from '../common/nav-btn';
 
-import { PAGE } from '../common/constants';
-import { changePage } from '../common/actionCreators';
+import { goToNextPage } from '../common/actionCreators';
 
 
 const AddImagesBtn = connect(
   null,
   dispatch => ({
-    onClick: () => dispatch(changePage(PAGE.addImages)),
+    onClick: () => dispatch(goToNextPage()),
   }),
   (stateProps, dispatchProps) => ({
     ...dispatchProps,
