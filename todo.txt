@@ -1,11 +1,9 @@
-- Can REMOVE_BANNER_IDS for propsById not depend on bannerIds array?
-
 - Work on texts page
-
-- Refactor add-images-page/bridge.jsx
 
 - Maximize available space. Example: source URLS container and results should be
 separated by dividers not by cards. Read: https://www.google.com/design/spec/layout/structure.html#structure-ui-regions
+
+- BUG: When templates are selected/deselected, combinations are NOT updated.
 
 
 Notes:

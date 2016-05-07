@@ -35,7 +35,8 @@ function renderBannerListBySize({ bannerIds, currentPageNum, ...props }) {
 
 
 /**
- * Presentational component. Getting list of banner combinations must be done somewhere else.
+ * Presentational component. This component will update whenever there are changes
+ * to image combinations or the images.
  */
 class BannerResults extends React.Component {
   constructor(props) {

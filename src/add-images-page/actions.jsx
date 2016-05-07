@@ -69,9 +69,13 @@ export const initBannerId = ({ index, pageNum }) => ({
 /**
  * Initialize image object.
  */
-export const initImage = ({ index, image }) => ({
-  index,
-  image,
-  width: image.naturalWidth,
-  height: image.naturalHeight,
-});
+export const initImage = ({ index, image }) => {
+  const newImage = {
+    index,
+    image,
+    id: generateId(),
+    width: image.naturalWidth,
+    height: image.naturalHeight,
+  };
+  return newImage;
+};

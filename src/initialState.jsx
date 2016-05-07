@@ -1,3 +1,4 @@
+import { generate as generateId } from 'shortid';
 import * as constants from './common/constants';
 
 const dummyDir = 'static/dummy';
@@ -11,6 +12,7 @@ function loadImages() {
     return {
       index,
       image,
+      id: generateId(),
       width: 762,
       height: 1100,
     };

@@ -86,14 +86,3 @@ export function groupReducerByCountry(
     }
   };
 }
-
-
-export function bindCountryToDispatchProps(dispatchProps, country) {
-  return Object.keys(dispatchProps).reduce((obj, key) => {
-    const dispatcher = dispatchProps[key];
-    /* eslint-disable no-param-reassign */
-    obj[key] = (...args) => dispatcher(country, ...args);
-    /* eslint-enable no-param-reassign */
-    return obj;
-  }, {});
-}

@@ -1,31 +1,52 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { combination } from 'js-combinatorics';
 
 import { initBannerId } from './actions';
-import { bindCountryToDispatchProps } from '../common/helpers';
-import * as actionCreators from '../banner/actionCreators';
+import {
+  updateCombinationsAction,
+  removeBannerIdsAction,
+} from '../banner/actionCreators';
 
 
-const textsKeys = ['headline', 'title', 'copy1', 'copy2', 'copy3'];
+function shouldCombinationsUpdate(oldImages, newImages) {
+  /**
+   * If new image object is added, we know that object is an empty string. Hence,
+   * we don't update the combinations.
+   * See: ADD_IMAGE action.
+   */
+  if (oldImages.length < newImages.length) {
+    return false;
+  }
 
+  /**
+   * Image deletion. Update the combinations.
+   */
+  if (oldImages.length > newImages.length) {
+    return true;
+  }
 
-function isImagesReady(images) {
-  return images.every(el => el !== '');
+  /**
+   * Don't update whenever there is some uninitialized image.
+   */
+  if (newImages.some(el => el === '')) {
+    return false;
+  }
+
+  /**
+   * When both oldImages and newImages have equal length.
+   * Update when there is an image that changes.
+   */
+  return oldImages.some((oldImage, idx) => oldImage.id !== newImages[idx].id);
 }
 
 
-function isArrayEqual(arr1, arr2) {
-  return arr1.every((el, idx) => el === arr2[idx]);
-}
-
-
-function cloneInsideObjects(obj, keys) {
+function cloneTexts(texts) {
   const clonedObj = {};
+  const keys = ['headline', 'title', 'copy1', 'copy2', 'copy3'];
   keys.forEach(key => {
-    if (key in obj) {
-      clonedObj[key] = { ...obj[key] };
+    if (key in texts) {
+      clonedObj[key] = { ...texts[key] };
     }
   });
   return clonedObj;
@@ -56,7 +77,7 @@ function getCombinations(templates, images) {
         const { id } = bannerId;
         imageSetsById[id] = imageSet.map(assignImageToBox);
         propsById[id] = template.props;
-        textsById[id] = cloneInsideObjects(template.texts, textsKeys);
+        textsById[id] = cloneTexts(template.texts);
       }
     }
   });
@@ -73,31 +94,19 @@ function getSelectedTemplates(templates) {
 
 
 class Bridge extends React.Component {
-  /**
-   * If only image value change, we don't need to re-compute the combinations, because
-   * image is referred in the combinations by index. We only need to re-render banner results.
-   * But if number of sources changes, we need to re-compute combinations and also
-   * re-render banner results.
-   *
-   * But can we remove Bridge?
-   */
   componentWillReceiveProps(nextProps) {
-    const {
-      bannerIds,
-      templates,
-      images,
-      removeBannerIds,
-      updateCombinations,
-    } = nextProps;
-
-    // When images change and have non-empty dataURIs.
-    if (!isArrayEqual(images, this.props.images) && isImagesReady(images)) {
+    const { images } = nextProps;
+    if (shouldCombinationsUpdate(this.props.images, images)) {
+      const { bannerIds, templates } = nextProps;
+      const { updateCombinations, removeBannerIds } = this.props;
       removeBannerIds(bannerIds);
-      const combinations = getCombinations(templates, images);
-      updateCombinations(combinations);
+      updateCombinations(getCombinations(templates, images));
     }
   }
 
+  /**
+   * Never update this component because this component is static.
+   */
   shouldComponentUpdate() {
     return false;
   }
@@ -108,8 +117,8 @@ class Bridge extends React.Component {
 }
 
 Bridge.propTypes = {
-  currentCountry: React.PropTypes.string.isRequired,
   images: React.PropTypes.array.isRequired,
+  bannerIds: React.PropTypes.array.isRequired,
   templates: React.PropTypes.array.isRequired,
   updateCombinations: React.PropTypes.func.isRequired,
   removeBannerIds: React.PropTypes.func.isRequired,
@@ -131,18 +140,24 @@ function mapStateToProps(state, ownProps) {
 }
 
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(actionCreators, dispatch);
+function mapDispatchToProps(dispatch, ownProps) {
+  const { currentCountry } = ownProps;
+  return {
+    updateCombinations: (combinations) => (
+      dispatch(updateCombinationsAction(currentCountry, combinations))
+    ),
+    removeBannerIds: (bannerIds) => (
+      dispatch(removeBannerIdsAction(currentCountry, bannerIds))
+    ),
+  };
 }
 
 
 function mergeProps(stateProps, dispatchProps, ownProps) {
-  const { currentCountry } = ownProps;
-  const boundDispatchProps = bindCountryToDispatchProps(dispatchProps, currentCountry);
   return {
     ...stateProps,
-    ...boundDispatchProps,
-    ...ownProps,
+    ...dispatchProps,
+    style: ownProps.style,
   };
 }
 

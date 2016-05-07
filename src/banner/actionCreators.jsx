@@ -5,14 +5,14 @@ import {
 } from './actions';
 
 
-export const updateCombinations = (country, combinations) => ({
+export const updateCombinationsAction = (country, combinations) => ({
   type: UPDATE_COMBINATIONS,
   country,
   ...combinations,
 });
 
 
-export const removeBannerIds = (country, bannerIds) => ({
+export const removeBannerIdsAction = (country, bannerIds) => ({
   type: REMOVE_BANNER_IDS,
   country,
   bannerIds,
