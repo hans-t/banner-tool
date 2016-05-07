@@ -1,3 +1,8 @@
+- BUG: deleting source causes error:
+Solution: `images` should be object, and source and image should have same id.
+
+- Can REMOVE_BANNER_IDS for propsById not depend on bannerIds array?
+
 - Work on texts page
 
 - Refactor add-images-page/bridge.jsx

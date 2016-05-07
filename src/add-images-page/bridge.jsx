@@ -59,6 +59,7 @@ function getCombinations(templates, images) {
       textsById[id] = cloneInsideObjects(template.texts, textsKeys);
     }
   });
+
   return { bannerIds, imageSetsById, propsById, textsById };
 }
 
