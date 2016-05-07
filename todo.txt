@@ -1,6 +1,4 @@
-- Refactor nav-buttons
-
-- Refactor pages?
+- Refactor image object.
 
 - Work on texts page
 

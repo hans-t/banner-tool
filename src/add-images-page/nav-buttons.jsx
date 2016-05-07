@@ -1,35 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
-
-import NavButton from '../common/nav-btn';
-
-import { goToNextPage, goToPrevPage } from '../common/actionCreators';
+import { prevBtnFactory, nextBtnFactory } from '../common/nav-btn';
 
 
-const IndexBtn = connect(
-  null,
-  dispatch => ({
-    onClick: () => dispatch(goToPrevPage()),
-  }),
-  (stateProps, dispatchProps) => ({
-    ...dispatchProps,
-    label: 'Home',
-    primary: false,
-  })
-)(NavButton);
+const IndexBtn = prevBtnFactory('Index');
 
-
-const AddTextsBtn = connect(
-  null,
-  dispatch => ({
-    onClick: () => dispatch(goToNextPage()),
-  }),
-  (stateProps, dispatchProps) => ({
-    ...dispatchProps,
-    label: 'Add Texts',
-  })
-)(NavButton);
-
+const AddTextsBtn = nextBtnFactory('Add Texts');
 
 export default {
   prevBtn: <IndexBtn />,
