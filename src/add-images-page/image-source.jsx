@@ -31,7 +31,7 @@ class ImageSource extends React.Component {
   }
 
   render() {
-    const { index, onDelete, style } = this.props;
+    const { onDelete, style } = this.props;
 
     return (
       <div style={{ display: 'flex' }}>
@@ -63,7 +63,7 @@ class ImageSource extends React.Component {
         <IconButton
           tooltip="SVG Icon"
           style={{ flex: 1, marginTop: 12, marginRight: -12 }}
-          onClick={() => onDelete(index)}
+          onClick={onDelete}
         >
           <ActionDelete />
         </IconButton>

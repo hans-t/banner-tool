@@ -10,29 +10,28 @@ import { updateCopyAction } from './actionCreators';
 
 
 const defaultStyle = {
-  width: '100%',
-  height: '95%',
-  marginBottom: '1%',
-  padding: 0,
-  overflowY: 'auto',
-};
-
-
-const selectFieldStyle = {
-  width: '60%',
-  display: 'block',
-  margin: '0 auto 30px',
+  div: {
+    width: '100%',
+    height: '100%',
+    padding: 0,
+    overflowY: 'auto',
+  },
+  selectField: {
+    width: '60%',
+    display: 'block',
+    margin: '0 auto 30px',
+  },
 };
 
 
 const CopyBox = ({ style, updateGlobalCopy, copies }) => (
-  <div style={{ ...defaultStyle, ...style }}>
+  <div style={{ ...defaultStyle.div, ...style }}>
     {Object.keys(copyTranslations).map(copyType => {
       const copyValue = copies[copyType];
       return (
         <SelectField
           key={copyType}
-          style={selectFieldStyle}
+          style={defaultStyle.selectField}
           onChange={(event, index, copy) => updateGlobalCopy({ copy, copyType })}
           value={copyValue}
           floatingLabelText={copyType.toUpperCase()}

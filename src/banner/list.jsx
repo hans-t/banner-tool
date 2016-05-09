@@ -17,14 +17,21 @@ class BannerList extends React.Component {
         width: '100%',
         overflowX: 'auto',
         margin: 0,
-        padding: 0,
+        padding: '1px 0 0 1px',
         whiteSpace: 'nowrap',
       },
     };
   }
 
   render() {
-    const { bannerIds, sizeStr, propsById, images, setSelection } = this.props;
+    const {
+      bannerIds,
+      sizeStr,
+      propsById,
+      images,
+      imageSetsById,
+    } = this.props;
+
     return (
       <div style={this.styles.container}>
         <p style={this.styles.header}>{sizeStr}</p>
@@ -34,11 +41,11 @@ class BannerList extends React.Component {
             return (
               <BannerView
                 key={id}
-                id={id}
+                index={index}
                 images={images}
                 selected={selected}
+                imageSets={imageSetsById[id]}
                 properties={propsById[id]}
-                onClick={() => setSelection(index)}
               />
             );
           })}
@@ -52,8 +59,8 @@ BannerList.propTypes = {
   sizeStr: React.PropTypes.string.isRequired,
   bannerIds: React.PropTypes.array.isRequired,
   propsById: React.PropTypes.object.isRequired,
-  setSelection: React.PropTypes.func.isRequired,
   images: React.PropTypes.array.isRequired,
+  imageSetsById: React.PropTypes.object.isRequired,
 };
 
 

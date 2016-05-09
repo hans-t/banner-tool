@@ -1,9 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 import BannerList from './list';
 import ContentScrollableContainer from '../common/content-scrollable-container';
-import { toggleBannerSelection } from './actionCreators';
 
 
 function renderBannerListBySize({ bannerIds, currentPageNum, ...props }) {
@@ -34,71 +32,37 @@ function renderBannerListBySize({ bannerIds, currentPageNum, ...props }) {
 }
 
 
+const defaultStyle = {
+  contentContainer: {
+    padding: '1% 1% 0',
+    height: '100%',
+    marginBottom: 0,
+    backgroundColor: '#EEEEEE',
+  },
+};
+
+
 /**
  * Presentational component. This component will update whenever there are changes
  * to image combinations or the images.
  */
-class BannerResults extends React.Component {
-  constructor(props) {
-    super(props);
-    this.defaultStyle = {
-      container: {
-        position: 'relative',
-      },
-      contentContainer: {
-        padding: '1% 1% 0',
-        height: '100%',
-        marginBottom: 0,
-        backgroundColor: '#EEEEEE',
-      },
-    };
-  }
+const Results = ({ style, ...props }) => (
+  <ContentScrollableContainer style={{ ...defaultStyle.contentContainer, ...style }}>
+    {renderBannerListBySize(props)}
+  </ContentScrollableContainer>
+);
 
-  render() {
-    return (
-      <div style={{ ...this.defaultStyle.container, ...this.props.style }}>
-        <ContentScrollableContainer style={this.defaultStyle.contentContainer}>
-          {renderBannerListBySize(this.props)}
-        </ContentScrollableContainer>
-      </div>
-    );
-  }
-}
-
-BannerResults.propTypes = {
-  setSelection: React.PropTypes.func.isRequired,
+Results.propTypes = {
   bannerIds: React.PropTypes.array.isRequired,
   propsById: React.PropTypes.object.isRequired,
+  imageSetsById: React.PropTypes.object.isRequired,
   images: React.PropTypes.array.isRequired,
   currentPageNum: React.PropTypes.number.isRequired,
   style: React.PropTypes.object,
 };
 
-BannerResults.defaultProps = {
+Results.defaultProps = {
   style: {},
 };
 
-
-export default connect(
-  (state, ownProps) => {
-    const { bannerIdsByCountry, propsById, imagesByCountry, pageNum } = state;
-    const { currentCountry } = ownProps;
-    return {
-      currentPageNum: pageNum,
-      bannerIds: bannerIdsByCountry[currentCountry],
-      images: imagesByCountry[currentCountry],
-      propsById,
-    };
-  },
-  (dispatch, ownProps) => {
-    const { currentCountry } = ownProps;
-    return {
-      setSelection: (index) => dispatch(toggleBannerSelection(currentCountry, index)),
-    };
-  },
-  (stateProps, dispatchProps, ownProps) => ({
-    ...stateProps,
-    ...dispatchProps,
-    style: ownProps.style,
-  })
-)(BannerResults);
+export default Results;

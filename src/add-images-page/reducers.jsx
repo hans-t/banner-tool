@@ -2,9 +2,6 @@ import {
   ADD_SOURCE_URL,
   EDIT_SOURCE_URL,
   REMOVE_SOURCE_URL,
-  ADD_IMAGE,
-  REPLACE_IMAGE,
-  REMOVE_IMAGE,
   sourceURLFactory,
   initSourceURL,
   initImages,
@@ -61,13 +58,13 @@ function sourceURLs(state = [], action) {
 function images(state = [], action) {
   const { type, index, image } = action;
   switch (type) {
-    case ADD_IMAGE:
+    case ADD_SOURCE_URL:
       return addToArray(state, '');
 
-    case REPLACE_IMAGE:
+    case EDIT_SOURCE_URL:
       return replaceValueInArray(state, index, image);
 
-    case REMOVE_IMAGE:
+    case REMOVE_SOURCE_URL:
       return removeFromArray(state, index);
 
     default:

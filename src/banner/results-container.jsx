@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { combination } from 'js-combinatorics';
 
-import Divider from 'material-ui/lib/divider';
 
-import { initBannerId } from './actions';
+import Results from './results';
+import { initBannerId } from '../add-images-page/actions';
 import {
   updateCombinationsAction,
   removeBannerIdsAction,
@@ -83,7 +83,6 @@ function getCombinations(templates, images) {
       }
     }
   });
-
   return { bannerIds, imageSetsById, propsById, textsById };
 }
 
@@ -95,44 +94,88 @@ function getSelectedTemplates(templates) {
 }
 
 
-class Bridge extends React.Component {
+class ResultsContainer extends React.Component {
+  componentDidMount() {
+    const {
+      ids,
+      templates,
+      updateCombinations,
+      removeBannerIds,
+      images,
+    } = this.props;
+
+    removeBannerIds(ids);
+    updateCombinations(getCombinations(templates, images));
+  }
+
   componentWillReceiveProps(nextProps) {
     const { images } = nextProps;
     if (shouldCombinationsUpdate(this.props.images, images)) {
-      const { bannerIds, templates } = nextProps;
+      const { ids, templates } = nextProps;
       const { updateCombinations, removeBannerIds } = this.props;
-      removeBannerIds(bannerIds);
+      removeBannerIds(ids);
       updateCombinations(getCombinations(templates, images));
     }
   }
 
-  /**
-   * Never update this component because this component is static.
-   */
-  shouldComponentUpdate() {
-    return false;
-  }
-
   render() {
-    return <Divider />;
+    const {
+      bannerIds,
+      propsById,
+      images,
+      imageSetsById,
+      currentPageNum,
+      style,
+    } = this.props;
+
+    return (
+      <Results
+        bannerIds={bannerIds}
+        propsById={propsById}
+        images={images}
+        imageSetsById={imageSetsById}
+        currentPageNum={currentPageNum}
+        style={style}
+      />
+    );
   }
 }
 
-Bridge.propTypes = {
+ResultsContainer.propTypes = {
   images: React.PropTypes.array.isRequired,
+  ids: React.PropTypes.array.isRequired,
   bannerIds: React.PropTypes.array.isRequired,
   templates: React.PropTypes.array.isRequired,
   updateCombinations: React.PropTypes.func.isRequired,
   removeBannerIds: React.PropTypes.func.isRequired,
+  imageSetsById: React.PropTypes.object.isRequired,
+  propsById: React.PropTypes.object.isRequired,
+  currentPageNum: React.PropTypes.number.isRequired,
+  style: React.PropTypes.object,
 };
 
 
 function mapStateToProps(state, ownProps) {
   const { currentCountry } = ownProps;
+  const {
+    imagesByCountry,
+    bannerIdsByCountry,
+    propsById,
+    pageNum,
+    templates,
+    imageSetsById,
+  } = state;
+
+  const bannerIds = bannerIdsByCountry[currentCountry];
+
   return {
-    images: state.imagesByCountry[currentCountry],
-    bannerIds: state.bannerIdsByCountry[currentCountry].map(el => el.id),
-    templates: getSelectedTemplates(state.templates),
+    images: imagesByCountry[currentCountry],
+    templates: getSelectedTemplates(templates),
+    currentPageNum: pageNum,
+    ids: bannerIds.map(el => el.id),
+    imageSetsById,
+    bannerIds,
+    propsById,
   };
 }
 
@@ -146,20 +189,23 @@ function mapDispatchToProps(dispatch, ownProps) {
     removeBannerIds: (bannerIds) => (
       dispatch(removeBannerIdsAction(currentCountry, bannerIds))
     ),
+    // setSelection: (index) => (
+    //   dispatch(toggleBannerSelection(currentCountry, index))
+    // ),
   };
 }
 
 
-function mergeProps(stateProps, dispatchProps) {
+function mergeProps(stateProps, dispatchProps, ownProps) {
   return {
     ...stateProps,
     ...dispatchProps,
+    style: ownProps.style,
   };
 }
-
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
   mergeProps
-)(Bridge);
+)(ResultsContainer);

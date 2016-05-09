@@ -6,21 +6,29 @@ import { updateTranslatedCopyAction } from './actionCreators';
 
 
 const defaultStyle = {
-  width: '100%',
-  height: '95%',
-  marginBottom: '1%',
-  padding: 0,
-  overflowY: 'auto',
+  div: {
+    width: '100%',
+    height: '100%',
+    padding: 0,
+    overflowY: 'auto',
+  },
+  textField: {
+    width: '60%',
+    display: 'block',
+    margin: '0 auto 30px',
+  },
 };
 
 
 const TextsBox = ({ updateCopy, currentCountry, copies, style }) => (
-  <div style={{ ...defaultStyle, ...style }}>
+  <div style={{ ...defaultStyle.div, ...style }}>
     {Object.keys(copies).map(copyType => (
       <TextFieldWithValidation
-        key={`${currentCountry}${copyType}`}
-        defaultValue={copies[copyType]}
         required
+        key={`${currentCountry}${copyType}`}
+        style={defaultStyle.textField}
+        defaultValue={copies[copyType]}
+        floatingLabelText={copyType.toUpperCase()}
         onChange={(event) => updateCopy({
           copy: event.target.value,
           copyType,

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import Canvas from './canvas';
 import CheckCircleIcon from './checkCircleIcon';
+import { toggleBannerSelection } from './actionCreators';
 import {
   fitImageInsideBox,
   computePreviewDimension,
@@ -15,7 +16,7 @@ import {
  */
 
 
-class BannerView extends React.Component {
+export default class BannerView extends React.Component {
   constructor(props) {
     super(props);
     const { width, height } = props.properties;
@@ -29,7 +30,7 @@ class BannerView extends React.Component {
       container: {
         boxSizing: 'border-box',
         display: 'inline-block',
-        padding: '1px 0 0 1px',
+        paddingTop: 1,
         margin: '0 4px 0 0',
         position: 'relative',
       },
@@ -83,9 +84,9 @@ class BannerView extends React.Component {
   }
 
   render() {
-    const { onClick, selected } = this.props;
+    const { handleClick, selected } = this.props;
     return (
-      <div style={this.styles.container} onClick={onClick}>
+      <div style={this.styles.container} onClick={handleClick}>
         <CheckCircleIcon selected={selected} />
         <canvas
           width={this.previewWidth}
@@ -99,16 +100,21 @@ class BannerView extends React.Component {
 }
 
 BannerView.propTypes = {
+  index: React.PropTypes.number.isRequired,
   imageSets: React.PropTypes.array.isRequired,
   images: React.PropTypes.array.isRequired,
   selected: React.PropTypes.bool.isRequired,
   properties: React.PropTypes.object.isRequired,
-  onClick: React.PropTypes.func.isRequired,
+  handleClick: React.PropTypes.func.isRequired,
 };
 
 
 export default connect(
-  (state, ownProps) => ({
-    imageSets: state.imageSetsById[ownProps.id],
-  })
+  null,
+  (dispatch, ownProps) => {
+    const { currentCountry, index } = ownProps;
+    return {
+      handleClick: () => dispatch(toggleBannerSelection(currentCountry, index)),
+    };
+  }
 )(BannerView);

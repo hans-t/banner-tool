@@ -132,7 +132,25 @@ const propsById = {
 };
 
 
-const pageNum = 2;
+const copies = {
+  title: 'New & Exclusive',
+  headline: 'Clothing',
+};
+
+
+const textsByCountry = {
+  SG: {
+    title: 'New & Exclusive',
+    headline: 'Clothing',
+  },
+  MY: {
+    title: 'Baru dan Eksklusif',
+    headline: 'Pakaian',
+  },
+};
+
+
+const pageNum = 1;
 
 
 const selectedChannel = 'mobile';
@@ -148,4 +166,6 @@ export default {
   bannerIdsByCountry,
   propsById,
   imageSetsById,
+  copies,
+  textsByCountry,
 };

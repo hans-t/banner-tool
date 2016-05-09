@@ -10,12 +10,6 @@ export const EDIT_SOURCE_URL = 'EDIT_SOURCE_URL';
 
 export const REMOVE_SOURCE_URL = 'REMOVE_SOURCE_URL';
 
-export const ADD_IMAGE = 'ADD_IMAGE';
-
-export const REPLACE_IMAGE = 'REPLACE_IMAGE';
-
-export const REMOVE_IMAGE = 'REMOVE_IMAGE';
-
 
 /**
  * Other constants

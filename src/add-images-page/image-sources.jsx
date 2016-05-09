@@ -9,11 +9,8 @@ import { initImage } from './actions';
 import { debounce } from '../common/helpers';
 import ContentScrollableContainer from '../common/content-scrollable-container';
 import {
-  addImage,
   addSourceURL,
   editSourceURL,
-  replaceImage,
-  removeImage,
   removeSourceURL,
 } from './actionCreators';
 
@@ -50,7 +47,7 @@ const ImageSources = ({ sourceURLs, style, onAdd, onDelete, onChange }) => {
             index={index}
             defaultValues={defaultValues}
             onValid={onChange}
-            onDelete={onDelete}
+            onDelete={() => onDelete(index)}
           />
         ))}
       </ContentScrollableContainer>
@@ -88,21 +85,23 @@ function mapDispatchToProps(dispatch, ownProps) {
   const country = ownProps.currentCountry;
   const onAdd = () => {
     dispatch(addSourceURL(country));
-    dispatch(addImage(country));
   };
 
   const onChange = (index, values) => {
-    dispatch(editSourceURL(country, index, values));
     const imageURL = `static/dummy/${index}.jpg`;
     const image = fetchImage(imageURL);
     image.onload = () => dispatch(
-      replaceImage(country, index, initImage({ index, image }))
+      editSourceURL({
+        country,
+        index,
+        values,
+        image: initImage({ index, image }),
+      })
     );
   };
 
   const onDelete = (index) => {
     dispatch(removeSourceURL(country, index));
-    dispatch(removeImage(country, index));
   };
 
   return {
