@@ -8,10 +8,45 @@ import { initBannerId } from '../add-images-page/actions';
 import {
   updateCombinationsAction,
   removeBannerIdsAction,
+  toggleBannerSelection,
 } from '../banner/actionCreators';
 
 
-function shouldCombinationsUpdate(oldImages, newImages) {
+function isAllImagesInitialized(images) {
+  return images.every(image => image.hasOwnProperty('image'));
+}
+
+
+function shouldCombineOnMount(images, templates) {
+  if (!isAllImagesInitialized(images)) {
+    return false;
+  }
+
+  if (Object.keys(templates).length === 0) {
+    return false;
+  }
+
+  return true;
+}
+
+
+function shouldCombinationsUpdate(prevProps, nextProps) {
+  /**
+   * Compute combinations only if there is no change in country value.
+   * Otherwise, render what is in store.
+   */
+  if (prevProps.currentCountry !== nextProps.currentCountry) {
+    return false;
+  }
+
+  /**
+   * We don't need to check whether templates is empty because template selection
+   * is not in the same page as banner results.
+   */
+
+  const oldImages = prevProps.images;
+  const newImages = nextProps.images;
+
   /**
    * If new image object is added, we know that object is an empty string. Hence,
    * we don't update the combinations.
@@ -22,17 +57,17 @@ function shouldCombinationsUpdate(oldImages, newImages) {
   }
 
   /**
+   * Don't update whenever there is some uninitialized image.
+   */
+  if (!isAllImagesInitialized(newImages)) {
+    return false;
+  }
+
+  /**
    * Image deletion. Update the combinations.
    */
   if (oldImages.length > newImages.length) {
     return true;
-  }
-
-  /**
-   * Don't update whenever there is some uninitialized image.
-   */
-  if (newImages.some(el => el === '')) {
-    return false;
   }
 
   /**
@@ -55,7 +90,7 @@ function cloneTexts(texts) {
 }
 
 
-function getCombinations(templates, images) {
+function getCombinations(images, templates) {
   let imageBoxes;
   const imageSetsById = {};
   const bannerIds = [];
@@ -96,25 +131,19 @@ function getSelectedTemplates(templates) {
 
 class ResultsContainer extends React.Component {
   componentDidMount() {
-    const {
-      ids,
-      templates,
-      updateCombinations,
-      removeBannerIds,
-      images,
-    } = this.props;
-
-    removeBannerIds(ids);
-    updateCombinations(getCombinations(templates, images));
+    const { images, templates } = this.props;
+    if (shouldCombineOnMount(images, templates)) {
+      const { updateCombinations, removeBannerIds } = this.props;
+      removeBannerIds();
+      updateCombinations(getCombinations(images, templates));
+    }
   }
 
   componentWillReceiveProps(nextProps) {
-    const { images } = nextProps;
-    if (shouldCombinationsUpdate(this.props.images, images)) {
-      const { ids, templates } = nextProps;
-      const { updateCombinations, removeBannerIds } = this.props;
-      removeBannerIds(ids);
-      updateCombinations(getCombinations(templates, images));
+    if (shouldCombinationsUpdate(this.props, nextProps)) {
+      const { updateCombinations, removeBannerIds, images, templates } = nextProps;
+      removeBannerIds();
+      updateCombinations(getCombinations(images, templates));
     }
   }
 
@@ -125,6 +154,7 @@ class ResultsContainer extends React.Component {
       images,
       imageSetsById,
       currentPageNum,
+      handleBannerClick,
       style,
     } = this.props;
 
@@ -135,6 +165,7 @@ class ResultsContainer extends React.Component {
         images={images}
         imageSetsById={imageSetsById}
         currentPageNum={currentPageNum}
+        handleBannerClick={handleBannerClick}
         style={style}
       />
     );
@@ -143,13 +174,14 @@ class ResultsContainer extends React.Component {
 
 ResultsContainer.propTypes = {
   images: React.PropTypes.array.isRequired,
-  ids: React.PropTypes.array.isRequired,
   bannerIds: React.PropTypes.array.isRequired,
   templates: React.PropTypes.array.isRequired,
   updateCombinations: React.PropTypes.func.isRequired,
+  handleBannerClick: React.PropTypes.func.isRequired,
   removeBannerIds: React.PropTypes.func.isRequired,
   imageSetsById: React.PropTypes.object.isRequired,
   propsById: React.PropTypes.object.isRequired,
+  currentCountry: React.PropTypes.string.isRequired,
   currentPageNum: React.PropTypes.number.isRequired,
   style: React.PropTypes.object,
 };
@@ -165,14 +197,12 @@ function mapStateToProps(state, ownProps) {
     templates,
     imageSetsById,
   } = state;
-
   const bannerIds = bannerIdsByCountry[currentCountry];
 
   return {
     images: imagesByCountry[currentCountry],
     templates: getSelectedTemplates(templates),
     currentPageNum: pageNum,
-    ids: bannerIds.map(el => el.id),
     imageSetsById,
     bannerIds,
     propsById,
@@ -189,18 +219,21 @@ function mapDispatchToProps(dispatch, ownProps) {
     removeBannerIds: (bannerIds) => (
       dispatch(removeBannerIdsAction(currentCountry, bannerIds))
     ),
-    // setSelection: (index) => (
-    //   dispatch(toggleBannerSelection(currentCountry, index))
-    // ),
+    handleBannerClick: (index) => (
+      dispatch(toggleBannerSelection(currentCountry, index))
+    ),
   };
 }
 
 
 function mergeProps(stateProps, dispatchProps, ownProps) {
+  const { bannerIds } = stateProps;
+  const { removeBannerIds, ...dispatchers } = dispatchProps;
   return {
     ...stateProps,
-    ...dispatchProps,
-    style: ownProps.style,
+    ...dispatchers,
+    ...ownProps,
+    removeBannerIds: () => removeBannerIds(bannerIds.map(el => el.id)),
   };
 }
 

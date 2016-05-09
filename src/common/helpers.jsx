@@ -9,16 +9,23 @@ export function setDefaultValue(val, defVal = null) {
 }
 
 
+/**
+ * Assumes element is either empty string '' or object with index key.
+ */
 export function removeFromArray(arr, index) {
   const newArray = [];
   arr.forEach((el, currentIndex) => {
     if (currentIndex < index) {
       newArray.push(el);
     } else if (currentIndex > index) {
-      newArray.push({
-        ...el,
-        index: currentIndex - 1,
-      });
+      if (el) {
+        newArray.push({
+          ...el,
+          index: currentIndex - 1,
+        });
+      } else {
+        newArray.push(el);
+      }
     }
   });
   return newArray;

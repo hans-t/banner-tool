@@ -1,13 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 import Canvas from './canvas';
 import CheckCircleIcon from './checkCircleIcon';
-import { toggleBannerSelection } from './actionCreators';
-import {
-  fitImageInsideBox,
-  computePreviewDimension,
-} from './helper';
+import { fitImageInsideBox, computePreviewDimension } from './helper';
 
 
 /**
@@ -84,9 +79,9 @@ export default class BannerView extends React.Component {
   }
 
   render() {
-    const { handleClick, selected } = this.props;
+    const { onClick, selected } = this.props;
     return (
-      <div style={this.styles.container} onClick={handleClick}>
+      <div style={this.styles.container} onClick={onClick}>
         <CheckCircleIcon selected={selected} />
         <canvas
           width={this.previewWidth}
@@ -100,21 +95,9 @@ export default class BannerView extends React.Component {
 }
 
 BannerView.propTypes = {
-  index: React.PropTypes.number.isRequired,
   imageSets: React.PropTypes.array.isRequired,
   images: React.PropTypes.array.isRequired,
   selected: React.PropTypes.bool.isRequired,
   properties: React.PropTypes.object.isRequired,
-  handleClick: React.PropTypes.func.isRequired,
+  onClick: React.PropTypes.func.isRequired,
 };
-
-
-export default connect(
-  null,
-  (dispatch, ownProps) => {
-    const { currentCountry, index } = ownProps;
-    return {
-      handleClick: () => dispatch(toggleBannerSelection(currentCountry, index)),
-    };
-  }
-)(BannerView);

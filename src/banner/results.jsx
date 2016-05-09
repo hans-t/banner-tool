@@ -32,7 +32,7 @@ function renderBannerListBySize({ bannerIds, currentPageNum, ...props }) {
 }
 
 
-const defaultStyle = {
+const styles = {
   contentContainer: {
     padding: '1% 1% 0',
     height: '100%',
@@ -47,12 +47,18 @@ const defaultStyle = {
  * to image combinations or the images.
  */
 const Results = ({ style, ...props }) => (
-  <ContentScrollableContainer style={{ ...defaultStyle.contentContainer, ...style }}>
+  <ContentScrollableContainer
+    style={{
+      ...styles.contentContainer,
+      ...style,
+    }}
+  >
     {renderBannerListBySize(props)}
   </ContentScrollableContainer>
 );
 
 Results.propTypes = {
+  handleBannerClick: React.PropTypes.func.isRequired,
   bannerIds: React.PropTypes.array.isRequired,
   propsById: React.PropTypes.object.isRequired,
   imageSetsById: React.PropTypes.object.isRequired,

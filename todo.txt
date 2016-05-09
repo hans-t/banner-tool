@@ -1,3 +1,5 @@
+- Write stateless components as functional components not class.
+
 - Work getCombinations for texts.
 
 - Maximize available space. Example: source URLS container and results should be

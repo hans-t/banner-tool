@@ -50,14 +50,19 @@ export default class TabbedContainer extends React.Component {
 
   render() {
     const { tabs, currentTabPropName, tabsPropName } = this.props;
-    const proppedChildren = React.Children.map(this.props.children, child => (
+    const proppedChildren = React.Children.map(this.props.children, child => {
       // Children can't set these props to isRequired
       // https://github.com/facebook/react/issues/4494
-      React.cloneElement(child, {
-        [currentTabPropName]: this.state.currentTab,
+      const { currentTab } = this.state;
+      const passedProps = {
+        [currentTabPropName]: currentTab,
         [tabsPropName]: tabs,
-      })
-    ));
+      };
+      if (child.props.keyed) {
+        passedProps.key = currentTab;
+      }
+      return React.cloneElement(child, passedProps);
+    });
 
     return (
       <Paper style={this.styles.container}>

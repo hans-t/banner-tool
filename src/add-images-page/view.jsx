@@ -12,7 +12,7 @@ import navButtons from './nav-buttons';
 export default () => (
   <OuterContainer>
     <CountryTabsContainer>
-      <ImageSourcesBox style={{ height: '20%' }} />
+      <ImageSourcesBox keyed style={{ height: '20%' }} />
       <Divider />
       <BannerResultsBox style={{ height: '80%' }} />
     </CountryTabsContainer>

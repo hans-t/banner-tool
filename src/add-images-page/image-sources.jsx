@@ -15,45 +15,50 @@ import {
 } from './actionCreators';
 
 
-const ImageSources = ({ sourceURLs, style, onAdd, onDelete, onChange }) => {
-  const styles = {
-    container: {
-      position: 'relative',
-    },
-    addButton: {
-      position: 'absolute',
-      top: -20,
-    },
-    contentContainer: {
-      padding: '3% 1% 0',
-      height: '100%',
-    },
-  };
-
-  return (
-    <div style={{ ...styles.container, ...style }}>
-      <ContentScrollableContainer style={styles.contentContainer}>
-        <FloatingActionButton
-          mini
-          primary
-          style={styles.addButton}
-          onClick={onAdd}
-        >
-          <ContentAdd />
-        </FloatingActionButton>
-        {sourceURLs.map((defaultValues, index) => (
-          <ImageSource
-            key={defaultValues.id}
-            index={index}
-            defaultValues={defaultValues}
-            onValid={onChange}
-            onDelete={() => onDelete(index)}
-          />
-        ))}
-      </ContentScrollableContainer>
-    </div>
-  );
+const styles = {
+  container: {
+    position: 'relative',
+  },
+  addButton: {
+    position: 'absolute',
+    top: -20,
+  },
+  contentContainer: {
+    padding: '3% 1% 0',
+    height: '100%',
+  },
 };
+
+
+const ImageSources = ({
+  sourceURLs,
+  style,
+  onAdd,
+  onDelete,
+  onChange,
+}) => (
+  <div style={{ ...styles.container, ...style }}>
+    <ContentScrollableContainer style={styles.contentContainer}>
+      <FloatingActionButton
+        mini
+        primary
+        style={styles.addButton}
+        onClick={onAdd}
+      >
+        <ContentAdd />
+      </FloatingActionButton>
+      {sourceURLs.map((defaultValues, index) => (
+        <ImageSource
+          key={defaultValues.id}
+          index={index}
+          defaultValues={defaultValues}
+          onValid={onChange}
+          onDelete={() => onDelete(index)}
+        />
+      ))}
+    </ContentScrollableContainer>
+  </div>
+);
 
 ImageSources.propTypes = {
   style: React.PropTypes.object,
