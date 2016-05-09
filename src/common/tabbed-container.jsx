@@ -20,7 +20,6 @@ export default class TabbedContainer extends React.Component {
         height: '95%',
         marginBottom: '1%',
         padding: 0,
-        overflowY: 'hidden',
         display: 'flex',
       },
 
@@ -35,7 +34,6 @@ export default class TabbedContainer extends React.Component {
       childrenContainer: {
         flex: 7,
         boxSizing: 'border-box',
-        padding: '2% 2% 0',
         height: '100%',
         minWidth: '87%', // hack: floor(7/(1+7))
       },

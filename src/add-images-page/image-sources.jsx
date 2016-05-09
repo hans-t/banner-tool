@@ -29,6 +29,7 @@ const ImageSources = ({ sourceURLs, style, onAdd, onDelete, onChange }) => {
     },
     contentContainer: {
       padding: '3% 1% 0',
+      height: '100%',
     },
   };
 

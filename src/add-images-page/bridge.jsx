@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { combination } from 'js-combinatorics';
 
+import Divider from 'material-ui/lib/divider';
+
 import { initBannerId } from './actions';
 import {
   updateCombinationsAction,
@@ -112,7 +114,7 @@ class Bridge extends React.Component {
   }
 
   render() {
-    return <span style={this.props.style} />;
+    return <Divider />;
   }
 }
 
@@ -122,11 +124,6 @@ Bridge.propTypes = {
   templates: React.PropTypes.array.isRequired,
   updateCombinations: React.PropTypes.func.isRequired,
   removeBannerIds: React.PropTypes.func.isRequired,
-  style: React.PropTypes.object,
-};
-
-Bridge.defaultProps = {
-  style: {},
 };
 
 
@@ -153,11 +150,10 @@ function mapDispatchToProps(dispatch, ownProps) {
 }
 
 
-function mergeProps(stateProps, dispatchProps, ownProps) {
+function mergeProps(stateProps, dispatchProps) {
   return {
     ...stateProps,
     ...dispatchProps,
-    style: ownProps.style,
   };
 }
 

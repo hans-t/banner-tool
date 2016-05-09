@@ -65,11 +65,11 @@ const bannerIdsByCountry = {
   SG: [
     { id: 'SJNorAFb', selected: false, index: 0, visibleOnPageNum: 1 },
     { id: 'HyxEoH0tW', selected: false, index: 1, visibleOnPageNum: 1 },
-    { id: 'Bk-4oSAYZ', selected: false, index: 2, visibleOnPageNum: 1 },
-    { id: 'B1fEoSRYb', selected: false, index: 3, visibleOnPageNum: 1 },
+    { id: 'Bk-4oSAYZ', selected: true, index: 2, visibleOnPageNum: 2 },
+    { id: 'B1fEoSRYb', selected: true, index: 3, visibleOnPageNum: 2 },
     { id: 'Skm4irCtb', selected: false, index: 4, visibleOnPageNum: 1 },
-    { id: 'HkE4srCFW', selected: false, index: 5, visibleOnPageNum: 1 },
-    { id: 'BJB4oHAtW', selected: false, index: 6, visibleOnPageNum: 1 },
+    { id: 'HkE4srCFW', selected: true, index: 5, visibleOnPageNum: 2 },
+    { id: 'BJB4oHAtW', selected: true, index: 6, visibleOnPageNum: 2 },
     { id: 'HkLVirRtZ', selected: false, index: 7, visibleOnPageNum: 1 },
   ],
 };
@@ -131,7 +131,7 @@ const propsById = {
 };
 
 
-const pageNum = 1;
+const pageNum = 2;
 
 
 const selectedChannel = 'mobile';

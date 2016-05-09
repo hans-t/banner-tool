@@ -13,8 +13,8 @@ export default () => (
   <OuterContainer>
     <CountryTabsContainer>
       <ImageSourcesBox style={{ height: '20%' }} />
-      <Bridge style={{ height: '2%' }} />
-      <BannerResultsBox style={{ height: '78%' }} />
+      <Bridge />
+      <BannerResultsBox style={{ height: '80%' }} />
     </CountryTabsContainer>
     <NavBtnContainer {...navButtons} />
   </OuterContainer>
