@@ -2,9 +2,9 @@ import React from 'react';
 import { prevBtnFactory } from '../common/nav-btn';
 
 
-const AddImagesBtn = prevBtnFactory('Add Images');
+const PrevBtn = prevBtnFactory('Add Texts');
 
 
 export default {
-  prevBtn: <AddImagesBtn />,
+  prevBtn: <PrevBtn />,
 };
