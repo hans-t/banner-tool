@@ -4,7 +4,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import IndexView from './index-page/view';
 import AddImagesView from './add-images-page/view';
-import GlobalTextsView from './global-texts-page/view';
+import CopyView from './copy-page/view';
 import TextsView from './texts-page/view';
 import ResultsView from './results-page/view';
 
@@ -14,7 +14,7 @@ injectTapEventPlugin();
 const pages = [
   <IndexView />,
   <AddImagesView />,
-  <GlobalTextsView />,
+  <CopyView />,
   <TextsView />,
   <ResultsView />,
 ];

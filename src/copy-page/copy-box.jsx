@@ -6,7 +6,7 @@ import MenuItem from 'material-ui/lib/menus/menu-item';
 
 import copyTranslations from '../common/copyTranslations';
 import { getSelectedCountries } from '../common/helpers';
-import { updateGlobalCopyAction } from './actionCreators';
+import { updateCopyAction } from './actionCreators';
 
 
 const defaultStyle = {
@@ -25,7 +25,7 @@ const selectFieldStyle = {
 };
 
 
-const GlobalTextsBox = ({ style, updateGlobalCopy, copies }) => (
+const CopyBox = ({ style, updateGlobalCopy, copies }) => (
   <div style={{ ...defaultStyle, ...style }}>
     {Object.keys(copyTranslations).map(copyType => {
       const copyValue = copies[copyType];
@@ -48,7 +48,7 @@ const GlobalTextsBox = ({ style, updateGlobalCopy, copies }) => (
 );
 
 
-GlobalTextsBox.propTypes = {
+CopyBox.propTypes = {
   updateGlobalCopy: React.PropTypes.func.isRequired,
   copies: React.PropTypes.object.isRequired,
   style: React.PropTypes.object,
@@ -57,11 +57,11 @@ GlobalTextsBox.propTypes = {
 
 export default connect(
   state => ({
-    copies: state.globalTexts,
+    copies: state.copies,
     countries: getSelectedCountries(state.countries),
   }),
   dispatch => ({
-    updateGlobalCopy: ({ countries, copy, copyType }) => dispatch(updateGlobalCopyAction({
+    updateGlobalCopy: ({ countries, copy, copyType }) => dispatch(updateCopyAction({
       countries,
       copyType,
       copy,
@@ -77,4 +77,4 @@ export default connect(
       ),
     };
   }
-)(GlobalTextsBox);
+)(CopyBox);

@@ -1,1 +1,0 @@
-export const UPDATE_GLOBAL_COPY = 'UPDATE_GLOBAL_COPY';

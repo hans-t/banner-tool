@@ -1,4 +1,4 @@
-export const UPDATE_COPY = 'UPDATE_COPY';
+export const UPDATE_TRANSLATED_COPY = 'UPDATE_TRANSLATED_COPY';
 
 export function initTexts() {
   return {};

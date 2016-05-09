@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { TextFieldWithValidation } from '../common/input';
-import { updateCopyAction } from './actionCreators';
+import { updateTranslatedCopyAction } from './actionCreators';
 
 
 const defaultStyle = {
@@ -21,7 +21,10 @@ const TextsBox = ({ updateCopy, currentCountry, copies, style }) => (
         key={`${currentCountry}${copyType}`}
         defaultValue={copies[copyType]}
         required
-        onChange={(event) => updateCopy({ copy: event.target.value, copyType })}
+        onChange={(event) => updateCopy({
+          copy: event.target.value,
+          copyType,
+        })}
       />
     ))}
   </div>
@@ -51,7 +54,7 @@ export default connect(
     copies: state.textsByCountry[ownProps.currentCountry],
   }),
   (dispatch, ownProps) => ({
-    updateCopy: ({ copy, copyType }) => dispatch(updateCopyAction({
+    updateCopy: ({ copy, copyType }) => dispatch(updateTranslatedCopyAction({
       country: ownProps.currentCountry,
       copyType,
       copy,
