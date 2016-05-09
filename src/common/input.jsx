@@ -44,13 +44,13 @@ export class TextFieldWithValidation extends React.Component {
 }
 
 TextFieldWithValidation.propTypes = {
-  errorText: React.PropTypes.string.isRequired,
+  errorText: React.PropTypes.string,
   required: React.PropTypes.bool,
   onChange: React.PropTypes.func,
 };
 
 TextFieldWithValidation.defaultProps = {
   required: false,
+  errorText: 'Please fill in the following field',
   onChange: () => {},
-  onValid: () => {},
 };

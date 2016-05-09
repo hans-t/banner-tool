@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import SelectField from 'material-ui/lib/select-field';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 
-import copyTranslations from './copyTranslations';
+import copyTranslations from '../common/copyTranslations';
 import { getSelectedCountries } from '../common/helpers';
 import { updateGlobalCopyAction } from './actionCreators';
 
@@ -18,20 +18,32 @@ const defaultStyle = {
 };
 
 
+const selectFieldStyle = {
+  width: '60%',
+  display: 'block',
+  margin: '0 auto 30px',
+};
+
+
 const GlobalTextsBox = ({ style, updateGlobalCopy, copies }) => (
   <div style={{ ...defaultStyle, ...style }}>
-    {Object.keys(copyTranslations).map(copyType => (
-      <SelectField
-        key={copyType}
-        onChange={(event, index, copy) => updateGlobalCopy({ copy, copyType })}
-        value={copies[copyType]}
-        floatingLabelText={copyType.toUpperCase()}
-      >
-        {Object.keys(copyTranslations[copyType].global).map(copy => (
-          <MenuItem key={copy} value={copy} primaryText={copy} />
-        ))}
-      </SelectField>
-    ))}
+    {Object.keys(copyTranslations).map(copyType => {
+      const copyValue = copies[copyType];
+      return (
+        <SelectField
+          key={copyType}
+          style={selectFieldStyle}
+          onChange={(event, index, copy) => updateGlobalCopy({ copy, copyType })}
+          value={copyValue}
+          floatingLabelText={copyType.toUpperCase()}
+          errorText={copyValue ? '' : 'Required'}
+        >
+          {Object.keys(copyTranslations[copyType].global).map(copy => (
+            <MenuItem key={copy} value={copy} primaryText={copy} />
+          ))}
+        </SelectField>
+      );
+    })}
   </div>
 );
 
