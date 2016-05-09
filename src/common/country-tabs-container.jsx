@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { getSelectedCountries } from './helpers';
 import TabbedContainer from './tabbed-container';
 
 
@@ -23,7 +24,7 @@ CountryTabsContainer.propTypes = {
 
 export default connect(
   state => ({
-    countries: state.countries.filter(country => country.selected).map(el => el.value),
+    countries: getSelectedCountries(state.countries),
   }),
   null
 )(CountryTabsContainer);

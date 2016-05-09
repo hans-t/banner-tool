@@ -86,3 +86,10 @@ export function groupReducerByCountry(
     }
   };
 }
+
+
+export function getSelectedCountries(countries) {
+  return countries
+    .filter(country => country.selected)
+    .map(country => country.value);
+}

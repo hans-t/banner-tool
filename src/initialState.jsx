@@ -22,6 +22,7 @@ function loadImages() {
 
 const countries = constants.AVAILABLE_COUNTRIES_OPTION.map(obj => ({ ...obj }));
 countries[0].selected = true;
+countries[1].selected = true;
 
 
 const imagesByCountry = {
