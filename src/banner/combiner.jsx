@@ -7,6 +7,7 @@ import {
   removeExistingCombinationsAction,
 } from '../banner/actionCreators';
 
+
 function setTexts(templateTexts, texts) {
   const textsObj = {};
   Object.keys(templateTexts).forEach(key => {
@@ -39,9 +40,9 @@ function getCombinations(images, templates, texts) {
       const combinedImages = combination(images, imageBoxes.length);
       while (imageSet = combinedImages.next()) {  // eslint-disable-line no-cond-assign
         const bannerId = initBannerId({ index: bannerIds.length, pageNum: 1 });
-        bannerIds.push(bannerId);
 
         const { id } = bannerId;
+        bannerIds.push(bannerId);
         imageSetsById[id] = imageSet.map(assignImageToBox);
         propsById[id] = template.props;
         textsById[id] = setTexts(templateTexts, texts);
@@ -56,21 +57,6 @@ function getSelectedTemplates(templates) {
   return Object.keys(templates)
     .map(name => templates[name])
     .filter(template => template.selected);
-}
-
-
-/**
- * a convenient function that removes existing combinations and add new combinations in store
- */
-export function combine({
-  addNewCombinations,
-  removeExistingCombinations,
-  images,
-  templates,
-  texts,
-}) {
-  removeExistingCombinations();
-  addNewCombinations(getCombinations(images, templates, texts));
 }
 
 
@@ -106,13 +92,17 @@ export function mapCombinerDispatchProps(dispatch, ownProps) {
 
 
 export function mergeCombinerProps(stateProps, dispatchProps, ownProps) {
-  const { bannerIds } = stateProps;
-  const { removeExistingCombinations, ...dispatchers } = dispatchProps;
+  const { bannerIds, images, templates, texts } = stateProps;
+  const { removeExistingCombinations, addNewCombinations } = dispatchProps;
+
   return {
     ...stateProps,
-    ...dispatchers,
+    ...dispatchProps,
     ...ownProps,
-    removeExistingCombinations: () => removeExistingCombinations(bannerIds.map(el => el.id)),
+    combine: () => {
+      removeExistingCombinations(bannerIds.map(el => el.id));
+      addNewCombinations(getCombinations(images, templates, texts));
+    },
   };
 }
 
@@ -122,6 +112,5 @@ export const combinerPropTypes = {
   images: React.PropTypes.array.isRequired,
   templates: React.PropTypes.array.isRequired,
   texts: React.PropTypes.object.isRequired,
-  addNewCombinations: React.PropTypes.func.isRequired,
-  removeExistingCombinations: React.PropTypes.func.isRequired,
+  combine: React.PropTypes.func.isRequired,
 };

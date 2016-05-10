@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import Results from './results';
 import { toggleBannerSelection } from '../banner/actionCreators';
 import {
-  combine,
   combinerPropTypes,
   mapCombinerStateToProps,
   mapCombinerDispatchProps,
+  mergeCombinerProps,
 } from './combiner';
 
 
@@ -90,13 +90,13 @@ function shouldCombinationsUpdate(prevProps, nextProps) {
 class ResultsContainer extends React.Component {
   componentDidMount() {
     if (shouldCombineOnMount(this.props)) {
-      combine(this.props);
+      this.props.combine();
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (shouldCombinationsUpdate(this.props, nextProps)) {
-      combine(nextProps);
+      nextProps.combine();
     }
   }
 
@@ -159,25 +159,14 @@ function mapStateToProps(state, ownProps) {
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   ...mapCombinerDispatchProps(dispatch, ownProps),
-  handleBannerClick: (index) => (
+  handleBannerClick: index => (
     dispatch(toggleBannerSelection(ownProps.currentCountry, index))
   ),
 });
 
 
-function mergeProps(stateProps, dispatchProps, ownProps) {
-  const { bannerIds } = stateProps;
-  const { removeExistingCombinations, ...dispatchers } = dispatchProps;
-  return {
-    ...stateProps,
-    ...dispatchers,
-    ...ownProps,
-    removeExistingCombinations: () => removeExistingCombinations(bannerIds.map(el => el.id)),
-  };
-}
-
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-  mergeProps
+  mergeCombinerProps
 )(ResultsContainer);
