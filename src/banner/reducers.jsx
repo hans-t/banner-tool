@@ -7,8 +7,8 @@ import {
 
 import {
   TOGGLE_BANNER_SELECTION,
-  REMOVE_BANNER_IDS,
-  UPDATE_COMBINATIONS,
+  REMOVE_EXISTING_COMBINATIONS,
+  ADD_NEW_COMBINATIONS,
 } from './actions';
 
 import { GO_TO_NEXT_PAGE } from '../common/actions';
@@ -22,7 +22,7 @@ import { GO_TO_NEXT_PAGE } from '../common/actions';
 function bannerIds(state = [], action) {
   const { type, index } = action;
   switch (type) {
-    case UPDATE_COMBINATIONS:
+    case ADD_NEW_COMBINATIONS:
       return action.bannerIds;
 
     case TOGGLE_BANNER_SELECTION: {
@@ -30,7 +30,7 @@ function bannerIds(state = [], action) {
       return replaceValueInArray(state, index, { ...bannerId, selected: !bannerId.selected });
     }
 
-    case REMOVE_BANNER_IDS:
+    case REMOVE_EXISTING_COMBINATIONS:
       if (action.bannerIds.length > 0) {
         return [];
       } else {
@@ -71,13 +71,13 @@ export const bannerIdsByCountry = groupReducerByCountry(
 
 export function imageSetsById(state = {}, action) {
   switch (action.type) {
-    case UPDATE_COMBINATIONS:
+    case ADD_NEW_COMBINATIONS:
       return {
         ...state,
         ...action.imageSetsById,
       };
 
-    case REMOVE_BANNER_IDS:
+    case REMOVE_EXISTING_COMBINATIONS:
       return omitKeys(state, action.bannerIds);
 
     default:
@@ -91,13 +91,13 @@ export function propsById(state = {}, action) {
   const props = setDefaultValue(state[id], {});
 
   switch (action.type) {
-    case UPDATE_COMBINATIONS:
+    case ADD_NEW_COMBINATIONS:
       return {
         ...state,
         ...action.propsById,
       };
 
-    case REMOVE_BANNER_IDS:
+    case REMOVE_EXISTING_COMBINATIONS:
       return omitKeys(state, action.bannerIds);
 
     case 'SET_BANNER_CTA_URL':
@@ -141,13 +141,13 @@ export function textsById(state = {}, action) {
   const texts = setDefaultValue(state[id], {});
 
   switch (action.type) {
-    case UPDATE_COMBINATIONS:
+    case ADD_NEW_COMBINATIONS:
       return {
         ...state,
         ...action.textsById,
       };
 
-    case REMOVE_BANNER_IDS:
+    case REMOVE_EXISTING_COMBINATIONS:
       return omitKeys(state, action.bannerIds);
 
     case 'SET_HEADLINE':

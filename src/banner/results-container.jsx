@@ -6,8 +6,8 @@ import { combination } from 'js-combinatorics';
 import Results from './results';
 import { initBannerId } from '../add-images-page/actions';
 import {
-  updateCombinationsAction,
-  removeBannerIdsAction,
+  addNewCombinationsAction,
+  removeExistingCombinationsAction,
   toggleBannerSelection,
 } from '../banner/actionCreators';
 
@@ -126,27 +126,25 @@ function getCombinations(images, templates) {
 }
 
 
-function getSelectedTemplates(templates) {
-  return Object.keys(templates)
-    .map(name => templates[name])
-    .filter(template => template.selected);
+/**
+ * a convenient function that removes existing combinations and add new combinations in store
+ */
+function combine({ addNewCombinations, removeExistingCombinations, images, templates }) {
+  removeExistingCombinations();
+  addNewCombinations(getCombinations(images, templates));
 }
 
 
 class ResultsContainer extends React.Component {
   componentDidMount() {
     if (shouldCombineOnMount(this.props)) {
-      const { updateCombinations, removeBannerIds, images, templates } = this.props;
-      removeBannerIds();
-      updateCombinations(getCombinations(images, templates));
+      combine(this.props);
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (shouldCombinationsUpdate(this.props, nextProps)) {
-      const { updateCombinations, removeBannerIds, images, templates } = nextProps;
-      removeBannerIds();
-      updateCombinations(getCombinations(images, templates));
+      combine(nextProps);
     }
   }
 
@@ -179,15 +177,22 @@ ResultsContainer.propTypes = {
   images: React.PropTypes.array.isRequired,
   bannerIds: React.PropTypes.array.isRequired,
   templates: React.PropTypes.array.isRequired,
-  updateCombinations: React.PropTypes.func.isRequired,
+  addNewCombinations: React.PropTypes.func.isRequired,
   handleBannerClick: React.PropTypes.func.isRequired,
-  removeBannerIds: React.PropTypes.func.isRequired,
+  removeExistingCombinations: React.PropTypes.func.isRequired,
   imageSetsById: React.PropTypes.object.isRequired,
   propsById: React.PropTypes.object.isRequired,
   currentCountry: React.PropTypes.string.isRequired,
   currentPageNum: React.PropTypes.number.isRequired,
   style: React.PropTypes.object,
 };
+
+
+function getSelectedTemplates(templates) {
+  return Object.keys(templates)
+    .map(name => templates[name])
+    .filter(template => template.selected);
+}
 
 
 function mapStateToProps(state, ownProps) {
@@ -215,11 +220,11 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch, ownProps) {
   const { currentCountry } = ownProps;
   return {
-    updateCombinations: (combinations) => (
-      dispatch(updateCombinationsAction(currentCountry, combinations))
+    addNewCombinations: (combinations) => (
+      dispatch(addNewCombinationsAction(currentCountry, combinations))
     ),
-    removeBannerIds: (bannerIds) => (
-      dispatch(removeBannerIdsAction(currentCountry, bannerIds))
+    removeExistingCombinations: (bannerIds) => (
+      dispatch(removeExistingCombinationsAction(currentCountry, bannerIds))
     ),
     handleBannerClick: (index) => (
       dispatch(toggleBannerSelection(currentCountry, index))
@@ -230,12 +235,12 @@ function mapDispatchToProps(dispatch, ownProps) {
 
 function mergeProps(stateProps, dispatchProps, ownProps) {
   const { bannerIds } = stateProps;
-  const { removeBannerIds, ...dispatchers } = dispatchProps;
+  const { removeExistingCombinations, ...dispatchers } = dispatchProps;
   return {
     ...stateProps,
     ...dispatchers,
     ...ownProps,
-    removeBannerIds: () => removeBannerIds(bannerIds.map(el => el.id)),
+    removeExistingCombinations: () => removeExistingCombinations(bannerIds.map(el => el.id)),
   };
 }
 

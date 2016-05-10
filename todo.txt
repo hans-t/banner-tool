@@ -1,14 +1,12 @@
-- Write stateless components as functional components not class.
+- BUG: When templates are selected/deselected, combinations are NOT updated.
 
 - Work getCombinations for texts.
 
-- Maximize available space. Example: source URLS container and results should be
-separated by dividers not by cards. Read: https://www.google.com/design/spec/layout/structure.html#structure-ui-regions
-
-- BUG: When templates are selected/deselected, combinations are NOT updated.
-
 - BUG: When deleting source, React throws. See https://github.com/facebook/react/issues/6538
 Need to update React to v15.0.3 when available.
+
+- Maximize available space. Example: source URLS container and results should be
+separated by dividers not by cards. Read: https://www.google.com/design/spec/layout/structure.html#structure-ui-regions
 
 
 Notes:

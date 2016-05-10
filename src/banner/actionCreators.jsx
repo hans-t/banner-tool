@@ -1,19 +1,19 @@
 import {
-  UPDATE_COMBINATIONS,
-  REMOVE_BANNER_IDS,
+  ADD_NEW_COMBINATIONS,
+  REMOVE_EXISTING_COMBINATIONS,
   TOGGLE_BANNER_SELECTION,
 } from './actions';
 
 
-export const updateCombinationsAction = (country, combinations) => ({
-  type: UPDATE_COMBINATIONS,
+export const addNewCombinationsAction = (country, combinations) => ({
+  type: ADD_NEW_COMBINATIONS,
   country,
   ...combinations,
 });
 
 
-export const removeBannerIdsAction = (country, bannerIds) => ({
-  type: REMOVE_BANNER_IDS,
+export const removeExistingCombinationsAction = (country, bannerIds) => ({
+  type: REMOVE_EXISTING_COMBINATIONS,
   country,
   bannerIds,
 });
