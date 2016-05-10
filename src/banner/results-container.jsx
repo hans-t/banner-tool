@@ -197,14 +197,13 @@ function mapStateToProps(state, ownProps) {
     templates,
     imageSetsById,
   } = state;
-  const bannerIds = bannerIdsByCountry[currentCountry];
 
   return {
     images: imagesByCountry[currentCountry],
+    bannerIds: bannerIdsByCountry[currentCountry],
     templates: getSelectedTemplates(templates),
     currentPageNum: pageNum,
     imageSetsById,
-    bannerIds,
     propsById,
   };
 }

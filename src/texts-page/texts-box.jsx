@@ -9,7 +9,7 @@ const styles = {
   div: {
     width: '100%',
     height: '100%',
-    padding: 0,
+    padding: '2%',
     overflowY: 'auto',
   },
   textField: {
@@ -20,12 +20,12 @@ const styles = {
 };
 
 
-const TextsBox = ({ updateCopy, currentCountry, copies, style }) => (
+const TextsBox = ({ updateCopy, copies, style }) => (
   <div style={{ ...styles.div, ...style }}>
     {Object.keys(copies).map(copyType => (
       <TextFieldWithValidation
         required
-        key={`${currentCountry}${copyType}`}
+        key={copyType}
         style={styles.textField}
         defaultValue={copies[copyType]}
         floatingLabelText={copyType.toUpperCase()}
@@ -41,7 +41,6 @@ const TextsBox = ({ updateCopy, currentCountry, copies, style }) => (
 
 TextsBox.propTypes = {
   updateCopy: React.PropTypes.func.isRequired,
-  currentCountry: React.PropTypes.string.isRequired,
   copies: React.PropTypes.object,
   style: React.PropTypes.object,
 };

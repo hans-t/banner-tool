@@ -10,7 +10,7 @@ import TextsBox from './texts-box';
 export default () => (
   <OuterContainer>
     <CountryTabsContainer>
-      <TextsBox />
+      <TextsBox keyed />
     </CountryTabsContainer>
     <NavBtnContainer {...navButtons} />
   </OuterContainer>

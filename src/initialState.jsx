@@ -150,7 +150,7 @@ const textsByCountry = {
 };
 
 
-const pageNum = 1;
+const pageNum = 3;
 
 
 const selectedChannel = 'mobile';
