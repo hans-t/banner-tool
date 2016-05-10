@@ -17,12 +17,16 @@ function isAllImagesInitialized(images) {
 }
 
 
-function shouldCombineOnMount(images, templates) {
+function shouldCombineOnMount({ images, templates, bannerIds }) {
   if (!isAllImagesInitialized(images)) {
     return false;
   }
 
   if (Object.keys(templates).length === 0) {
+    return false;
+  }
+
+  if (bannerIds.length > 0) {
     return false;
   }
 
@@ -131,9 +135,8 @@ function getSelectedTemplates(templates) {
 
 class ResultsContainer extends React.Component {
   componentDidMount() {
-    const { images, templates } = this.props;
-    if (shouldCombineOnMount(images, templates)) {
-      const { updateCombinations, removeBannerIds } = this.props;
+    if (shouldCombineOnMount(this.props)) {
+      const { updateCombinations, removeBannerIds, images, templates } = this.props;
       removeBannerIds();
       updateCombinations(getCombinations(images, templates));
     }
