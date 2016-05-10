@@ -6,15 +6,34 @@ import ActionDelete from 'material-ui/lib/svg-icons/action/delete';
 import { TextFieldWithValidation } from '../common/input';
 
 
+const styles = {
+  container: {
+    display: 'flex',
+  },
+  urlField: {
+    marginTop: -14,
+    marginBottom: 28,
+    flex: 20,
+    marginRight: 10,
+  },
+  imageNumberField: {
+    marginTop: -14,
+    marginBottom: 28,
+    flex: 5,
+  },
+  deleteBtn: {
+    flex: 1,
+    marginTop: 12,
+    marginRight: -12,
+  },
+};
+
+
 class ImageSource extends React.Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.state = this.props.defaultValues;
-    this.defaultStyle = {
-      marginTop: -14,
-      marginBottom: 28,
-    };
   }
 
   handleChange(event, isValid) {
@@ -32,9 +51,8 @@ class ImageSource extends React.Component {
 
   render() {
     const { onDelete, style } = this.props;
-
     return (
-      <div style={{ display: 'flex' }}>
+      <div style={{ ...styles.container, ...style }}>
         <TextFieldWithValidation
           type="url"
           name="url"
@@ -44,7 +62,7 @@ class ImageSource extends React.Component {
           errorText="This field must be filled with valid URL."
           required
           onChange={this.handleChange}
-          style = {{ ...this.defaultStyle, ...style, flex: 20, marginRight: 10 }}
+          style = {styles.urlField}
         />
         <TextFieldWithValidation
           type="number"
@@ -58,11 +76,11 @@ class ImageSource extends React.Component {
           step="1"
           required
           onChange={this.handleChange}
-          style = {{ ...this.defaultStyle, ...style, flex: 5 }}
+          style = {styles.imageNumberField}
         />
         <IconButton
           tooltip="SVG Icon"
-          style={{ flex: 1, marginTop: 12, marginRight: -12 }}
+          style={styles.deleteBtn}
           onClick={onDelete}
         >
           <ActionDelete />
@@ -81,7 +99,9 @@ ImageSource.propTypes = {
   style: React.PropTypes.object,
 };
 
-ImageSource.defaultProps = { style: {} };
+ImageSource.defaultProps = {
+  style: {},
+};
 
 
 export default ImageSource;

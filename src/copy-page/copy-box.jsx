@@ -9,7 +9,7 @@ import { getSelectedCountries } from '../common/helpers';
 import { updateCopyAction } from './actionCreators';
 
 
-const defaultStyle = {
+const styles = {
   div: {
     width: '100%',
     height: '100%',
@@ -25,13 +25,13 @@ const defaultStyle = {
 
 
 const CopyBox = ({ style, updateGlobalCopy, copies }) => (
-  <div style={{ ...defaultStyle.div, ...style }}>
+  <div style={{ ...styles.div, ...style }}>
     {Object.keys(copyTranslations).map(copyType => {
       const copyValue = copies[copyType];
       return (
         <SelectField
           key={copyType}
-          style={defaultStyle.selectField}
+          style={styles.selectField}
           onChange={(event, index, copy) => updateGlobalCopy({ copy, copyType })}
           value={copyValue}
           floatingLabelText={copyType.toUpperCase()}

@@ -5,6 +5,22 @@ import CheckCircleIcon from './checkCircleIcon';
 import { fitImageInsideBox, computePreviewDimension } from './helper';
 
 
+const styles = {
+  container: {
+    boxSizing: 'border-box',
+    display: 'inline-block',
+    paddingTop: 1,
+    margin: '0 4px 0 0',
+    position: 'relative',
+  },
+  content: {
+    margin: 0,
+    padding: 0,
+    outline: '1px solid black',
+  },
+};
+
+
 /**
  * dx, dy, dWidth, dHeight are defined in: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage
  * Render preview using canvas not img.
@@ -21,21 +37,6 @@ export default class BannerView extends React.Component {
     this.previewWidth = previewWidth;
     this.previewHeight = previewHeight;
     this.canvas = new Canvas(width, height);
-    this.styles = {
-      container: {
-        boxSizing: 'border-box',
-        display: 'inline-block',
-        paddingTop: 1,
-        margin: '0 4px 0 0',
-        position: 'relative',
-      },
-      content: {
-        margin: 0,
-        padding: 0,
-        outline: '1px solid black',
-      },
-    };
-
     this.drawOnCanvas = this.drawOnCanvas.bind(this);
     this.renderPreview = this.renderPreview.bind(this);
   }
@@ -81,13 +82,13 @@ export default class BannerView extends React.Component {
   render() {
     const { onClick, selected } = this.props;
     return (
-      <div style={this.styles.container} onClick={onClick}>
+      <div style={styles.container} onClick={onClick}>
         <CheckCircleIcon selected={selected} />
         <canvas
           width={this.previewWidth}
           height={this.previewHeight}
           ref={e => this.previewCanvas = e} // eslint-disable-line no-return-assign
-          style={this.styles.content}
+          style={styles.content}
         />
       </div>
     );

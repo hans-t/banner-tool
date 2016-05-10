@@ -5,7 +5,7 @@ import { TextFieldWithValidation } from '../common/input';
 import { updateTranslatedCopyAction } from './actionCreators';
 
 
-const defaultStyle = {
+const styles = {
   div: {
     width: '100%',
     height: '100%',
@@ -21,12 +21,12 @@ const defaultStyle = {
 
 
 const TextsBox = ({ updateCopy, currentCountry, copies, style }) => (
-  <div style={{ ...defaultStyle.div, ...style }}>
+  <div style={{ ...styles.div, ...style }}>
     {Object.keys(copies).map(copyType => (
       <TextFieldWithValidation
         required
         key={`${currentCountry}${copyType}`}
-        style={defaultStyle.textField}
+        style={styles.textField}
         defaultValue={copies[copyType]}
         floatingLabelText={copyType.toUpperCase()}
         onChange={(event) => updateCopy({
