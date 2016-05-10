@@ -40,3 +40,21 @@ export function computePreviewDimension(width, height) {
 
   return { previewWidth, previewHeight };
 }
+
+
+export function isAllImagesInitialized(images) {
+  return images.every(image => image.hasOwnProperty('image'));
+}
+
+
+export function isAllTextsInitialized(texts) {
+  return Object.keys(texts)
+    .every(copyType => texts[copyType] === '');
+}
+
+
+export function getSelectedTemplates(templates) {
+  return Object.keys(templates)
+    .map(name => templates[name])
+    .filter(template => template.selected);
+}

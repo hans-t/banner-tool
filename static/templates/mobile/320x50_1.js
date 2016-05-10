@@ -17,9 +17,9 @@ module.exports = {
         "textAlign": "center",
         "textBaseline": "top",
         "fillStyle": "#000",
-        "fontSize": 72,
-        "x": 620,
-        "y": 590,
+        "fontSize": 14,
+        "x": 194,
+        "y": 29,
     },
   },
 

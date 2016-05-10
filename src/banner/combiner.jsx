@@ -2,6 +2,7 @@ import React from 'react';
 import { combination } from 'js-combinatorics';
 
 import { initBannerId } from '../add-images-page/actions';
+import { getSelectedTemplates } from './helper';
 import {
   addNewCombinationsAction,
   removeExistingCombinationsAction,
@@ -13,19 +14,19 @@ function setTexts(templateTexts, texts) {
   Object.keys(templateTexts).forEach(key => {
     textsObj[key] = {
       ...templateTexts[key],
-      text: texts[key],
+      text: texts[key] || '',
     };
   });
   return textsObj;
 }
 
 
-function getCombinations(images, templates, texts) {
+export function getCombinations(images, templates, texts) {
   let imageBoxes;
   const imageSetsById = {};
   const bannerIds = [];
-  const propsById = [];
-  const textsById = [];
+  const propsById = {};
+  const textsById = {};
 
   const assignImageToBox = (image, imageSetIndex) => ({
     ...imageBoxes[imageSetIndex],
@@ -50,13 +51,6 @@ function getCombinations(images, templates, texts) {
     }
   });
   return { bannerIds, imageSetsById, propsById, textsById };
-}
-
-
-function getSelectedTemplates(templates) {
-  return Object.keys(templates)
-    .map(name => templates[name])
-    .filter(template => template.selected);
 }
 
 

@@ -12,8 +12,8 @@ ReactDOM.render(
   <Provider
     store={createStore(
       rootReducer,
-      initialState,
-      // {},
+      // initialState,
+      {},
       window.devToolsExtension ? window.devToolsExtension() : undefined
     )}
   >

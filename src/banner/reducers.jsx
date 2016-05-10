@@ -8,6 +8,7 @@ import {
 import {
   TOGGLE_BANNER_SELECTION,
   REMOVE_EXISTING_COMBINATIONS,
+  REPLACE_COMBINATIONS,
   ADD_NEW_COMBINATIONS,
 } from './actions';
 
@@ -62,18 +63,8 @@ export const bannerIdsByCountry = groupReducerByCountry(
         return newState;
       }
 
-      /**
-       * Different from the case in bannerIds, because here will apply to all countries.
-       */
-      case REMOVE_EXISTING_COMBINATIONS: {
-        const newState = {};
-        const removedIdsSet = new Set(action.bannerIds);
-        Object.keys(state)
-          .forEach(country => (
-            newState[country] = state[country].filter(el => !removedIdsSet.has(el.id))
-          ));
-        return newState;
-      }
+      case REPLACE_COMBINATIONS:
+        return action.bannerIdsByCountry;
 
       default:
         return state;
@@ -92,6 +83,9 @@ export function imageSetsById(state = {}, action) {
 
     case REMOVE_EXISTING_COMBINATIONS:
       return omitKeys(state, action.bannerIds);
+
+    case REPLACE_COMBINATIONS:
+      return action.imageSetsById;
 
     default:
       return state;
@@ -112,6 +106,9 @@ export function propsById(state = {}, action) {
 
     case REMOVE_EXISTING_COMBINATIONS:
       return omitKeys(state, action.bannerIds);
+
+    case REPLACE_COMBINATIONS:
+      return action.propsById;
 
     case 'SET_BANNER_CTA_URL':
       return {
@@ -162,6 +159,9 @@ export function textsById(state = {}, action) {
 
     case REMOVE_EXISTING_COMBINATIONS:
       return omitKeys(state, action.bannerIds);
+
+    case REPLACE_COMBINATIONS:
+      return action.textsById;
 
     case 'SET_HEADLINE':
       return {

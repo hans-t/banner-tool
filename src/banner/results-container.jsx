@@ -3,17 +3,13 @@ import { connect } from 'react-redux';
 
 import Results from './results';
 import { toggleBannerSelection } from '../banner/actionCreators';
+import { isAllImagesInitialized } from './helper';
 import {
   combinerPropTypes,
   mapCombinerStateToProps,
   mapCombinerDispatchProps,
   mergeCombinerProps,
 } from './combiner';
-
-
-function isAllImagesInitialized(images) {
-  return images.every(image => image.hasOwnProperty('image'));
-}
 
 
 function shouldCombineOnMount({ images, templates, bannerIds }) {
