@@ -27,6 +27,7 @@ const BannerList = ({
   images,
   imageSetsById,
   handleBannerClick,
+  textsById,
 }) => (
   <div style={styles.container}>
     <p style={styles.header}>{sizeStr}</p>
@@ -41,6 +42,7 @@ const BannerList = ({
             onClick={() => handleBannerClick(index)}
             imageSets={imageSetsById[id]}
             properties={propsById[id]}
+            texts={textsById[id]}
           />
         );
       })}
@@ -52,6 +54,7 @@ BannerList.propTypes = {
   handleBannerClick: React.PropTypes.func.isRequired,
   sizeStr: React.PropTypes.string.isRequired,
   bannerIds: React.PropTypes.array.isRequired,
+  textsById: React.PropTypes.object.isRequired,
   propsById: React.PropTypes.object.isRequired,
   images: React.PropTypes.array.isRequired,
   imageSetsById: React.PropTypes.object.isRequired,

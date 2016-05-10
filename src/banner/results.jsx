@@ -60,6 +60,7 @@ const Results = ({ style, ...props }) => (
 Results.propTypes = {
   handleBannerClick: React.PropTypes.func.isRequired,
   bannerIds: React.PropTypes.array.isRequired,
+  textsById: React.PropTypes.object.isRequired,
   propsById: React.PropTypes.object.isRequired,
   imageSetsById: React.PropTypes.object.isRequired,
   images: React.PropTypes.array.isRequired,

@@ -1,4 +1,10 @@
+Need to attach combine() to components other than result-container;
+
 - Work getCombinations for texts.
+- Work on Canvas.addText()
+- Work on templates.headline
+- Work on getCombinations
+- Work on BannerView
 
 - BUG: When deleting source, React throws. See https://github.com/facebook/react/issues/6538
 Need to update React to v15.0.3 when available.

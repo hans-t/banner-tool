@@ -13,7 +13,14 @@ module.exports = {
   },
 
   "texts": {
-
+    "headline": {
+        "textAlign": "center",
+        "textBaseline": "top",
+        "fillStyle": "#000",
+        "fontSize": 72,
+        "x": 620,
+        "y": 590,
+    },
   },
 
   "selected": true,

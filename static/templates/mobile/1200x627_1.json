@@ -13,7 +13,14 @@
   },
 
   "texts": {
-
+    "headline": {
+        "textAlign": "center",
+        "textBaseline": "top",
+        "fillStyle": "#000",
+        "fontSize": 14,
+        "x": 194,
+        "y": 29
+    }
   },
 
   "selected": true

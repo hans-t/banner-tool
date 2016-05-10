@@ -51,7 +51,7 @@ export default class BannerView extends React.Component {
 
   drawOnCanvas() {
     const { canvas, props } = this;
-    const { imageSets, images, properties } = props;
+    const { imageSets, images, properties, texts } = props;
     canvas.colorBackground(properties.backgroundColor);
     imageSets.forEach(({ index, boxX, boxY, boxWidth, boxHeight }) => {
       const { width, height, image } = images[index];
@@ -64,6 +64,9 @@ export default class BannerView extends React.Component {
         dy: boxY,
       });
       canvas.addImage(image, dx, dy, dWidth, dHeight);
+      Object.keys(texts).forEach(key => {
+        canvas.addText(texts[key]);
+      });
     });
   }
 
@@ -100,5 +103,10 @@ BannerView.propTypes = {
   images: React.PropTypes.array.isRequired,
   selected: React.PropTypes.bool.isRequired,
   properties: React.PropTypes.object.isRequired,
+  texts: React.PropTypes.object,
   onClick: React.PropTypes.func.isRequired,
+};
+
+BannerView.defaultProps = {
+  texts: {},
 };

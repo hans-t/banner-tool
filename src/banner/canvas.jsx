@@ -43,7 +43,22 @@ export default class Canvas {
     this.ctx.fillRect(0, 0, width, height);
   }
 
-  addText() {}
+  addText({
+    text,
+    x,
+    y,
+    fontFamily,
+    fontSize,
+    textBaseline,
+    textAlign,
+    fillStyle,
+  }) {
+    this.ctx.textAlign = textAlign;
+    this.ctx.textBaseline = textBaseline;
+    this.ctx.font = `${fontSize}px ${fontFamily}`;
+    this.ctx.fillStyle = fillStyle;
+    this.ctx.fillText(text, x, y);
+  }
 
   drawBackground(image) {
     this.addImage(image, 0, 0);

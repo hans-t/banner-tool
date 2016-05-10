@@ -1,15 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { combination } from 'js-combinatorics';
-
 
 import Results from './results';
-import { initBannerId } from '../add-images-page/actions';
+import { toggleBannerSelection } from '../banner/actionCreators';
 import {
-  addNewCombinationsAction,
-  removeExistingCombinationsAction,
-  toggleBannerSelection,
-} from '../banner/actionCreators';
+  combine,
+  combinerPropTypes,
+  mapCombinerStateToProps,
+  mapCombinerDispatchProps,
+} from './combiner';
 
 
 function isAllImagesInitialized(images) {
@@ -88,59 +87,6 @@ function shouldCombinationsUpdate(prevProps, nextProps) {
 }
 
 
-function cloneTexts(texts) {
-  const clonedObj = {};
-  const keys = ['headline', 'title', 'copy1', 'copy2', 'copy3'];
-  keys.forEach(key => {
-    if (key in texts) {
-      clonedObj[key] = { ...texts[key] };
-    }
-  });
-  return clonedObj;
-}
-
-
-function getCombinations(images, templates) {
-  let imageBoxes;
-  const imageSetsById = {};
-  const bannerIds = [];
-  const propsById = [];
-  const textsById = [];
-
-  const assignImageToBox = (image, imageSetIndex) => ({
-    ...imageBoxes[imageSetIndex],
-    index: image.index,
-  });
-
-  templates.forEach(template => {
-    let imageSet;
-    imageBoxes = template.imageBoxes;
-    if (images.length >= imageBoxes.length) {
-      const combinedImages = combination(images, imageBoxes.length);
-      while (imageSet = combinedImages.next()) {  // eslint-disable-line no-cond-assign
-        const bannerId = initBannerId({ index: bannerIds.length, pageNum: 1 });
-        bannerIds.push(bannerId);
-
-        const { id } = bannerId;
-        imageSetsById[id] = imageSet.map(assignImageToBox);
-        propsById[id] = template.props;
-        textsById[id] = cloneTexts(template.texts);
-      }
-    }
-  });
-  return { bannerIds, imageSetsById, propsById, textsById };
-}
-
-
-/**
- * a convenient function that removes existing combinations and add new combinations in store
- */
-function combine({ addNewCombinations, removeExistingCombinations, images, templates }) {
-  removeExistingCombinations();
-  addNewCombinations(getCombinations(images, templates));
-}
-
-
 class ResultsContainer extends React.Component {
   componentDidMount() {
     if (shouldCombineOnMount(this.props)) {
@@ -158,6 +104,7 @@ class ResultsContainer extends React.Component {
     const {
       bannerIds,
       propsById,
+      textsById,
       images,
       imageSetsById,
       currentPageNum,
@@ -169,6 +116,7 @@ class ResultsContainer extends React.Component {
       <Results
         bannerIds={bannerIds}
         propsById={propsById}
+        textsById={textsById}
         images={images}
         imageSetsById={imageSetsById}
         currentPageNum={currentPageNum}
@@ -180,63 +128,41 @@ class ResultsContainer extends React.Component {
 }
 
 ResultsContainer.propTypes = {
-  images: React.PropTypes.array.isRequired,
-  bannerIds: React.PropTypes.array.isRequired,
-  templates: React.PropTypes.array.isRequired,
-  addNewCombinations: React.PropTypes.func.isRequired,
-  handleBannerClick: React.PropTypes.func.isRequired,
-  removeExistingCombinations: React.PropTypes.func.isRequired,
-  imageSetsById: React.PropTypes.object.isRequired,
+  ...combinerPropTypes,
   propsById: React.PropTypes.object.isRequired,
+  textsById: React.PropTypes.object.isRequired,
+  imageSetsById: React.PropTypes.object.isRequired,
   currentCountry: React.PropTypes.string.isRequired,
   currentPageNum: React.PropTypes.number.isRequired,
+  handleBannerClick: React.PropTypes.func.isRequired,
   style: React.PropTypes.object,
 };
 
 
-function getSelectedTemplates(templates) {
-  return Object.keys(templates)
-    .map(name => templates[name])
-    .filter(template => template.selected);
-}
-
-
 function mapStateToProps(state, ownProps) {
-  const { currentCountry } = ownProps;
   const {
-    imagesByCountry,
-    bannerIdsByCountry,
-    propsById,
-    pageNum,
-    templates,
     imageSetsById,
+    propsById,
+    textsById,
+    pageNum,
   } = state;
 
   return {
-    images: imagesByCountry[currentCountry],
-    bannerIds: bannerIdsByCountry[currentCountry],
-    templates: getSelectedTemplates(templates),
+    ...mapCombinerStateToProps(state, ownProps),
     currentPageNum: pageNum,
     imageSetsById,
     propsById,
+    textsById,
   };
 }
 
 
-function mapDispatchToProps(dispatch, ownProps) {
-  const { currentCountry } = ownProps;
-  return {
-    addNewCombinations: (combinations) => (
-      dispatch(addNewCombinationsAction(currentCountry, combinations))
-    ),
-    removeExistingCombinations: (bannerIds) => (
-      dispatch(removeExistingCombinationsAction(currentCountry, bannerIds))
-    ),
-    handleBannerClick: (index) => (
-      dispatch(toggleBannerSelection(currentCountry, index))
-    ),
-  };
-}
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  ...mapCombinerDispatchProps(dispatch, ownProps),
+  handleBannerClick: (index) => (
+    dispatch(toggleBannerSelection(ownProps.currentCountry, index))
+  ),
+});
 
 
 function mergeProps(stateProps, dispatchProps, ownProps) {
