@@ -18,6 +18,9 @@ function isAllImagesInitialized(images) {
 
 
 function shouldCombineOnMount({ images, templates, bannerIds }) {
+  /**
+   * Check necessary conditions for combine:
+   */
   if (!isAllImagesInitialized(images)) {
     return false;
   }
@@ -26,6 +29,9 @@ function shouldCombineOnMount({ images, templates, bannerIds }) {
     return false;
   }
 
+  /**
+   * Don't combine when there are existing combinations
+   */
   if (bannerIds.length > 0) {
     return false;
   }

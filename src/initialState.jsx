@@ -195,23 +195,23 @@ const imageSetsById = {
 
 
 const propsById = {
-  SJNorAFb: { width: 320, height: 50, backgroundColor: 'white' },
-  HyxEoH0tW: { width: 320, height: 50, backgroundColor: 'white' },
-  Bkx4oSAYZ: { width: 320, height: 50, backgroundColor: 'white' },
-  B1fEoSRYb: { width: 320, height: 50, backgroundColor: 'white' },
-  Skm4irCtb: { width: 1200, height: 627, backgroundColor: 'white' },
-  HkE4srCFW: { width: 1200, height: 627, backgroundColor: 'white' },
-  BJB4oHAtW: { width: 1200, height: 627, backgroundColor: 'white' },
-  HkLVirRtZ: { width: 1200, height: 627, backgroundColor: 'white' },
+  SJNorAFb: { width: 320, height: 50, backgroundColor: 'white', templateName: '320x50_1' },
+  HyxEoH0tW: { width: 320, height: 50, backgroundColor: 'white', templateName: '320x50_1' },
+  Bkx4oSAYZ: { width: 320, height: 50, backgroundColor: 'white', templateName: '320x50_1' },
+  B1fEoSRYb: { width: 320, height: 50, backgroundColor: 'white', templateName: '320x50_1' },
+  Skm4irCtb: { width: 1200, height: 627, backgroundColor: 'white', templateName: '1200x627_1' },
+  HkE4srCFW: { width: 1200, height: 627, backgroundColor: 'white', templateName: '1200x627_1' },
+  BJB4oHAtW: { width: 1200, height: 627, backgroundColor: 'white', templateName: '1200x627_1' },
+  HkLVirRtZ: { width: 1200, height: 627, backgroundColor: 'white', templateName: '1200x627_1' },
 
-  CjwiqoE2: { width: 320, height: 50, backgroundColor: 'white' },
-  I102380dj: { width: 320, height: 50, backgroundColor: 'white' },
-  OWB1928P2: { width: 320, height: 50, backgroundColor: 'white' },
-  BqpwePiw: { width: 320, height: 50, backgroundColor: 'white' },
-  Skeioq122: { width: 1200, height: 627, backgroundColor: 'white' },
-  MiwoqIDio: { width: 1200, height: 627, backgroundColor: 'white' },
-  JiwO21022: { width: 1200, height: 627, backgroundColor: 'white' },
-  iObwiqo2: { width: 1200, height: 627, backgroundColor: 'white' },
+  CjwiqoE2: { width: 320, height: 50, backgroundColor: 'white', templateName: '320x50_1' },
+  I102380dj: { width: 320, height: 50, backgroundColor: 'white', templateName: '320x50_1' },
+  OWB1928P2: { width: 320, height: 50, backgroundColor: 'white', templateName: '320x50_1' },
+  BqpwePiw: { width: 320, height: 50, backgroundColor: 'white', templateName: '320x50_1' },
+  Skeioq122: { width: 1200, height: 627, backgroundColor: 'white', templateName: '1200x627_1' },
+  MiwoqIDio: { width: 1200, height: 627, backgroundColor: 'white', templateName: '1200x627_1' },
+  JiwO21022: { width: 1200, height: 627, backgroundColor: 'white', templateName: '1200x627_1' },
+  iObwiqo2: { width: 1200, height: 627, backgroundColor: 'white', templateName: '1200x627_1' },
 };
 
 
@@ -233,7 +233,7 @@ const textsByCountry = {
 };
 
 
-const pageNum = 3;
+const pageNum = 0;
 
 
 const selectedChannel = 'mobile';

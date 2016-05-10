@@ -62,6 +62,19 @@ export const bannerIdsByCountry = groupReducerByCountry(
         return newState;
       }
 
+      /**
+       * Different from the case in bannerIds, because here will apply to all countries.
+       */
+      case REMOVE_EXISTING_COMBINATIONS: {
+        const newState = {};
+        const removedIdsSet = new Set(action.bannerIds);
+        Object.keys(state)
+          .forEach(country => (
+            newState[country] = state[country].filter(el => !removedIdsSet.has(el.id))
+          ));
+        return newState;
+      }
+
       default:
         return state;
     }

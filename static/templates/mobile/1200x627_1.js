@@ -9,6 +9,7 @@ module.exports = {
     "width": 1200,
     "height": 627,
     "backgroundColor": "white",
+    "templateName": "1200x627_1",
   },
 
   "texts": {
