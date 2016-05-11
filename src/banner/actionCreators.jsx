@@ -20,10 +20,11 @@ export const removeExistingCombinationsAction = (country, bannerIds) => ({
 });
 
 
-export const toggleBannerSelection = (country, index) => ({
+export const toggleBannerSelection = ({ country, index, currentPageNum }) => ({
   type: TOGGLE_BANNER_SELECTION,
   country,
   index,
+  currentPageNum,
 });
 
 

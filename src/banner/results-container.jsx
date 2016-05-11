@@ -142,7 +142,6 @@ function mapStateToProps(state, ownProps) {
     textsById,
     pageNum,
   } = state;
-
   return {
     ...mapCombinerStateToProps(state, ownProps),
     currentPageNum: pageNum,
@@ -155,14 +154,28 @@ function mapStateToProps(state, ownProps) {
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   ...mapCombinerDispatchProps(dispatch, ownProps),
-  handleBannerClick: index => (
-    dispatch(toggleBannerSelection(ownProps.currentCountry, index))
+  handleBannerClick: (currentPageNum, index) => (
+    dispatch(toggleBannerSelection({
+      country: ownProps.currentCountry,
+      index,
+      currentPageNum,
+    }))
   ),
 });
+
+
+const mergeProps = (stateProps, dispatchProps, ownProps) => {
+  const { currentPageNum } = stateProps;
+  const { handleBannerClick } = dispatchProps;
+  return {
+    ...mergeCombinerProps(stateProps, dispatchProps, ownProps),
+    handleBannerClick: index => handleBannerClick(currentPageNum, index),
+  };
+};
 
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-  mergeCombinerProps
+  mergeProps
 )(ResultsContainer);

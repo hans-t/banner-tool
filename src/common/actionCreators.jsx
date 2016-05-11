@@ -4,11 +4,11 @@ import {
 } from './actions';
 
 
-export function goToNextPageAction() {
-  return { type: GO_TO_NEXT_PAGE };
+export function goToNextPageAction(currentPageNum) {
+  return { type: GO_TO_NEXT_PAGE, currentPageNum };
 }
 
 
-export function goToPrevPageAction() {
-  return { type: GO_TO_PREV_PAGE };
+export function goToPrevPageAction(currentPageNum) {
+  return { type: GO_TO_PREV_PAGE, currentPageNum };
 }

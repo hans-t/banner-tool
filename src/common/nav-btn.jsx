@@ -43,10 +43,12 @@ function navBtnFactory({
         return {
           ...mapRecombinerStateToProps(state),
           valid: validator(state),
+          pageNum: state.pageNum,
         };
       } else {
         return {
           valid: validator(state),
+          pageNum: state.pageNum,
         };
       }
     },
@@ -54,11 +56,11 @@ function navBtnFactory({
       if (recombineOnClick) {
         return {
           ...mapRecombinerDispatchProps(dispatch),
-          changePage: () => dispatch(action()),
+          changePage: ({ currentPageNum }) => dispatch(action(currentPageNum)),
         };
       } else {
         return {
-          changePage: () => dispatch(action()),
+          changePage: ({ currentPageNum }) => dispatch(action(currentPageNum)),
         };
       }
     },
@@ -73,7 +75,7 @@ function navBtnFactory({
             if (recombineOnClick) {
               recombine();
             }
-            changePage();
+            changePage({ currentPageNum: stateProps.pageNum });
           }
         },
       };

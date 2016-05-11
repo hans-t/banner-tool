@@ -1,13 +1,11 @@
-Keep selection on recombine().
+- Work on templates texts.
 
-- Work getCombinations for texts.
-- Work on Canvas.addText()
-- Work on templates.headline
-- Work on getCombinations
-- Work on BannerView
+- Refactor banner logic which seems complicated.
 
 - BUG: When deleting source, React throws. See https://github.com/facebook/react/issues/6538
 Need to update React to v15.0.3 when available.
+
+- Refactor combiner mappers;
 
 - Maximize available space. Example: source URLS container and results should be
 separated by dividers not by cards. Read: https://www.google.com/design/spec/layout/structure.html#structure-ui-regions
