@@ -53,6 +53,7 @@ export default class BannerView extends React.Component {
     const { canvas, props } = this;
     const { imageSets, images, properties, texts } = props;
     canvas.colorBackground(properties.backgroundColor);
+
     imageSets.forEach(({ index, boxX, boxY, boxWidth, boxHeight }) => {
       const { width, height, image } = images[index];
       const { dx, dy, dWidth, dHeight } = fitImageInsideBox({
@@ -64,10 +65,13 @@ export default class BannerView extends React.Component {
         dy: boxY,
       });
       canvas.addImage(image, dx, dy, dWidth, dHeight);
-      Object.keys(texts).forEach(key => {
-        canvas.addText(texts[key]);
-      });
     });
+
+    Object.keys(texts).forEach(key => {
+      canvas.addText(texts[key]);
+    });
+
+    // canvas.addCTA({ country: currentCountry, ...properties });
   }
 
   renderPreview() {
