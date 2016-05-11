@@ -105,11 +105,13 @@ class ResultsContainer extends React.Component {
       imageSetsById,
       currentPageNum,
       handleBannerClick,
+      currentCountry,
       style,
     } = this.props;
 
     return (
       <Results
+        country={currentCountry}
         bannerIds={bannerIds}
         propsById={propsById}
         textsById={textsById}

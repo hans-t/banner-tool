@@ -14,8 +14,8 @@ const style = {
 
 const CheckCircleIcon = ({ selected }) => (
   <ActionCheckCircle
-    color={Colors.blueA200}
-    style={{ ...style.icon, opacity: selected ? 1 : 0 }}
+    color={Colors.blueA700}
+    style={{ ...style.icon, opacity: selected ? 0.7 : 0 }}
   />
 );
 

@@ -9,7 +9,20 @@
     "width": 320,
     "height": 50,
     "backgroundColor": "white",
-    "templateName": "320x50_1"
+    "templateName": "320x50_1",
+    "logo": {
+        "dx": 234,
+        "dy": 10,
+        "dWidth": 80,
+        "dHeight": 10,
+        "name": "ZaloraBlack.png"
+    },
+    "cta": {
+        "dx": 244,
+        "dy": 24,
+        "dWidth": 60,
+        "dHeight": 20
+    }
   },
 
   "texts": {

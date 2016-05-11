@@ -60,6 +60,33 @@ export default class Canvas {
     this.ctx.fillText(text, x, y);
   }
 
+  // TODO: refactor addCTA and addLogo
+  addCTA({ country, width, height, onImageLoad, cta }) {
+    if (Object.keys(cta).length > 0) {
+      const { dx, dy, dWidth, dHeight } = cta;
+      const src = `static/cta/${width}x${height}/${country}.jpg`;
+      const image = new Image;
+      image.src = src;
+      image.onload = () => {
+        this.addImage(image, dx, dy, dWidth, dHeight);
+        onImageLoad();
+      };
+    }
+  }
+
+  addLogo({ onImageLoad, logo }) {
+    if (Object.keys(logo).length > 0) {
+      const { dx, dy, dWidth, dHeight, name } = logo;
+      const src = `static/logo/${name}`;
+      const image = new Image;
+      image.src = src;
+      image.onload = () => {
+        this.addImage(image, dx, dy, dWidth, dHeight);
+        onImageLoad();
+      };
+    }
+  }
+
   drawBackground(image) {
     this.addImage(image, 0, 0);
   }

@@ -39,6 +39,7 @@ export default class BannerView extends React.Component {
     this.canvas = new Canvas(width, height);
     this.drawOnCanvas = this.drawOnCanvas.bind(this);
     this.renderPreview = this.renderPreview.bind(this);
+    this.onImageLoad = this.onImageLoad.bind(this);
   }
 
   componentWillMount() {
@@ -49,9 +50,19 @@ export default class BannerView extends React.Component {
     this.renderPreview();
   }
 
+  componentDidUpdate() {
+    this.renderPreview();
+  }
+
+  onImageLoad() {
+    this.forceUpdate();
+  }
+
   drawOnCanvas() {
     const { canvas, props } = this;
-    const { imageSets, images, properties, texts } = props;
+    const { country, imageSets, images, properties, texts } = props;
+    canvas.addCTA({ country, onImageLoad: this.onImageLoad, ...properties });
+    canvas.addLogo({ country, onImageLoad: this.onImageLoad, ...properties });
     canvas.colorBackground(properties.backgroundColor);
 
     imageSets.forEach(({ index, boxX, boxY, boxWidth, boxHeight }) => {
@@ -70,8 +81,6 @@ export default class BannerView extends React.Component {
     Object.keys(texts).forEach(key => {
       canvas.addText(texts[key]);
     });
-
-    // canvas.addCTA({ country: currentCountry, ...properties });
   }
 
   renderPreview() {
@@ -103,6 +112,7 @@ export default class BannerView extends React.Component {
 }
 
 BannerView.propTypes = {
+  country: React.PropTypes.string.isRequired,
   imageSets: React.PropTypes.array.isRequired,
   images: React.PropTypes.array.isRequired,
   selected: React.PropTypes.bool.isRequired,

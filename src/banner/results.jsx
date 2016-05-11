@@ -58,6 +58,7 @@ const Results = ({ style, ...props }) => (
 );
 
 Results.propTypes = {
+  country: React.PropTypes.string.isRequired,
   handleBannerClick: React.PropTypes.func.isRequired,
   bannerIds: React.PropTypes.array.isRequired,
   textsById: React.PropTypes.object.isRequired,

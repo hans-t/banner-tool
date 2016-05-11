@@ -28,6 +28,7 @@ const BannerList = ({
   imageSetsById,
   handleBannerClick,
   textsById,
+  country,
 }) => (
   <div style={styles.container}>
     <p style={styles.header}>{sizeStr}</p>
@@ -37,6 +38,7 @@ const BannerList = ({
         return (
           <BannerView
             key={id}
+            country={country}
             images={images}
             selected={selected}
             onClick={() => handleBannerClick(index)}
@@ -51,6 +53,7 @@ const BannerList = ({
 );
 
 BannerList.propTypes = {
+  country: React.PropTypes.string.isRequired,
   handleBannerClick: React.PropTypes.func.isRequired,
   sizeStr: React.PropTypes.string.isRequired,
   bannerIds: React.PropTypes.array.isRequired,
