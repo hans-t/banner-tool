@@ -233,7 +233,7 @@ const textsByCountry = {
 };
 
 
-const pageNum = 0;
+const pageNum = 2;
 
 
 const selectedChannel = 'mobile';

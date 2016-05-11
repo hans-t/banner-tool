@@ -2,8 +2,8 @@ import React from 'react';
 import { prevBtnFactory, nextBtnFactory } from '../common/nav-btn';
 
 
-const PrevBtn = prevBtnFactory('Add Images');
-const NextBtn = nextBtnFactory('Edit texts');
+const PrevBtn = prevBtnFactory({ label: 'Add Images', recombineOnClick: true });
+const NextBtn = nextBtnFactory({ label: 'Edit texts' });
 
 
 export default {

@@ -1,4 +1,4 @@
-ADD validation parameter on NavBtn.
+Keep selection on recombine().
 
 - Work getCombinations for texts.
 - Work on Canvas.addText()

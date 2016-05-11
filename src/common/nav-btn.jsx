@@ -11,7 +11,7 @@ import {
 } from '../banner/recombiner';
 
 
-export const NavButton = (props) => (<RaisedButton {...props} />);
+const NavButton = (props) => (<RaisedButton {...props} />);
 
 
 NavButton.propTypes = {
@@ -25,45 +25,54 @@ NavButton.defaultProps = {
 };
 
 
-export const nextBtnFactory = label => connect(
-  null,
-  dispatch => ({ onClick: () => dispatch(goToNextPageAction()) }),
-  (stateProps, dispatchProps) => ({
-    ...dispatchProps,
-    label,
-  })
-)(NavButton);
+function defaultValidator() {
+  return true;
+}
 
 
-export const prevBtnFactory = label => connect(
-  null,
-  dispatch => ({ onClick: () => dispatch(goToPrevPageAction()) }),
-  (stateProps, dispatchProps) => ({
-    ...dispatchProps,
-    label,
-    primary: false,
-  })
-)(NavButton);
-
-
-export function nextBtnWithRecombineFactory({ label, validator = () => true }) {
+function navBtnFactory({
+  primary,
+  action,
+  label,
+  recombineOnClick = false,
+  validator = defaultValidator,
+}) {
   return connect(
-    state => ({
-      ...mapRecombinerStateToProps(state),
-      valid: validator(state),
-    }),
-    dispatch => ({
-      ...mapRecombinerDispatchProps(dispatch),
-      changePage: () => dispatch(goToNextPageAction()),
-    }),
+    state => {
+      if (recombineOnClick) {
+        return {
+          ...mapRecombinerStateToProps(state),
+          valid: validator(state),
+        };
+      } else {
+        return {
+          valid: validator(state),
+        };
+      }
+    },
+    dispatch => {
+      if (recombineOnClick) {
+        return {
+          ...mapRecombinerDispatchProps(dispatch),
+          changePage: () => dispatch(action()),
+        };
+      } else {
+        return {
+          changePage: () => dispatch(action()),
+        };
+      }
+    },
     (stateProps, dispatchProps) => {
       const { changePage } = dispatchProps;
       const { recombine } = mergeRecombinerProps(stateProps, dispatchProps);
       return {
         label,
+        primary,
         onClick: () => {
           if (stateProps.valid) {
-            recombine();
+            if (recombineOnClick) {
+              recombine();
+            }
             changePage();
           }
         },
@@ -73,29 +82,23 @@ export function nextBtnWithRecombineFactory({ label, validator = () => true }) {
 }
 
 
-export function prevBtnWithRecombineFactory({ label, validator = () => true }) {
-  return connect(
-    state => ({
-      ...mapRecombinerStateToProps(state),
-      valid: validator(state),
-    }),
-    dispatch => ({
-      ...mapRecombinerDispatchProps(dispatch),
-      changePage: () => dispatch(goToPrevPageAction()),
-    }),
-    (stateProps, dispatchProps) => {
-      const { changePage } = dispatchProps;
-      const { recombine } = mergeRecombinerProps(stateProps, dispatchProps);
-      return {
-        label,
-        primary: false,
-        onClick: () => {
-          if (stateProps.valid) {
-            recombine();
-            changePage();
-          }
-        },
-      };
-    }
-  )(NavButton);
+export function nextBtnFactory({ label, recombineOnClick, validator }) {
+  return navBtnFactory({
+    label,
+    recombineOnClick,
+    validator,
+    primary: true,
+    action: goToNextPageAction,
+  });
+}
+
+
+export function prevBtnFactory({ label, recombineOnClick, validator }) {
+  return navBtnFactory({
+    label,
+    recombineOnClick,
+    validator,
+    primary: false,
+    action: goToPrevPageAction,
+  });
 }

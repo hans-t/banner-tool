@@ -2,7 +2,7 @@ import React from 'react';
 
 import { getSelectedTemplates } from '../banner/helper';
 import { getSelectedCountries } from '../common/helpers';
-import { nextBtnWithRecombineFactory } from '../common/nav-btn';
+import { nextBtnFactory } from '../common/nav-btn';
 
 
 function validator({ templates, countries }) {
@@ -17,7 +17,11 @@ function validator({ templates, countries }) {
 }
 
 
-const NextBtn = nextBtnWithRecombineFactory({ label: 'Add Images', validator });
+const NextBtn = nextBtnFactory({
+  label: 'Add Images',
+  recombineOnClick: true,
+  validator,
+});
 
 
 export default {
