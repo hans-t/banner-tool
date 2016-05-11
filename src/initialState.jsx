@@ -89,11 +89,11 @@ const bannerIdsByCountry = {
   SG: [
     { id: 'SJNorAFb', selected: false, index: 0, visibleOnPageNum: 1 },
     { id: 'HyxEoH0tW', selected: false, index: 1, visibleOnPageNum: 1 },
-    { id: 'Bkx4oSAYZ', selected: true, index: 2, visibleOnPageNum: 3 },
-    { id: 'B1fEoSRYb', selected: true, index: 3, visibleOnPageNum: 3 },
+    { id: 'Bkx4oSAYZ', selected: true, index: 2, visibleOnPageNum: 4 },
+    { id: 'B1fEoSRYb', selected: true, index: 3, visibleOnPageNum: 1 },
     { id: 'Skm4irCtb', selected: false, index: 4, visibleOnPageNum: 1 },
     { id: 'HkE4srCFW', selected: true, index: 5, visibleOnPageNum: 2 },
-    { id: 'BJB4oHAtW', selected: true, index: 6, visibleOnPageNum: 2 },
+    { id: 'BJB4oHAtW', selected: true, index: 6, visibleOnPageNum: 4 },
     { id: 'HkLVirRtZ', selected: false, index: 7, visibleOnPageNum: 1 },
   ],
   MY: [
@@ -102,8 +102,8 @@ const bannerIdsByCountry = {
     { id: 'OWB1928P2', selected: false, index: 2, visibleOnPageNum: 1 },
     { id: 'BqpwePiw', selected: false, index: 3, visibleOnPageNum: 1 },
     { id: 'Skeioq122', selected: false, index: 4, visibleOnPageNum: 1 },
-    { id: 'MiwoqIDio', selected: true, index: 5, visibleOnPageNum: 3 },
-    { id: 'JiwO21022', selected: true, index: 6, visibleOnPageNum: 3 },
+    { id: 'MiwoqIDio', selected: true, index: 5, visibleOnPageNum: 4 },
+    { id: 'JiwO21022', selected: true, index: 6, visibleOnPageNum: 4 },
     { id: 'iObwiqo2', selected: false, index: 7, visibleOnPageNum: 1 },
   ],
 };

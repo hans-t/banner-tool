@@ -17,9 +17,10 @@ module.exports = {
         "textAlign": "center",
         "textBaseline": "top",
         "fillStyle": "#000",
+        "fontFamily": "Apercu",
         "fontSize": 72,
-        "x": 620,
-        "y": 590,
+        "x": 600,
+        "y": 524,
     },
   },
 
