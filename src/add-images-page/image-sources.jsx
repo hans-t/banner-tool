@@ -74,7 +74,12 @@ ImageSources.defaultProps = {
 
 function fetchImage(url) {
   const image = new Image;
-  image.src = url;
+  fetch(url)
+    .then(response => response.json())
+    .then(response => {
+      console.log(response);
+      image.src = response.src;
+    });
   return image;
 }
 
@@ -92,7 +97,8 @@ function mapDispatchToProps(dispatch, ownProps) {
   };
 
   const onChange = (index, values) => {
-    const imageURL = `static/dummy/${index}.jpg`;
+    const { url, imageNumber } = values;
+    const imageURL = `api/image?product_url=${url}&image_number=${imageNumber}`;
     const image = fetchImage(imageURL);
     image.onload = () => dispatch(
       editSourceURL({

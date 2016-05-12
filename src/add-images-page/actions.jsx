@@ -18,7 +18,7 @@ export const REMOVE_SOURCE_URL = 'REMOVE_SOURCE_URL';
 const DEFAULT_NUMBER_OF_SOURCE_URLS = 6;
 
 // source URL representation in store.
-const defaultSourceURL = { url: 'https://www.zalora.', imageNumber: 1 };
+const defaultSourceURL = { url: '', imageNumber: 1 };
 
 
 /**

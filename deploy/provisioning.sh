@@ -14,6 +14,9 @@ export SUPERVISOR_CONF = supervisor-$SUFFIX.conf
 sudo apt-get update
 sudo apt-get install -y build-essential python3 python3-pip git nginx supervisor
 
+# lxml dependencies
+sudo apt-get install libxml2-dev libxslt-dev python-dev
+
 
 ## Change to root directory, create required folders
 mkdir -p $ROOT
