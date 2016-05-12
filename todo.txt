@@ -1,3 +1,7 @@
+- Make global source URL.
+
+- Deploy with flask and gunicorn.
+
 - Add save button to results.
 
 - Store CTA image in store so only load the image once.
