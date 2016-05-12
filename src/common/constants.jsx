@@ -9,5 +9,5 @@ export const AVAILABLE_COUNTRIES_OPTION = [
 
 export const AVAILABLE_CHANNELS_OPTION = [
   'Mobile',
-  'GDN',
+  // 'GDN',
 ];

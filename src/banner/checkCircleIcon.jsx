@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Colors from 'material-ui/lib/styles/colors';
-import ActionCheckCircle from 'material-ui/lib/svg-icons/action/check-circle';
+import { blueA700 } from 'material-ui/styles/colors';
+import ActionCheckCircle from 'material-ui/svg-icons/action/check-circle';
 
 
 const style = {
@@ -14,7 +14,7 @@ const style = {
 
 const CheckCircleIcon = ({ selected }) => (
   <ActionCheckCircle
-    color={Colors.blueA700}
+    color={blueA700}
     style={{ ...style.icon, opacity: selected ? 0.7 : 0 }}
   />
 );

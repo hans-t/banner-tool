@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
-import RaisedButton from 'material-ui/lib/raised-button';
+import { RaisedButton } from 'material-ui';
 
 import { goToPrevPageAction, goToNextPageAction } from './actionCreators';
 import {

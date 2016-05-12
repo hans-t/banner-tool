@@ -1,5 +1,5 @@
 import React from 'react';
-import TextField from 'material-ui/lib/text-field';
+import { TextField } from 'material-ui';
 
 
 export class TextFieldWithValidation extends React.Component {
@@ -18,7 +18,7 @@ export class TextFieldWithValidation extends React.Component {
 
   attachInputRef(c) {
     if (c) {
-      this.inputRef = c.refs.input;
+      this.inputRef = c.getInputNode();
     }
   }
 

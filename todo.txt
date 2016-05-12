@@ -15,7 +15,3 @@ Need to update React to v15.0.3 when available.
 
 - Maximize available space. Example: source URLS container and results should be
 separated by dividers not by cards. Read: https://www.google.com/design/spec/layout/structure.html#structure-ui-regions
-
-
-Notes:
-- Upgrade material-ui when material-ui v0.15.0 is released and add it as dependency.

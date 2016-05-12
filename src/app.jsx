@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import IndexView from './index-page/view';
@@ -22,7 +24,9 @@ const pages = [
 
 // component for glueing components from different domain
 const App = ({ currentPageNum }) => (
-  <div>{pages[currentPageNum]}</div>
+  <MuiThemeProvider muiTheme={getMuiTheme()}>
+    <div>{pages[currentPageNum]}</div>
+  </MuiThemeProvider>
 );
 
 App.propTypes = {

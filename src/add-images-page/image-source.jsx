@@ -1,7 +1,6 @@
 import React from 'react';
-
-import IconButton from 'material-ui/lib/icon-button';
-import ActionDelete from 'material-ui/lib/svg-icons/action/delete';
+import { IconButton } from 'material-ui';
+import ActionDelete from 'material-ui/svg-icons/action/delete';
 
 import { TextFieldWithValidation } from '../common/input';
 

@@ -1,10 +1,8 @@
 import React from 'react';
-import Menu from 'material-ui/lib/menus/menu';
-import MenuItem from 'material-ui/lib/menus/menu-item';
-import Checkbox from 'material-ui/lib/checkbox';
-import Divider from 'material-ui/lib/divider';
+import { Menu, MenuItem, Checkbox, Divider } from 'material-ui';
+import { easeInOutFunction } from 'material-ui/styles/transitions';
+
 import { isAnySelected } from './helpers';
-import { easeInOutFunction } from 'material-ui/lib/styles/transitions';
 
 
 const styles = {

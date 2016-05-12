@@ -1,9 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
-import MenuItem from 'material-ui/lib/menus/menu-item';
-import SelectField from 'material-ui/lib/select-field';
+import { MenuItem, SelectField } from 'material-ui';
 
 import { channelSelectionActionCreators } from './actionCreators';
 import { AVAILABLE_CHANNELS_OPTION } from '../common/constants';

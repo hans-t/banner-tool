@@ -1,42 +1,47 @@
 import React from 'react';
-import List from 'material-ui/lib/lists/list';
-import ListItem from 'material-ui/lib/lists/list-item';
-import { SelectableContainerEnhance } from 'material-ui/lib/hoc/selectable-enhance';
+import { List, ListItem, MakeSelectable } from 'material-ui/List';
+
+
+let SelectableList = MakeSelectable(List); // eslint-disable-line new-cap
 
 
 function wrapState(ComposedComponent) {
-  class StateWrapper extends React.Component {
+  class WrappedSelectableList extends React.Component {
     constructor(props) {
       super(props);
-      this.state = { selectedIndex: 0 };
-      this.handleUpdateSelectedIndex = this.handleUpdateSelectedIndex.bind(this);
+      this.handleRequestChange = this.handleRequestChange.bind(this);
     }
 
-    handleUpdateSelectedIndex(e, index) {
+    componentWillMount() {
+      this.setState({ selectedIndex: this.props.defaultValue });
+    }
+
+    handleRequestChange(event, index) {
       this.setState({ selectedIndex: index });
     }
 
     render() {
       return (
         <ComposedComponent
-          {...this.props}
-          {...this.state}
-          valueLink={{
-            value: this.state.selectedIndex,
-            requestChange: this.handleUpdateSelectedIndex,
-          }}
-        />
+          value={this.state.selectedIndex}
+          onChange={this.handleRequestChange}
+        >
+          {this.props.children}
+        </ComposedComponent>
       );
     }
   }
 
-  return StateWrapper;
+  WrappedSelectableList.propTypes = {
+    children: React.PropTypes.node.isRequired,
+    defaultValue: React.PropTypes.number.isRequired,
+  };
+
+  return WrappedSelectableList;
 }
 
 
-/* eslint-disable new-cap */
-const SelectableList = wrapState(SelectableContainerEnhance(List));
-/* eslint-enable new-cap */
+SelectableList = wrapState(SelectableList);
 
 
 const Tabs = ({ style, tabs, onTabClick }) => {
@@ -46,7 +51,7 @@ const Tabs = ({ style, tabs, onTabClick }) => {
 
   return (
     <SelectableList
-      value={0}
+      defaultValue={0}
       zDepth={1}
       style={{ ...defaultStyles.list, ...style }}
     >

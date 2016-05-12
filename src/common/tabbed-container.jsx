@@ -1,7 +1,7 @@
 import React from 'react';
+import { Paper } from 'material-ui';
 
 import Tabs from '../common/tabs';
-import Paper from 'material-ui/lib/paper';
 
 
 const styles = {

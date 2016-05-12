@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
-import ContentAdd from 'material-ui/lib/svg-icons/content/add';
-import FloatingActionButton from 'material-ui/lib/floating-action-button';
+import { FloatingActionButton } from 'material-ui';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 
 import ImageSource from './image-source';
 import { initImage } from './actions';

@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { MenuItem, SelectField } from 'material-ui';
 
-import SelectField from 'material-ui/lib/select-field';
-import MenuItem from 'material-ui/lib/menus/menu-item';
 
 import copyTranslations from '../common/copyTranslations';
 import { getSelectedCountries } from '../common/helpers';
