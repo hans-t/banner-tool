@@ -42,7 +42,7 @@ module.exports = {
     proxy: [
       {
         path: '/api/*',
-        target: 'http://localhost',
+        target: 'http://localhost:5000',
       },
     ],
   },
