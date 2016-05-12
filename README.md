@@ -1,7 +1,3 @@
 # banner-tool
 
-
-Need to install material-ui and react-tap-event-plugin packages from npm as these packages are not included as dependencies **yet**.
-```
-npm install material-ui react-tap-event-plugin
-```
+A tool for automating the creation of banners, built mostly using [React.js](https://facebook.github.io/react/), [Redux](http://redux.js.org/), and HTML5 Canvas with [Flask](http://flask.pocoo.org/) backend.
