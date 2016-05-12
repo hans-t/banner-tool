@@ -12,10 +12,21 @@ export SUPERVISOR_CONF = supervisor-$SUFFIX.conf
 
 ## Install required libraries
 sudo apt-get update
-sudo apt-get install -y build-essential python3 python3-pip git nginx supervisor
+sudo apt-get install -y \
+    build-essential \
+    python3 \
+    python3-pip \
+    python3-venv \
+    git \
+    nginx \
+    supervisor
 
 # lxml dependencies
-sudo apt-get install libxml2-dev libxslt-dev python-dev
+sudo apt-get install -y \
+    libxml2-dev \
+    libxslt1-dev \
+    python3-dev \
+    zlib1g-dev
 
 
 ## Change to root directory, create required folders
