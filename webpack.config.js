@@ -3,8 +3,8 @@ const path = require('path');
 const PATHS = {
   src: path.join(__dirname, 'src'),
   tests: path.join(__dirname, 'tests'),
-  build: path.join(__dirname, 'static', 'js')
-}
+  build: path.join(__dirname, 'static', 'js'),
+};
 
 module.exports = {
   entry: path.join(PATHS.src, 'index.jsx'),
@@ -33,8 +33,17 @@ module.exports = {
         test: /\.css$/,
         loader: "style-loader!css-loader",
         include: [PATHS.src],
-        exclude: /(node_modules|bower_components)/
-      }
+        exclude: /(node_modules|bower_components)/,
+      },
     ],
   },
-}
+
+  devServer: {
+    proxy: [
+      {
+        path: '/api/*',
+        target: 'http://localhost',
+      },
+    ],
+  },
+};
