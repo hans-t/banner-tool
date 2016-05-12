@@ -53,7 +53,6 @@ const Tabs = ({ style, tabs, onTabClick }) => {
   return (
     <SelectableList
       defaultValue={0}
-      zDepth={1}
       style={{ ...defaultStyles.list, ...style }}
     >
       {tabs.map((el, idx) => (
