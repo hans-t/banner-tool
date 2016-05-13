@@ -32,7 +32,6 @@ def get_image_url(product_url, image_number):
 def fetch_image():
     product_url = request.args.get('product_url')
     image_number = request.args.get('image_number')
-    print(product_url, image_number)
     if re.match(zalora_site_prefix, product_url):
         return jsonify(src=get_image_url(product_url, image_number))
     else:
