@@ -77,7 +77,6 @@ function fetchImage(url) {
   fetch(url)
     .then(response => response.json())
     .then(response => {
-      console.log(response);
       image.src = response.src;
     });
   return image;

@@ -1,12 +1,9 @@
 import React from 'react';
-import { prevBtnFactory, nextBtnFactory } from '../common/nav-btn';
+import { nextBtnFactory } from '../common/nav-btn';
 
 
-const IndexBtn = prevBtnFactory({ label: 'Index' });
-
-const AddTextsBtn = nextBtnFactory({ label: 'Add Texts' });
+const RightBtn = nextBtnFactory({ label: 'Edit Sources' });
 
 export default {
-  prevBtn: <IndexBtn />,
-  nextBtn: <AddTextsBtn />,
+  nextBtn: <RightBtn />,
 };

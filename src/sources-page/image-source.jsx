@@ -21,7 +21,7 @@ const styles = {
     flex: 5,
   },
   deleteBtn: {
-    flex: 1,
+    flex: 0,
     marginTop: 12,
     marginRight: -12,
   },
@@ -59,7 +59,6 @@ class ImageSource extends React.Component {
           hintText="Image Source URL"
           floatingLabelText="Image Source URL"
           errorText="This field must be filled with valid URL."
-          required
           onChange={this.handleChange}
           style = {styles.urlField}
         />
@@ -73,7 +72,6 @@ class ImageSource extends React.Component {
           min="1"
           max="8"
           step="1"
-          required
           onChange={this.handleChange}
           style = {styles.imageNumberField}
         />

@@ -12,6 +12,17 @@ import {
 } from '../common/helpers';
 
 
+const DEFAULT_NUMBER_OF_SOURCES = 6;
+
+const defaultSourcesState = Array(DEFAULT_NUMBER_OF_SOURCES)
+  .fill('')
+  .map(sourceFactory);
+
+
+const defaultImagesState = Array(DEFAULT_NUMBER_OF_SOURCES)
+  .fill('');
+
+
 /**
  * State is an array of objects, where each contains the following information,
  * about a source URL input:
@@ -20,7 +31,7 @@ import {
  * @param {number} imageNumber: Which image that the user want in product page.
  * 1 is the first image.
  */
-export function sources(state = [], action) {
+export function sources(state = defaultSourcesState, action) {
   const { index, values } = action;
 
   switch (action.type) {
@@ -52,7 +63,7 @@ export function sources(state = [], action) {
  * @param {number} width: width of the image.
  * @param {number} height: height of the image.
  */
-export function images(state = [], action) {
+export function images(state = defaultImagesState, action) {
   const { type, index, image } = action;
   switch (type) {
     case ADD_SOURCE:
