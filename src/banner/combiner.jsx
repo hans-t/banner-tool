@@ -1,7 +1,7 @@
 import React from 'react';
 import { combination } from 'js-combinatorics';
 
-import { initBannerId } from '../add-images-page/actions';
+import { initBannerId } from './initializer';
 import { getSelectedTemplates } from './helper';
 import {
   addNewCombinationsAction,
@@ -21,7 +21,7 @@ function setTexts(templateTexts, texts) {
 }
 
 
-export function getCombinations(images, templates, texts) {
+export function getCombinations({ images, templates, texts, currentPageNum }) {
   let imageBoxes;
   const imageSetsById = {};
   const bannerIds = [];
@@ -40,7 +40,10 @@ export function getCombinations(images, templates, texts) {
     if (images.length >= imageBoxes.length) {
       const combinedImages = combination(images, imageBoxes.length);
       while (imageSet = combinedImages.next()) {  // eslint-disable-line no-cond-assign
-        const bannerId = initBannerId({ index: bannerIds.length, pageNum: 1 });
+        const bannerId = initBannerId({
+          index: bannerIds.length,
+          pageNum: currentPageNum,
+        });
 
         const { id } = bannerId;
         bannerIds.push(bannerId);
@@ -61,6 +64,7 @@ export function mapCombinerStateToProps(state, ownProps) {
     imagesByCountry,
     bannerIdsByCountry,
     templates,
+    pageNum,
   } = state;
 
   return {
@@ -68,6 +72,7 @@ export function mapCombinerStateToProps(state, ownProps) {
     images: imagesByCountry[currentCountry],
     templates: getSelectedTemplates(templates),
     texts: textsByCountry[currentCountry],
+    currentPageNum: pageNum,
   };
 }
 
@@ -86,7 +91,7 @@ export function mapCombinerDispatchProps(dispatch, ownProps) {
 
 
 export function mergeCombinerProps(stateProps, dispatchProps, ownProps) {
-  const { bannerIds, images, templates, texts } = stateProps;
+  const { bannerIds } = stateProps;
   const { removeExistingCombinations, addNewCombinations } = dispatchProps;
 
   return {
@@ -95,7 +100,7 @@ export function mergeCombinerProps(stateProps, dispatchProps, ownProps) {
     ...ownProps,
     combine: () => {
       removeExistingCombinations(bannerIds.map(el => el.id));
-      addNewCombinations(getCombinations(images, templates, texts));
+      addNewCombinations(getCombinations(stateProps));
     },
   };
 }

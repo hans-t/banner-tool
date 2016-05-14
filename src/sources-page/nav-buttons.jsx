@@ -1,9 +1,16 @@
 import React from 'react';
-import { nextBtnFactory } from '../common/nav-btn';
+import { prevBtnFactory, nextBtnFactory } from '../common/nav-btn';
 
 
-const RightBtn = nextBtnFactory({ label: 'Edit Sources' });
+const LeftBtn = prevBtnFactory({ label: 'Index' });
+
+const RightBtn = nextBtnFactory({
+  label: 'Add Texts',
+  validator: state => state.sources.every(el => el.url !== ''),
+});
+
 
 export default {
+  prevBtn: <LeftBtn />,
   nextBtn: <RightBtn />,
 };

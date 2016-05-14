@@ -47,7 +47,7 @@ function recombiner({
       const key = `${imageSetIndices},${templateName}`;
       bannerIdsLookup[key] = {
         selected: bannerId.selected,
-        visibleOnPageNum: bannerId.visibleOnPageNum, // this is wrong, why keep +1?
+        visibleOnPageNum: bannerId.visibleOnPageNum,
       };
     });
   });
@@ -59,7 +59,7 @@ function recombiner({
 
     if (existingBannerIds.length > 0 && isAllImagesInitialized(images)) {
       const texts = textsByCountry[country];
-      const combinations = getCombinations(images, templates, texts);
+      const combinations = getCombinations({ images, templates, texts });
       const newBannerIds = combinations.bannerIds;
       newPropsById = { ...newPropsById, ...combinations.propsById };
       newTextsById = { ...newTextsById, ...combinations.textsById };

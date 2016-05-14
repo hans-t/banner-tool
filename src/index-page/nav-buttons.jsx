@@ -17,13 +17,12 @@ function validator({ templates, countries }) {
 }
 
 
-const NextBtn = nextBtnFactory({
-  label: 'Add Images',
-  recombineOnClick: true,
+const RightBtn = nextBtnFactory({
+  label: 'Add Sources',
   validator,
 });
 
 
 export default {
-  nextBtn: <NextBtn />,
+  nextBtn: <RightBtn />,
 };

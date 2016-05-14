@@ -1,8 +1,14 @@
-- Make global source URL.
+- Add validators to buttons
 
-- Deploy with flask and gunicorn.
+- Change button labels
+
+- refactor dir name
+
+- Fill in copyTranslations
 
 - Add save button to results.
+
+- Deploy with flask and gunicorn.
 
 - Store CTA image in store so only load the image once.
 
@@ -12,7 +18,7 @@
 
 - Move lookup to getCombination?
 
-- Refactor combiner mappers;
+- Refactor combiner mappers.
 
 - BUG: When deleting source, React throws. See https://github.com/facebook/react/issues/6538
 Need to update React to v15.0.3 when available.

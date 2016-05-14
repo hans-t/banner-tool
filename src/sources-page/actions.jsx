@@ -19,7 +19,7 @@ export const REMOVE_SOURCE = 'REMOVE_SOURCE';
 // source URL representation in store.
 const defaultSource = {
   url: '',
-  imageNumber: 1,
+  imageNumber: '1',
 };
 
 

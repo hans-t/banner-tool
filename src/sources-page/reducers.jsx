@@ -6,6 +6,7 @@ import {
 } from './actions';
 
 import {
+  groupReducerByCountry,
   addToArray,
   removeFromArray,
   replaceValueInArray,
@@ -14,12 +15,12 @@ import {
 
 const DEFAULT_NUMBER_OF_SOURCES = 6;
 
-const defaultSourcesState = Array(DEFAULT_NUMBER_OF_SOURCES)
+const getDefaultSourcesState = () => Array(DEFAULT_NUMBER_OF_SOURCES)
   .fill('')
   .map(sourceFactory);
 
 
-const defaultImagesState = Array(DEFAULT_NUMBER_OF_SOURCES)
+const getDefaultImagesState = () => Array(DEFAULT_NUMBER_OF_SOURCES)
   .fill('');
 
 
@@ -31,9 +32,8 @@ const defaultImagesState = Array(DEFAULT_NUMBER_OF_SOURCES)
  * @param {number} imageNumber: Which image that the user want in product page.
  * 1 is the first image.
  */
-export function sources(state = defaultSourcesState, action) {
+export function sources(state = getDefaultSourcesState(), action) {
   const { index, values } = action;
-
   switch (action.type) {
     case ADD_SOURCE:
       return addToArray(state, sourceFactory());
@@ -63,7 +63,7 @@ export function sources(state = defaultSourcesState, action) {
  * @param {number} width: width of the image.
  * @param {number} height: height of the image.
  */
-export function images(state = defaultImagesState, action) {
+export function images(state = getDefaultImagesState(), action) {
   const { type, index, image } = action;
   switch (type) {
     case ADD_SOURCE:
@@ -80,3 +80,38 @@ export function images(state = defaultImagesState, action) {
   }
 }
 
+
+export const sourcesByCountry = groupReducerByCountry(
+  sources,
+  getDefaultSourcesState,
+  (state, action) => {
+    const { type } = action;
+    switch (type) {
+      default: {
+        const newState = {};
+        Object.keys(state).forEach(country => {
+          newState[country] = sources(state[country], action);
+        });
+        return newState;
+      }
+    }
+  }
+);
+
+
+export const imagesByCountry = groupReducerByCountry(
+  images,
+  getDefaultImagesState,
+  (state, action) => {
+    const { type } = action;
+    switch (type) {
+      default: {
+        const newState = {};
+        Object.keys(state).forEach(country => {
+          newState[country] = images(state[country], action);
+        });
+        return newState;
+      }
+    }
+  }
+);

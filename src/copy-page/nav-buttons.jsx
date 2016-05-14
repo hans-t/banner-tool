@@ -2,7 +2,7 @@ import React from 'react';
 import { prevBtnFactory, nextBtnFactory } from '../common/nav-btn';
 
 
-const PrevBtn = prevBtnFactory({ label: 'Add Images', recombineOnClick: true });
+const PrevBtn = prevBtnFactory({ label: 'Edit Sources' });
 const NextBtn = nextBtnFactory({ label: 'Edit texts' });
 
 
