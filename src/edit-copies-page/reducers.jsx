@@ -3,7 +3,7 @@ import {
   initTexts,
 } from './actions';
 
-import { UPDATE_COPY } from '../copy-page/actions';
+import { UPDATE_COPY } from '../add-copies-page/actions';
 import copyTranslations from '../common/copyTranslations';
 import { groupReducerByCountry } from '../common/helpers';
 

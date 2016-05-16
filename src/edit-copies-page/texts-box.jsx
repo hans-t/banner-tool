@@ -11,6 +11,7 @@ const styles = {
     height: '100%',
     padding: '2%',
     overflowY: 'auto',
+    boxSizing: 'border-box',
   },
   textField: {
     width: '60%',

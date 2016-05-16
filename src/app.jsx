@@ -5,16 +5,16 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import IndexView from './index-page/view';
 import SourcesView from './sources-page/view';
-import CopyView from './copy-page/view';
-import TextsView from './texts-page/view';
+import AddCopiesView from './add-copies-page/view';
+import EditCopiesView from './edit-copies-page/view';
 import ResultsView from './results-page/view';
 
 
 const pages = [
   <IndexView />,
   <SourcesView />,
-  <CopyView />,
-  <TextsView />,
+  <AddCopiesView />,
+  <EditCopiesView />,
   <ResultsView />,
 ];
 

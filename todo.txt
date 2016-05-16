@@ -1,5 +1,3 @@
-- refactor dir name
-
 - Fill in copyTranslations
 
 - Add save button to results.
