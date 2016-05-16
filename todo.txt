@@ -1,3 +1,5 @@
+- Fix bug with recombiner, banner results don't show results when adding new countries.
+
 - Fill in copyTranslations
 
 - Add save button to results.
