@@ -18,11 +18,11 @@ function validator({ templates, countries }) {
 
 
 const RightBtn = nextBtnFactory({
-  label: 'Add Sources',
+  label: 'Add image sources',
   validator,
 });
 
 
 export default {
-  nextBtn: <RightBtn />,
+  rightBtn: <RightBtn />,
 };

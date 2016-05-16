@@ -1,7 +1,3 @@
-- Add validators to buttons
-
-- Change button labels
-
 - refactor dir name
 
 - Fill in copyTranslations

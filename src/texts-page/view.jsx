@@ -5,6 +5,7 @@ import OuterContainer from '../common/outer-container';
 import NavBtnContainer from '../common/nav-btn-container';
 import navButtons from './nav-buttons';
 import TextsBox from './texts-box';
+import FontLoader from '../common/font-loader';
 
 
 export default () => (
@@ -13,5 +14,6 @@ export default () => (
       <TextsBox keyed />
     </CountryTabsContainer>
     <NavBtnContainer {...navButtons} />
+    <FontLoader fontFamily="Apercu" />
   </OuterContainer>
 );

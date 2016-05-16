@@ -7,21 +7,21 @@ const style = {
 };
 
 
-const NavBtnContainer = ({ prevBtn, nextBtn }) => (
+const NavBtnContainer = ({ leftBtn, rightBtn }) => (
   <div style={style}>
-    {prevBtn}
-    {nextBtn}
+    {leftBtn}
+    {rightBtn}
   </div>
 );
 
 NavBtnContainer.propTypes = {
-  prevBtn: React.PropTypes.node.isRequired,
-  nextBtn: React.PropTypes.node.isRequired,
+  leftBtn: React.PropTypes.node.isRequired,
+  rightBtn: React.PropTypes.node.isRequired,
 };
 
 NavBtnContainer.defaultProps = {
-  prevBtn: <span />,
-  nextBtn: <span />,
+  leftBtn: <span />,
+  rightBtn: <span />,
 };
 
 

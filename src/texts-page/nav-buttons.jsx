@@ -5,22 +5,22 @@ import { prevBtnFactory, nextBtnFactory } from '../common/nav-btn';
 function validator({ textsByCountry }) {
   return Object.keys(textsByCountry)
     .every(country => {
-      const texts = textsByCountry[country];
-      return Object.keys(texts)
-        .every(key => texts[key]);
+      const copies = textsByCountry[country];
+      const copiesKeys = Object.keys(copies);
+      return copiesKeys.length > 0 && copiesKeys.every(key => copies[key]);
     });
 }
 
 
-const PrevBtn = prevBtnFactory({ label: 'Edit Global Texts' });
-const NextBtn = nextBtnFactory({
-  label: 'Results',
+const LeftBtn = prevBtnFactory({ label: 'Edit copies' });
+const RightBtn = nextBtnFactory({
+  label: 'See results',
   recombineOnClick: true,
   validator,
 });
 
 
 export default {
-  prevBtn: <PrevBtn />,
-  nextBtn: <NextBtn />,
+  leftBtn: <LeftBtn />,
+  rightBtn: <RightBtn />,
 };

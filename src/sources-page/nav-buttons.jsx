@@ -2,15 +2,20 @@ import React from 'react';
 import { prevBtnFactory, nextBtnFactory } from '../common/nav-btn';
 
 
-const LeftBtn = prevBtnFactory({ label: 'Index' });
+function rightBtnValidator({ sources }) {
+  return sources.every(el => el.url !== '');
+}
+
+
+const LeftBtn = prevBtnFactory({ label: 'Home' });
 
 const RightBtn = nextBtnFactory({
-  label: 'Add Texts',
-  validator: state => state.sources.every(el => el.url !== ''),
+  label: 'Add copies',
+  validator: rightBtnValidator,
 });
 
 
 export default {
-  prevBtn: <LeftBtn />,
-  nextBtn: <RightBtn />,
+  leftBtn: <LeftBtn />,
+  rightBtn: <RightBtn />,
 };
