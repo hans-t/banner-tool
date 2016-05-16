@@ -1,17 +1,15 @@
-- Fix bug with recombiner, banner results don't show results when adding new countries.
+- Redo combiner. On button click replace all combinations. Keep recombiner though.
+
+- Please tidy up.
+
+- Copy texts to textsByCountry on button click in add-copies-page.
 
 - Fill in copyTranslations
 
 - Add save button to results.
 
-- Deploy with flask and gunicorn.
-
 - Store CTA image in store so only load the image once.
 
 - Work on miscellaneous SVG rectangles.
 
-- Refactor banner logic which seems complicated.
-
-- Move lookup to getCombination?
-
-- Refactor combiner mappers.
+- Deploy with flask and gunicorn.

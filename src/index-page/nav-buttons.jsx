@@ -2,7 +2,8 @@ import React from 'react';
 
 import { getSelectedTemplates } from '../banner/helper';
 import { getSelectedCountries } from '../common/helpers';
-import { nextBtnFactory } from '../common/nav-btn';
+import { nextBtnFactory } from '../common/nav-btn-2';
+import { copySources } from '../sources-page/actionCreators';
 
 
 function validator({ templates, countries }) {
@@ -17,9 +18,15 @@ function validator({ templates, countries }) {
 }
 
 
+function dispatcher(dispatch, state) {
+  dispatch(copySources(state));
+}
+
+
 const RightBtn = nextBtnFactory({
   label: 'Add image sources',
   validator,
+  dispatcher,
 });
 
 

@@ -2,6 +2,7 @@ import {
   ADD_SOURCE,
   EDIT_SOURCE,
   REMOVE_SOURCE,
+  COPY_SOURCES,
   sourceFactory,
 } from './actions';
 
@@ -85,15 +86,18 @@ export const sourcesByCountry = groupReducerByCountry(
   sources,
   getDefaultSourcesState,
   (state, action) => {
-    const { type } = action;
-    switch (type) {
-      default: {
-        const newState = {};
-        Object.keys(state).forEach(country => {
-          newState[country] = sources(state[country], action);
-        });
-        return newState;
-      }
+    switch (action.type) {
+      case COPY_SOURCES:
+        return Object.keys(state).reduce((obj, country) => ({
+          ...obj,
+          [country]: action.sources,
+        }), {});
+
+      default:
+        return Object.keys(state).reduce((obj, country) => ({
+          ...obj,
+          [country]: sources(state[country], action),
+        }), {});
     }
   }
 );
@@ -103,15 +107,18 @@ export const imagesByCountry = groupReducerByCountry(
   images,
   getDefaultImagesState,
   (state, action) => {
-    const { type } = action;
-    switch (type) {
-      default: {
-        const newState = {};
-        Object.keys(state).forEach(country => {
-          newState[country] = images(state[country], action);
-        });
-        return newState;
-      }
+    switch (action.type) {
+      case COPY_SOURCES:
+        return Object.keys(state).reduce((obj, country) => ({
+          ...obj,
+          [country]: action.images,
+        }), {});
+
+      default:
+        return Object.keys(state).reduce((obj, country) => ({
+          ...obj,
+          [country]: images(state[country], action),
+        }), {});
     }
   }
 );

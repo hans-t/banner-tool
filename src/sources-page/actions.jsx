@@ -10,6 +10,8 @@ export const EDIT_SOURCE = 'EDIT_SOURCE';
 
 export const REMOVE_SOURCE = 'REMOVE_SOURCE';
 
+export const COPY_SOURCES = 'COPY_SOURCES';
+
 
 /**
  * Other constants

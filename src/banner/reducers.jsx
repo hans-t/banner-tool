@@ -70,10 +70,10 @@ export const bannerIdsByCountry = groupReducerByCountry(
        * E.g. banner 2 is available until page 4. User deselect the banner, and move
        * to next page, Banner 2 will be available until page 5.
        */
-      case GO_TO_NEXT_PAGE: {
-        const newState = {};
-        Object.keys(state).forEach(country => {
-          newState[country] = state[country].map(el => {
+      case GO_TO_NEXT_PAGE:
+        return Object.keys(state).reduce((obj, country) => ({
+          ...obj,
+          [country]: state[country].map(el => {
             const { selected, visibleOnPageNum } = el;
             const { currentPageNum } = action;
             if (visibleOnPageNum === currentPageNum && selected) {
@@ -81,10 +81,8 @@ export const bannerIdsByCountry = groupReducerByCountry(
             } else {
               return { ...el };
             }
-          });
-        });
-        return newState;
-      }
+          }),
+        }), {});
 
       case REPLACE_COMBINATIONS:
         return action.bannerIdsByCountry;
