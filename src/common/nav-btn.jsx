@@ -5,7 +5,7 @@ import { RaisedButton } from 'material-ui';
 import { goToPrevPageAction, goToNextPageAction } from './actionCreators';
 
 
-const NavButton = (props) => (<RaisedButton {...props} />);
+const NavButton = props => (<RaisedButton {...props} />);
 
 
 NavButton.propTypes = {
