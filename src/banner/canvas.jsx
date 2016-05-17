@@ -1,22 +1,25 @@
+import { CanvasTextWrapper } from 'canvas-text-wrapper';
+
+
 export default class Canvas {
   constructor(width, height) {
     this.element = document.createElement('canvas');
     this.element.width = this.width = width;
     this.element.height = this.height = height;
-    this.ctx = this.element.getContext('2d');
+    this.textWrapperOpts = {
+      textAlign: 'center',
+      lineBreak: 'auto',
+      verticalAlign: 'middle',
+      sizeToFill: true,
+    };
 
-    this.clear = this.clear.bind(this);
+    this.ctx = this.element.getContext('2d');
     this.drawBorder = this.drawBorder.bind(this);
     this.toDataURI = this.toDataURI.bind(this);
     this.addImage = this.addImage.bind(this);
     this.colorBackground = this.colorBackground.bind(this);
     this.addText = this.addText.bind(this);
     this.drawBackground = this.drawBackground.bind(this);
-  }
-
-  clear() {
-    const { width, height } = this;
-    this.ctx.clearRect(0, 0, width, height);
   }
 
   drawBorder(color) {
@@ -43,21 +46,15 @@ export default class Canvas {
     this.ctx.fillRect(0, 0, width, height);
   }
 
-  addText({
-    text,
-    x,
-    y,
-    fontFamily,
-    fontSize,
-    textBaseline,
-    textAlign,
-    fillStyle,
-  }) {
-    this.ctx.textAlign = textAlign;
-    this.ctx.textBaseline = textBaseline;
-    this.ctx.font = `${fontSize}px ${fontFamily}`;
-    this.ctx.fillStyle = fillStyle;
-    this.ctx.fillText(text, x, y);
+  addText({ dx, dy, boxWidth, boxHeight, text, fillStyle, fontFamily }) {
+    const opts = { ...this.textWrapperOpts, font: fontFamily };
+    const textCanvas = document.createElement('canvas');
+    const context = textCanvas.getContext('2d');
+    textCanvas.width = boxWidth;
+    textCanvas.height = boxHeight;
+    context.fillStyle = fillStyle;
+    CanvasTextWrapper(textCanvas, text, opts);  // eslint-disable-line new-cap
+    this.addImage(textCanvas, dx, dy);
   }
 
   // TODO: refactor addCTA and addLogo

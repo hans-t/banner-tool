@@ -1,254 +1,164 @@
-import { generate as generateId } from 'shortid';
-import * as constants from './common/constants';
-
-const dummyDir = 'static/dummy';
-
-
-function loadImages() {
-  const n = 4;
-  return Array(n).fill(null).map((el, index) => {
-    const image = new Image;
-    image.src = `${dummyDir}/${index}.jpg`;
-    return {
-      index,
-      image,
-      id: generateId(),
-      width: 762,
-      height: 1100,
-    };
-  });
+function fetchImage(url, imageNumber) {
+  const image = new Image;
+  fetch(`api/image?product_url=${url}&image_number=${imageNumber}`)
+    .then(response => {
+      if (response.ok) {
+        response.json().then(data => {
+          image.src = data.src;
+        });
+      }
+    });
+  return image;
 }
 
 
-const countries = constants.AVAILABLE_COUNTRIES_OPTION.map(obj => ({ ...obj }));
-countries[0].selected = true;
-countries[1].selected = true;
+function fetchTemplate(channel, name) {
+  const url = `static/templates/${channel}/${name}`;
+  const template = {};
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      Object.keys(data).forEach(key => {
+        template[key] = data[key];
+      });
+    });
+  return template;
+}
 
 
-const imagesByCountry = {
-  SG: loadImages(),
-  MY: loadImages(),
-};
-
-
-const sourceURLsByCountry = {
-  SG: [
+/* eslint-disable key-spacing, quotes, quote-props, comma-dangle, no-unused-vars */
+const initialState = {
+  "pageNum":3,
+  "selectedChannel":"mobile",
+  "countries":[
     {
-      id: '3820cw',
-      url: 'https://www.zalora.sg/',
-      imageNumber: 1,
+      "value":"SG",
+      "selected":true
     },
     {
-      id: 'i72eiw',
-      url: 'https://www.zalora.sg/',
-      imageNumber: 1,
+      "value":"MY",
+      "selected":false
     },
     {
-      id: 'bu2919',
-      url: 'https://www.zalora.sg/',
-      imageNumber: 1,
+      "value":"ID",
+      "selected":false
     },
     {
-      id: 'i0182m',
-      url: 'https://www.zalora.sg/',
-      imageNumber: 1,
-    },
-  ],
-  MY: [
-    {
-      id: '37291',
-      url: 'https://www.zalora.com.my/',
-      imageNumber: 1,
+      "value":"PH",
+      "selected":false
     },
     {
-      id: '382213',
-      url: 'https://www.zalora.com.my/',
-      imageNumber: 1,
+      "value":"TW",
+      "selected":false
     },
     {
-      id: 'mbqo22',
-      url: 'https://www.zalora.com.my/',
-      imageNumber: 1,
-    },
-    {
-      id: '9f012i',
-      url: 'https://www.zalora.com.my/',
-      imageNumber: 1,
-    },
+      "value":"HK",
+      "selected":false
+    }
   ],
-};
-
-
-const templates = {
-  '320x50_1': require('../static/templates/mobile/320x50_1.js'),
-  '1200x627_1': require('../static/templates/mobile/1200x627_1.js'),
-};
-
-
-const bannerIdsByCountry = {
-  SG: [
-    { id: 'SJNorAFb', selected: false, index: 0, visibleOnPageNum: 1 },
-    { id: 'HyxEoH0tW', selected: false, index: 1, visibleOnPageNum: 1 },
-    { id: 'Bkx4oSAYZ', selected: true, index: 2, visibleOnPageNum: 4 },
-    { id: 'B1fEoSRYb', selected: true, index: 3, visibleOnPageNum: 1 },
-    { id: 'Skm4irCtb', selected: false, index: 4, visibleOnPageNum: 1 },
-    { id: 'HkE4srCFW', selected: true, index: 5, visibleOnPageNum: 2 },
-    { id: 'BJB4oHAtW', selected: true, index: 6, visibleOnPageNum: 4 },
-    { id: 'HkLVirRtZ', selected: false, index: 7, visibleOnPageNum: 1 },
-  ],
-  MY: [
-    { id: 'CjwiqoE2', selected: false, index: 0, visibleOnPageNum: 1 },
-    { id: 'I102380dj', selected: false, index: 1, visibleOnPageNum: 1 },
-    { id: 'OWB1928P2', selected: false, index: 2, visibleOnPageNum: 1 },
-    { id: 'BqpwePiw', selected: false, index: 3, visibleOnPageNum: 1 },
-    { id: 'Skeioq122', selected: false, index: 4, visibleOnPageNum: 1 },
-    { id: 'MiwoqIDio', selected: true, index: 5, visibleOnPageNum: 4 },
-    { id: 'JiwO21022', selected: true, index: 6, visibleOnPageNum: 4 },
-    { id: 'iObwiqo2', selected: false, index: 7, visibleOnPageNum: 1 },
-  ],
-};
-
-
-const imageSetsById = {
-  SJNorAFb: [
-    { boxX: 10, boxY: 5, boxWidth: 40, boxHeight: 40, index: 0 },
-    { boxX: 60, boxY: 5, boxWidth: 40, boxHeight: 40, index: 1 },
-    { boxX: 110, boxY: 5, boxWidth: 40, boxHeight: 40, index: 2 },
-  ],
-  HyxEoH0tW: [
-    { boxX: 10, boxY: 5, boxWidth: 40, boxHeight: 40, index: 0 },
-    { boxX: 60, boxY: 5, boxWidth: 40, boxHeight: 40, index: 1 },
-    { boxX: 110, boxY: 5, boxWidth: 40, boxHeight: 40, index: 3 },
-  ],
-  Bkx4oSAYZ: [
-    { boxX: 10, boxY: 5, boxWidth: 40, boxHeight: 40, index: 0 },
-    { boxX: 60, boxY: 5, boxWidth: 40, boxHeight: 40, index: 2 },
-    { boxX: 110, boxY: 5, boxWidth: 40, boxHeight: 40, index: 3 },
-  ],
-  B1fEoSRYb: [
-    { boxX: 10, boxY: 5, boxWidth: 40, boxHeight: 40, index: 1 },
-    { boxX: 60, boxY: 5, boxWidth: 40, boxHeight: 40, index: 2 },
-    { boxX: 110, boxY: 5, boxWidth: 40, boxHeight: 40, index: 3 },
-  ],
-  Skm4irCtb: [
-    { boxX: 20, boxY: 26, boxWidth: 373, boxHeight: 454, index: 0 },
-    { boxX: 414, boxY: 26, boxWidth: 373, boxHeight: 454, index: 1 },
-    { boxX: 806, boxY: 26, boxWidth: 373, boxHeight: 454, index: 2 },
-  ],
-  HkE4srCFW: [
-    { boxX: 20, boxY: 26, boxWidth: 373, boxHeight: 454, index: 0 },
-    { boxX: 414, boxY: 26, boxWidth: 373, boxHeight: 454, index: 1 },
-    { boxX: 806, boxY: 26, boxWidth: 373, boxHeight: 454, index: 3 },
-  ],
-  BJB4oHAtW: [
-    { boxX: 20, boxY: 26, boxWidth: 373, boxHeight: 454, index: 0 },
-    { boxX: 414, boxY: 26, boxWidth: 373, boxHeight: 454, index: 2 },
-    { boxX: 806, boxY: 26, boxWidth: 373, boxHeight: 454, index: 3 },
-  ],
-  HkLVirRtZ: [
-    { boxX: 20, boxY: 26, boxWidth: 373, boxHeight: 454, index: 1 },
-    { boxX: 414, boxY: 26, boxWidth: 373, boxHeight: 454, index: 2 },
-    { boxX: 806, boxY: 26, boxWidth: 373, boxHeight: 454, index: 3 },
-  ],
-
-  CjwiqoE2: [
-    { boxX: 10, boxY: 5, boxWidth: 40, boxHeight: 40, index: 0 },
-    { boxX: 60, boxY: 5, boxWidth: 40, boxHeight: 40, index: 1 },
-    { boxX: 110, boxY: 5, boxWidth: 40, boxHeight: 40, index: 2 },
-  ],
-  I102380dj: [
-    { boxX: 10, boxY: 5, boxWidth: 40, boxHeight: 40, index: 0 },
-    { boxX: 60, boxY: 5, boxWidth: 40, boxHeight: 40, index: 1 },
-    { boxX: 110, boxY: 5, boxWidth: 40, boxHeight: 40, index: 3 },
-  ],
-  OWB1928P2: [
-    { boxX: 10, boxY: 5, boxWidth: 40, boxHeight: 40, index: 0 },
-    { boxX: 60, boxY: 5, boxWidth: 40, boxHeight: 40, index: 2 },
-    { boxX: 110, boxY: 5, boxWidth: 40, boxHeight: 40, index: 3 },
-  ],
-  BqpwePiw: [
-    { boxX: 10, boxY: 5, boxWidth: 40, boxHeight: 40, index: 1 },
-    { boxX: 60, boxY: 5, boxWidth: 40, boxHeight: 40, index: 2 },
-    { boxX: 110, boxY: 5, boxWidth: 40, boxHeight: 40, index: 3 },
-  ],
-  Skeioq122: [
-    { boxX: 20, boxY: 26, boxWidth: 373, boxHeight: 454, index: 0 },
-    { boxX: 414, boxY: 26, boxWidth: 373, boxHeight: 454, index: 1 },
-    { boxX: 806, boxY: 26, boxWidth: 373, boxHeight: 454, index: 2 },
-  ],
-  MiwoqIDio: [
-    { boxX: 20, boxY: 26, boxWidth: 373, boxHeight: 454, index: 0 },
-    { boxX: 414, boxY: 26, boxWidth: 373, boxHeight: 454, index: 1 },
-    { boxX: 806, boxY: 26, boxWidth: 373, boxHeight: 454, index: 3 },
-  ],
-  JiwO21022: [
-    { boxX: 20, boxY: 26, boxWidth: 373, boxHeight: 454, index: 0 },
-    { boxX: 414, boxY: 26, boxWidth: 373, boxHeight: 454, index: 2 },
-    { boxX: 806, boxY: 26, boxWidth: 373, boxHeight: 454, index: 3 },
-  ],
-  iObwiqo2: [
-    { boxX: 20, boxY: 26, boxWidth: 373, boxHeight: 454, index: 1 },
-    { boxX: 414, boxY: 26, boxWidth: 373, boxHeight: 454, index: 2 },
-    { boxX: 806, boxY: 26, boxWidth: 373, boxHeight: 454, index: 3 },
-  ],
-};
-
-
-const propsById = {
-  SJNorAFb: { width: 320, height: 50, backgroundColor: 'white', templateName: '320x50_1' },
-  HyxEoH0tW: { width: 320, height: 50, backgroundColor: 'white', templateName: '320x50_1' },
-  Bkx4oSAYZ: { width: 320, height: 50, backgroundColor: 'white', templateName: '320x50_1' },
-  B1fEoSRYb: { width: 320, height: 50, backgroundColor: 'white', templateName: '320x50_1' },
-  Skm4irCtb: { width: 1200, height: 627, backgroundColor: 'white', templateName: '1200x627_1' },
-  HkE4srCFW: { width: 1200, height: 627, backgroundColor: 'white', templateName: '1200x627_1' },
-  BJB4oHAtW: { width: 1200, height: 627, backgroundColor: 'white', templateName: '1200x627_1' },
-  HkLVirRtZ: { width: 1200, height: 627, backgroundColor: 'white', templateName: '1200x627_1' },
-
-  CjwiqoE2: { width: 320, height: 50, backgroundColor: 'white', templateName: '320x50_1' },
-  I102380dj: { width: 320, height: 50, backgroundColor: 'white', templateName: '320x50_1' },
-  OWB1928P2: { width: 320, height: 50, backgroundColor: 'white', templateName: '320x50_1' },
-  BqpwePiw: { width: 320, height: 50, backgroundColor: 'white', templateName: '320x50_1' },
-  Skeioq122: { width: 1200, height: 627, backgroundColor: 'white', templateName: '1200x627_1' },
-  MiwoqIDio: { width: 1200, height: 627, backgroundColor: 'white', templateName: '1200x627_1' },
-  JiwO21022: { width: 1200, height: 627, backgroundColor: 'white', templateName: '1200x627_1' },
-  iObwiqo2: { width: 1200, height: 627, backgroundColor: 'white', templateName: '1200x627_1' },
-};
-
-
-const copies = {
-  title: 'New & Exclusive',
-  headline: 'Clothing',
-};
-
-
-const textsByCountry = {
-  SG: {
-    title: 'New & Exclusive',
-    headline: 'Clothing',
+  "templates":{
+    "320x50_1": fetchTemplate('mobile', '320x50_1.json'),
+    "1200x627_1": fetchTemplate('mobile', '1200x627_1.json'),
   },
-  MY: {
-    title: 'Baru dan Eksklusif',
-    headline: 'Pakaian',
+  "sourcesByCountry":{
+    "SG":[
+      {
+        "url":"https://www.zalora.sg/cotton-on-body-volt-tank-pink-472944.html",
+        "imageNumber":"1",
+        "id":"H1oec1odG"
+      },
+      {
+        "url":"https://www.zalora.sg/cotton-on-body-volt-tank-pink-472944.html",
+        "imageNumber":"2",
+        "id":"Hkkxe9yidM"
+      },
+      {
+        "url":"https://www.zalora.sg/cotton-on-body-volt-tank-pink-472944.html",
+        "imageNumber":"3",
+        "id":"Hkleeq1idG"
+      }
+    ]
   },
+  "imagesByCountry":{
+    "SG":[
+      {
+        "index":0,
+        "image": fetchImage('https://www.zalora.sg/cotton-on-body-volt-tank-pink-472944.html', 1),
+        "id":"BJRqJj_G",
+        "width":762,
+        "height":1100
+      },
+      {
+        "index":1,
+        "image": fetchImage('https://www.zalora.sg/cotton-on-body-volt-tank-pink-472944.html', 2),
+        "id":"BkGikjuf",
+        "width":762,
+        "height":1100
+      },
+      {
+        "index":2,
+        "image": fetchImage('https://www.zalora.sg/cotton-on-body-volt-tank-pink-472944.html', 3),
+        "id":"SyXiyodz",
+        "width":762,
+        "height":1100
+      }
+    ]
+  },
+  "sources":[
+    {
+      "url":"https://www.zalora.sg/cotton-on-body-volt-tank-pink-472944.html",
+      "imageNumber":"1",
+      "id":"H1oec1odG"
+    },
+    {
+      "url":"https://www.zalora.sg/cotton-on-body-volt-tank-pink-472944.html",
+      "imageNumber":"2",
+      "id":"Hkkxe9yidM"
+    },
+    {
+      "url":"https://www.zalora.sg/cotton-on-body-volt-tank-pink-472944.html",
+      "imageNumber":"3",
+      "id":"Hkleeq1idG"
+    }
+  ],
+  "images":[
+    {
+      "index":0,
+      "image": fetchImage('https://www.zalora.sg/cotton-on-body-volt-tank-pink-472944.html', 1),
+      "id":"BJRqJj_G",
+      "width":762,
+      "height":1100
+    },
+    {
+      "index":1,
+      "image": fetchImage('https://www.zalora.sg/cotton-on-body-volt-tank-pink-472944.html', 2),
+      "id":"BkGikjuf",
+      "width":762,
+      "height":1100
+    },
+    {
+      "index":2,
+      "image": fetchImage('https://www.zalora.sg/cotton-on-body-volt-tank-pink-472944.html', 3),
+      "id":"SyXiyodz",
+      "width":762,
+      "height":1100
+    }
+  ],
+  "bannerIdsByCountry":{ "SG":[] },
+  "imageSetsById":{},
+  "propsById":{},
+  "textsById":{},
+  "copies":{
+    "title":"Further Reductions",
+    "headline":"Signup Now and enjoy 'xx' off!"
+  },
+  "textsByCountry":{
+    "SG":{
+      "title":"Further Reductions",
+      "headline":"Signup Now and enjoy 25% off! Signup Now and enjoy 25% off!"
+    }
+  }
 };
+/* eslint-enable key-spacing, quotes, quote-props, comma-dangle, no-unused-vars */
 
-
-const pageNum = 3;
-
-
-const selectedChannel = 'mobile';
-
-
-export default {
-  pageNum,
-  selectedChannel,
-  templates,
-  countries,
-  sourceURLsByCountry,
-  imagesByCountry,
-  bannerIdsByCountry,
-  propsById,
-  imageSetsById,
-  copies,
-  textsByCountry,
-};
+export default initialState;

@@ -27,13 +27,12 @@
 
   "texts": {
     "headline": {
-        "textAlign": "center",
-        "textBaseline": "top",
         "fillStyle": "#000",
         "fontFamily": "Apercu",
-        "fontSize": 14,
-        "x": 194,
-        "y": 17
+        "boxHeight": 44,
+        "boxWidth": 80,
+        "dx": 152,
+        "dy": 4
     }
   },
 

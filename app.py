@@ -1,4 +1,5 @@
 import re
+import requests
 from lxml import html
 
 from flask import Flask
@@ -14,12 +15,13 @@ zalora_site_prefix = 'https?://www.zalora.'
 
 
 def get_image_url(product_url, image_number):
-    try:
-        tree = html.parse(product_url)
-    except OSError:
+    resp = requests.get(product_url)
+    if (resp.ok):
+        tree = html.fromstring(resp.content)
+    else:
         return ''
 
-    metas = tree.findall("//head/meta[@property='og:image']")
+    metas = tree.findall(".//head/meta[@property='og:image']")
     try:
         meta = metas[int(image_number) - 1]
     except IndexError:
