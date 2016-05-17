@@ -1,14 +1,6 @@
 import { SELECT_COUNTRIES } from '../index-page/actions';
 
 
-export function setDefaultValue(val, defVal = null) {
-  if (typeof val === 'undefined') {
-    return defVal;
-  }
-  return val;
-}
-
-
 /**
  * Assumes element is either empty string '' or object with index key.
  */
