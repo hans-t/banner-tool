@@ -1,5 +1,7 @@
 - Add save button to results.
 
+- Added simple interface to preview template.
+
 - Fill in copyTranslations
 
 - Store CTA image in store so only load the image once.
