@@ -1,19 +1,26 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { RaisedButton } from 'material-ui';
 
+import { drawBorder } from '../banner/canvas';
 
-const SaveBtn = ({ onClick }) => (
+
+function onClick() {
+  const canvases = document.getElementsByClassName('hidden-canvas');
+  Array.from(canvases).forEach(canvas => {
+    const dataURL = canvas.toDataURL('image/jpeg');
+    // should POST to backend
+    console.log(dataURL);
+  });
+}
+
+
+const SaveBtn = () => (
   <RaisedButton
     primary
     onClick={onClick}
     label="Download Selected Banners"
   />
 );
-
-SaveBtn.propTypes = {
-  onClick: React.PropTypes.func.isRequired,
-};
 
 
 export default SaveBtn;

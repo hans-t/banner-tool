@@ -1,6 +1,14 @@
 import { CanvasTextWrapper } from 'canvas-text-wrapper';
 
 
+export function drawBorder(canvas, color) {
+  const { width, height } = canvas;
+  const context = canvas.getContext('2d');
+  context.fillStyle = color || '#FFFFFF';
+  context.strokeRect(0, 0, width, height);
+}
+
+
 export default class Canvas {
   constructor(width, height) {
     this.element = document.createElement('canvas');
@@ -14,23 +22,11 @@ export default class Canvas {
     };
 
     this.ctx = this.element.getContext('2d');
-    this.drawBorder = this.drawBorder.bind(this);
-    this.toDataURI = this.toDataURI.bind(this);
     this.addImage = this.addImage.bind(this);
-    this.colorBackground = this.colorBackground.bind(this);
     this.addText = this.addText.bind(this);
-    this.drawBackground = this.drawBackground.bind(this);
-  }
-
-  drawBorder(color) {
-    const { width, height } = this;
-    this.ctx.fillStyle = color || '#FFFFFF';
-    this.ctx.strokeRect(0, 0, width, height);
-  }
-
-  toDataURI(...args) {
-    this.drawBorder();
-    return this.element.toDataURL(...args);
+    this.addCTA = this.addCTA.bind(this);
+    this.addLogo = this.addLogo.bind(this);
+    this.colorBackground = this.colorBackground.bind(this);
   }
 
   /**
@@ -38,12 +34,6 @@ export default class Canvas {
    */
   addImage(image, ...args) {
     this.ctx.drawImage(image, ...args);
-  }
-
-  colorBackground(color) {
-    const { width, height } = this;
-    this.ctx.fillStyle = color;
-    this.ctx.fillRect(0, 0, width, height);
   }
 
   addText({ dx, dy, boxWidth, boxHeight, text, fillStyle, fontFamily }) {
@@ -84,7 +74,9 @@ export default class Canvas {
     }
   }
 
-  drawBackground(image) {
-    this.addImage(image, 0, 0);
+  colorBackground(color) {
+    const { width, height } = this;
+    this.ctx.fillStyle = color;
+    this.ctx.fillRect(0, 0, width, height);
   }
 }

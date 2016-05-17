@@ -18,6 +18,9 @@ const styles = {
     padding: 0,
     outline: '1px solid black',
   },
+  hiddenCanvas: {
+    display: 'none',
+  },
 };
 
 
@@ -48,10 +51,12 @@ export default class BannerView extends React.Component {
 
   componentDidMount() {
     this.renderPreview();
+    this.renderHiddenCanvas();
   }
 
   componentDidUpdate() {
     this.renderPreview();
+    this.renderHiddenCanvas();
   }
 
   onImageLoad() {
@@ -91,14 +96,26 @@ export default class BannerView extends React.Component {
       boxWidth: previewWidth,
       boxHeight: previewHeight,
     });
-    this.previewCtx = this.previewCanvas.getContext('2d');
-    this.previewCtx.drawImage(this.canvas.element, dx, dy, dWidth, dHeight);
+    const context = this.previewCanvas.getContext('2d');
+    context.drawImage(this.canvas.element, dx, dy, dWidth, dHeight);
+  }
+
+  renderHiddenCanvas() {
+    const context = this.hiddenCanvas.getContext('2d');
+    context.drawImage(this.canvas.element, 0, 0);
   }
 
   render() {
     const { onClick, selected } = this.props;
     return (
       <div style={styles.container} onClick={onClick}>
+        <canvas
+          className="hidden-canvas"
+          width={this.width}
+          height={this.height}
+          ref={e => this.hiddenCanvas = e} // eslint-disable-line no-return-assign
+          style={styles.hiddenCanvas}
+        />
         <CheckCircleIcon selected={selected} />
         <canvas
           width={this.previewWidth}
