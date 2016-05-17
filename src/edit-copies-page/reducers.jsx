@@ -1,11 +1,15 @@
+import copyTranslations from '../common/copyTranslations';
+import { groupReducerByCountry } from '../common/helpers';
 import {
   UPDATE_TRANSLATED_COPY,
+  TRANSLATE_COPY,
   initTexts,
 } from './actions';
 
-import { UPDATE_COPY } from '../add-copies-page/actions';
-import copyTranslations from '../common/copyTranslations';
-import { groupReducerByCountry } from '../common/helpers';
+
+function translateCopy({ copyType, country, copy }) {
+  return copyTranslations[copyType][country][copy] || '';
+}
 
 
 function texts(state = {}, action) {
@@ -23,21 +27,21 @@ function texts(state = {}, action) {
 }
 
 
-function updateTranslations(state, action) {
-  const { type, countries, copyType, copy } = action;
+function defaultReducer(state, action) {
+  const { type, countries, copies } = action;
   switch (type) {
-    case UPDATE_COPY: {
-      const newState = {};
-      countries.forEach(country => {
-        const obj = state[country];
-        const translatedCopy = copyTranslations[copyType][country][copy];
-        newState[country] = {
-          ...obj,
-          [copyType]: translatedCopy,
-        };
-      });
-      return newState;
-    }
+    case TRANSLATE_COPY:
+      return countries.reduce((newState, country) => ({
+        ...newState,
+        [country]: Object.keys(copies).reduce((translatedCopies, copyType) => ({
+          ...translatedCopies,
+          [copyType]: translateCopy({
+            country,
+            copyType,
+            copy: copies[copyType],
+          }),
+        }), {}),
+      }), {});
 
     default:
       return state;
@@ -45,4 +49,4 @@ function updateTranslations(state, action) {
 }
 
 
-export const textsByCountry = groupReducerByCountry(texts, initTexts, updateTranslations);
+export const textsByCountry = groupReducerByCountry(texts, initTexts, defaultReducer);

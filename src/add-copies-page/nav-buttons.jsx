@@ -1,5 +1,11 @@
 import React from 'react';
+
 import { prevBtnFactory, nextBtnFactory } from '../common/nav-btn';
+import { translateCopyAction } from '../edit-copies-page/actionCreators';
+import { getSelectedCountries } from '../common/helpers';
+
+
+const LeftBtn = prevBtnFactory({ label: 'Edit image sources' });
 
 
 function rightBtnValidator({ copies }) {
@@ -8,11 +14,18 @@ function rightBtnValidator({ copies }) {
 }
 
 
-const LeftBtn = prevBtnFactory({ label: 'Edit image sources' });
+function dispatcher(dispatch, state) {
+  dispatch(translateCopyAction({
+    countries: getSelectedCountries(state.countries),
+    copies: state.copies,
+  }));
+}
+
 
 const RightBtn = nextBtnFactory({
   label: 'Edit copies by country',
   validator: rightBtnValidator,
+  dispatcher,
 });
 
 

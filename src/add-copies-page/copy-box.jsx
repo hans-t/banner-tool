@@ -22,7 +22,7 @@ const styles = {
 };
 
 
-const CopyBox = ({ style, updateGlobalCopy, copies }) => (
+const CopyBox = ({ style, updateCopy, copies }) => (
   <div style={{ ...styles.div, ...style }}>
     {Object.keys(copyTranslations).map(copyType => {
       const copyValue = copies[copyType];
@@ -30,7 +30,7 @@ const CopyBox = ({ style, updateGlobalCopy, copies }) => (
         <SelectField
           key={copyType}
           style={styles.selectField}
-          onChange={(event, index, copy) => updateGlobalCopy({ copy, copyType })}
+          onChange={(event, index, copy) => updateCopy({ copy, copyType })}
           value={copyValue}
           floatingLabelText={copyType.toUpperCase()}
           errorText={copyValue ? '' : 'Required'}
@@ -46,7 +46,7 @@ const CopyBox = ({ style, updateGlobalCopy, copies }) => (
 
 
 CopyBox.propTypes = {
-  updateGlobalCopy: React.PropTypes.func.isRequired,
+  updateCopy: React.PropTypes.func.isRequired,
   copies: React.PropTypes.object.isRequired,
   style: React.PropTypes.object,
 };
@@ -58,7 +58,7 @@ export default connect(
     countries: getSelectedCountries(state.countries),
   }),
   dispatch => ({
-    updateGlobalCopy: ({ countries, copy, copyType }) => dispatch(updateCopyAction({
+    updateCopy: ({ countries, copy, copyType }) => dispatch(updateCopyAction({
       countries,
       copyType,
       copy,
@@ -66,11 +66,11 @@ export default connect(
   }),
   (stateProps, dispatchProps) => {
     const { copies, countries } = stateProps;
-    const { updateGlobalCopy } = dispatchProps;
+    const { updateCopy } = dispatchProps;
     return {
       copies,
-      updateGlobalCopy: ({ copy, copyType }) => (
-        updateGlobalCopy({ countries, copy, copyType })
+      updateCopy: ({ copy, copyType }) => (
+        updateCopy({ countries, copy, copyType })
       ),
     };
   }

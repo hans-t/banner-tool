@@ -1,4 +1,4 @@
-import { UPDATE_TRANSLATED_COPY } from './actions';
+import { UPDATE_TRANSLATED_COPY, TRANSLATE_COPY } from './actions';
 
 
 export function updateTranslatedCopyAction({ country, copyType, copy }) {
@@ -7,5 +7,14 @@ export function updateTranslatedCopyAction({ country, copyType, copy }) {
     country,
     copyType,
     copy,
+  };
+}
+
+
+export function translateCopyAction({ countries, copies }) {
+  return {
+    type: TRANSLATE_COPY,
+    countries,
+    copies,
   };
 }

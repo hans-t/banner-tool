@@ -34,27 +34,24 @@ const ChannelSelectBox = ({
   updateChannel,
   addTemplate,
   removeTemplates,
-}) => {
-  const handleChange = (event, index, channel) => {
-    updateChannel(channel);
-    removeTemplates();
-    fetchTemplates(channel, addTemplate);
-  };
+}) => (
+  <SelectField
+    style={style}
+    value={selectedChannel}
+    floatingLabelText="Select Channel"
+    errorText={selectedChannel ? '' : 'Required'}
+    onChange={(event, index, channel) => {
+      updateChannel(channel);
+      removeTemplates();
+      fetchTemplates(channel, addTemplate);
+    }}
+  >
+    {AVAILABLE_CHANNELS_OPTION.map((el, index) => (
+      <MenuItem key={index} value={el.toLowerCase()} primaryText={el} />
+    ))}
+  </SelectField>
+);
 
-  return (
-    <SelectField
-      style={style}
-      value={selectedChannel}
-      onChange={handleChange}
-      floatingLabelText="Select Channel"
-      errorText={selectedChannel ? '' : 'Required'}
-    >
-      {AVAILABLE_CHANNELS_OPTION.map((el, index) => (
-        <MenuItem key={index} value={el.toLowerCase()} primaryText={el} />
-      ))}
-    </SelectField>
-  );
-};
 
 ChannelSelectBox.propTypes = {
   style: React.PropTypes.object,

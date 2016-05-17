@@ -1,8 +1,6 @@
-- Copy texts to textsByCountry on button click in add-copies-page.
+- Add save button to results.
 
 - Fill in copyTranslations
-
-- Add save button to results.
 
 - Store CTA image in store so only load the image once.
 

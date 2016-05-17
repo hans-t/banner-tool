@@ -21,7 +21,7 @@ const styles = {
 };
 
 
-const TextsBox = ({ updateCopy, copies, style }) => (
+const TextsBox = ({ updateTranslatedCopy, copies, style }) => (
   <div style={{ ...styles.div, ...style }}>
     {Object.keys(copies).map(copyType => (
       <TextFieldWithValidation
@@ -30,7 +30,7 @@ const TextsBox = ({ updateCopy, copies, style }) => (
         style={styles.textField}
         defaultValue={copies[copyType]}
         floatingLabelText={copyType.toUpperCase()}
-        onChange={(event) => updateCopy({
+        onChange={event => updateTranslatedCopy({
           copy: event.target.value,
           copyType,
         })}
@@ -41,7 +41,7 @@ const TextsBox = ({ updateCopy, copies, style }) => (
 
 
 TextsBox.propTypes = {
-  updateCopy: React.PropTypes.func.isRequired,
+  updateTranslatedCopy: React.PropTypes.func.isRequired,
   copies: React.PropTypes.object,
   style: React.PropTypes.object,
 };
@@ -62,7 +62,7 @@ export default connect(
     copies: state.textsByCountry[ownProps.currentCountry],
   }),
   (dispatch, ownProps) => ({
-    updateCopy: ({ copy, copyType }) => dispatch(updateTranslatedCopyAction({
+    updateTranslatedCopy: ({ copy, copyType }) => dispatch(updateTranslatedCopyAction({
       country: ownProps.currentCountry,
       copyType,
       copy,
