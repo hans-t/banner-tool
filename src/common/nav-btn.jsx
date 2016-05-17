@@ -3,11 +3,6 @@ import { connect } from 'react-redux';
 import { RaisedButton } from 'material-ui';
 
 import { goToPrevPageAction, goToNextPageAction } from './actionCreators';
-import {
-  mapRecombinerStateToProps,
-  mapRecombinerDispatchProps,
-  mergeRecombinerProps,
-} from '../banner/recombiner';
 
 
 const NavButton = (props) => (<RaisedButton {...props} />);
@@ -31,74 +26,44 @@ function defaultValidator() {
 
 function navBtnFactory({
   primary,
-  action,
   label,
-  recombineOnClick = false,
+  action,
+  dispatcher = () => {},
   validator = defaultValidator,
 }) {
   return connect(
-    state => {
-      if (recombineOnClick) {
-        return {
-          ...mapRecombinerStateToProps(state),
-          valid: validator(state),
-          pageNum: state.pageNum,
-        };
-      } else {
-        return {
-          valid: validator(state),
-          pageNum: state.pageNum,
-        };
-      }
-    },
-    dispatch => {
-      if (recombineOnClick) {
-        return {
-          ...mapRecombinerDispatchProps(dispatch),
-          changePage: ({ currentPageNum }) => dispatch(action(currentPageNum)),
-        };
-      } else {
-        return {
-          changePage: ({ currentPageNum }) => dispatch(action(currentPageNum)),
-        };
-      }
-    },
-    (stateProps, dispatchProps) => {
-      const { changePage } = dispatchProps;
-      const { recombine } = mergeRecombinerProps(stateProps, dispatchProps);
-      return {
-        label,
-        primary,
-        onClick: () => {
-          if (stateProps.valid) {
-            if (recombineOnClick) {
-              recombine();
-            }
-            changePage({ currentPageNum: stateProps.pageNum });
-          }
-        },
-      };
-    }
+    state => ({ ...state }),
+    dispatch => ({ dispatch }),
+    (state, { dispatch }, ownProps) => ({
+      label,
+      primary,
+      onClick: () => {
+        if (validator(state)) {
+          dispatcher(dispatch, state, ownProps);
+          dispatch(action(state.pageNum));
+        }
+      },
+    })
   )(NavButton);
 }
 
 
-export function nextBtnFactory({ label, recombineOnClick, validator }) {
+export function nextBtnFactory({ label, dispatcher, validator }) {
   return navBtnFactory({
     label,
-    recombineOnClick,
     validator,
+    dispatcher,
     primary: true,
     action: goToNextPageAction,
   });
 }
 
 
-export function prevBtnFactory({ label, recombineOnClick, validator }) {
+export function prevBtnFactory({ label, dispatcher, validator }) {
   return navBtnFactory({
     label,
-    recombineOnClick,
     validator,
+    dispatcher,
     primary: false,
     action: goToPrevPageAction,
   });

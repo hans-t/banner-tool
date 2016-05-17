@@ -28,7 +28,7 @@ export const toggleBannerSelection = ({ country, index, currentPageNum }) => ({
 });
 
 
-export const replaceCombinationsAction = (combinations) => ({
+export const replaceCombinationsAction = combinations => ({
   type: REPLACE_COMBINATIONS,
   ...combinations,
 });

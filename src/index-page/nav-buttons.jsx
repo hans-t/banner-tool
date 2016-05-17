@@ -2,7 +2,7 @@ import React from 'react';
 
 import { getSelectedTemplates } from '../banner/helper';
 import { getSelectedCountries } from '../common/helpers';
-import { nextBtnFactory } from '../common/nav-btn-2';
+import { nextBtnFactory } from '../common/nav-btn';
 import { copySources } from '../sources-page/actionCreators';
 
 

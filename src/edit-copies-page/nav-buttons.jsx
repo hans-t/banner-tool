@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { prevBtnFactory, nextBtnFactory } from '../common/nav-btn-2';
+import { prevBtnFactory, nextBtnFactory } from '../common/nav-btn';
 import { replaceCombinationsAction } from '../banner/actionCreators';
-import combine from '../banner/combiner-2';
+import combine from '../banner/combiner';
 
 
 function validator({ textsByCountry }) {
@@ -16,6 +16,7 @@ function validator({ textsByCountry }) {
 
 
 function dispatcher(dispatch, state) {
+  // wants to show the banners on next page, so we add 1 to current page number.
   dispatch(replaceCombinationsAction(combine({
     ...state,
     pageNum: state.pageNum + 1,

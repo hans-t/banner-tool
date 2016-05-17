@@ -1,27 +1,24 @@
-import React from 'react';
 import { combination } from 'js-combinatorics';
 
 import { initBannerId } from './initializer';
 import { getSelectedTemplates } from './helper';
-import {
-  addNewCombinationsAction,
-  removeExistingCombinationsAction,
-} from '../banner/actionCreators';
 
 
 function setTexts(templateTexts, texts) {
-  const textsObj = {};
-  Object.keys(templateTexts).forEach(key => {
-    textsObj[key] = {
+  return Object.keys(templateTexts).reduce((obj, key) => ({
+    ...obj,
+    [key]: {
       ...templateTexts[key],
       text: texts[key] || '',
-    };
-  });
-  return textsObj;
+    },
+  }), {});
 }
 
 
-export function getCombinations({ images, templates, texts, currentPageNum }) {
+/**
+ * Compute combinations for a country.
+ */
+function combine({ images, templates, texts, pageNum }) {
   let imageBoxes;
   const imageSetsById = {};
   const bannerIds = [];
@@ -40,12 +37,9 @@ export function getCombinations({ images, templates, texts, currentPageNum }) {
     if (images.length >= imageBoxes.length) {
       const combinedImages = combination(images, imageBoxes.length);
       while (imageSet = combinedImages.next()) {  // eslint-disable-line no-cond-assign
-        const bannerId = initBannerId({
-          index: bannerIds.length,
-          pageNum: currentPageNum,
-        });
-
+        const bannerId = initBannerId({ index: bannerIds.length, pageNum });
         const { id } = bannerId;
+
         bannerIds.push(bannerId);
         imageSetsById[id] = imageSet.map(assignImageToBox);
         propsById[id] = template.props;
@@ -57,59 +51,41 @@ export function getCombinations({ images, templates, texts, currentPageNum }) {
 }
 
 
-export function mapCombinerStateToProps(state, ownProps) {
-  const { currentCountry } = ownProps;
-  const {
-    textsByCountry,
-    imagesByCountry,
+/**
+ * Compute combinations for all countries.
+ */
+export default function combineAll({
+  imagesByCountry,
+  textsByCountry,
+  templates,
+  pageNum,
+}) {
+  const bannerIdsByCountry = {};
+  let imageSetsById = {};
+  let propsById = {};
+  let textsById = {};
+  const selectedTemplates = getSelectedTemplates(templates);
+
+  Object.keys(imagesByCountry).forEach(country => {
+    const images = imagesByCountry[country];
+    const texts = textsByCountry[country];
+    const combinations = combine({
+      images,
+      texts,
+      pageNum,
+      templates: selectedTemplates,
+    });
+
+    bannerIdsByCountry[country] = combinations.bannerIds;
+    propsById = { ...propsById, ...combinations.propsById };
+    textsById = { ...textsById, ...combinations.textsById };
+    imageSetsById = { ...imageSetsById, ...combinations.imageSetsById };
+  });
+
+  return {
     bannerIdsByCountry,
-    templates,
-    pageNum,
-  } = state;
-
-  return {
-    bannerIds: bannerIdsByCountry[currentCountry],
-    images: imagesByCountry[currentCountry],
-    templates: getSelectedTemplates(templates),
-    texts: textsByCountry[currentCountry],
-    currentPageNum: pageNum,
+    imageSetsById,
+    propsById,
+    textsById,
   };
 }
-
-
-export function mapCombinerDispatchProps(dispatch, ownProps) {
-  const { currentCountry } = ownProps;
-  return {
-    addNewCombinations: (combinations) => (
-      dispatch(addNewCombinationsAction(currentCountry, combinations))
-    ),
-    removeExistingCombinations: (bannerIds) => (
-      dispatch(removeExistingCombinationsAction(currentCountry, bannerIds))
-    ),
-  };
-}
-
-
-export function mergeCombinerProps(stateProps, dispatchProps, ownProps) {
-  const { bannerIds } = stateProps;
-  const { removeExistingCombinations, addNewCombinations } = dispatchProps;
-
-  return {
-    ...stateProps,
-    ...dispatchProps,
-    ...ownProps,
-    combine: () => {
-      removeExistingCombinations(bannerIds.map(el => el.id));
-      addNewCombinations(getCombinations(stateProps));
-    },
-  };
-}
-
-
-export const combinerPropTypes = {
-  bannerIds: React.PropTypes.array.isRequired,
-  images: React.PropTypes.array.isRequired,
-  templates: React.PropTypes.array.isRequired,
-  texts: React.PropTypes.object.isRequired,
-  combine: React.PropTypes.func.isRequired,
-};

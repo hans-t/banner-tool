@@ -1,55 +1,55 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { MenuItem, SelectField } from 'material-ui';
 
 import { channelSelectionActionCreators } from './actionCreators';
-import { AVAILABLE_CHANNELS_OPTION } from '../common/constants';
+import { AVAILABLE_CHANNELS_OPTION, ROOT_TEMPLATES_PATH } from '../common/constants';
 
 
-function getTemplates(channel, addTemplate) {
-  const templatesPath = 'static/templates';
-  if (channel === 'mobile') {
-    const mobileTemplatesPath = `${templatesPath}/mobile`;
-    fetch(`${mobileTemplatesPath}/templates.json`)
-      .then(response => response.json())
-      .then(templateList => {
-        templateList.forEach(templateName => {
-          fetch(`${mobileTemplatesPath}/${templateName}.json`)
-            .then(response => response.json())
-            .then(template => addTemplate({ name: templateName, template }));
+function fetchTemplates(channel, addTemplate) {
+  const templatesPath = `${ROOT_TEMPLATES_PATH}/${channel}`;
+  const templatesListJSON = `${templatesPath}/templates.json`;
+  switch (channel) {
+    case 'mobile':
+      fetch(templatesListJSON)
+        .then(response => response.json())
+        .then(templateList => {
+          templateList.forEach(templateName => {
+            fetch(`${templatesPath}/${templateName}.json`)
+              .then(response => response.json())
+              .then(template => addTemplate({ name: templateName, template }));
+          });
         });
-      });
+      break;
+
+    default:
+      break;
   }
 }
 
 
-const ChannelSelectBox = (props) => {
-  const {
-    style,
-    selectedChannel,
-    updateChannel,
-    addTemplate,
-    removeTemplates,
-  } = props;
-
-  const channels = AVAILABLE_CHANNELS_OPTION;
-  const defaultStyle = {};
+const ChannelSelectBox = ({
+  style,
+  selectedChannel,
+  updateChannel,
+  addTemplate,
+  removeTemplates,
+}) => {
   const handleChange = (event, index, channel) => {
     updateChannel(channel);
     removeTemplates();
-    getTemplates(channel, addTemplate);
+    fetchTemplates(channel, addTemplate);
   };
 
   return (
     <SelectField
-      style={{ defaultStyle, ...style }}
+      style={style}
       value={selectedChannel}
       onChange={handleChange}
       floatingLabelText="Select Channel"
       errorText={selectedChannel ? '' : 'Required'}
     >
-      {channels.map((el, index) => (
+      {AVAILABLE_CHANNELS_OPTION.map((el, index) => (
         <MenuItem key={index} value={el.toLowerCase()} primaryText={el} />
       ))}
     </SelectField>
@@ -69,5 +69,5 @@ export default connect(
   state => ({
     selectedChannel: state.selectedChannel,
   }),
-  dispatch => bindActionCreators(channelSelectionActionCreators, dispatch)
+  channelSelectionActionCreators
 )(ChannelSelectBox);

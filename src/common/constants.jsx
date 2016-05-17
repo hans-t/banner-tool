@@ -9,5 +9,7 @@ export const AVAILABLE_COUNTRIES_OPTION = [
 
 export const AVAILABLE_CHANNELS_OPTION = [
   'Mobile',
-  // 'GDN',
 ];
+
+
+export const ROOT_TEMPLATES_PATH = 'static/templates';

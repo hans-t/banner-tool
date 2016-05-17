@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { getCombinations } from './combiner';
+import { combine } from './combiner';
 import { isAllImagesInitialized, getSelectedTemplates } from './helper';
 import { replaceCombinationsAction } from '../banner/actionCreators';
 
@@ -59,7 +59,7 @@ function recombiner({
 
     if (existingBannerIds.length > 0 && isAllImagesInitialized(images)) {
       const texts = textsByCountry[country];
-      const combinations = getCombinations({ images, templates, texts });
+      const combinations = combine({ images, templates, texts });
       const newBannerIds = combinations.bannerIds;
       newPropsById = { ...newPropsById, ...combinations.propsById };
       newTextsById = { ...newTextsById, ...combinations.textsById };

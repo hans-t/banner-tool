@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 import { MultiSelectBox } from '../common/multi-select';
 import { templateSelectionActionCreators } from './actionCreators';
@@ -14,19 +13,15 @@ function getTemplateLabels(templates) {
 }
 
 
-const TemplatesSelectBox = ({ selectTemplates, templateLabels, style }) => {
-  const defaultStyle = {};
-
-  return (
-    <MultiSelectBox
-      title="Select Templates"
-      style={{ ...defaultStyle, ...style }}
-      labels={templateLabels}
-      onChange={selectTemplates}
-      required
-    />
-  );
-};
+const TemplatesSelectBox = ({ selectTemplates, templateLabels, style }) => (
+  <MultiSelectBox
+    title="Select Templates"
+    style={style}
+    labels={templateLabels}
+    onChange={selectTemplates}
+    required
+  />
+);
 
 TemplatesSelectBox.propTypes = {
   selectTemplates: React.PropTypes.func.isRequired,
@@ -41,5 +36,5 @@ TemplatesSelectBox.defaultProps = {
 
 export default connect(
   state => ({ templateLabels: getTemplateLabels(state.templates) }),
-  dispatch => bindActionCreators(templateSelectionActionCreators, dispatch)
+  templateSelectionActionCreators
 )(TemplatesSelectBox);

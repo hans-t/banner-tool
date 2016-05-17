@@ -1,7 +1,3 @@
-- Redo combiner. On button click replace all combinations. Keep recombiner though.
-
-- Please tidy up.
-
 - Copy texts to textsByCountry on button click in add-copies-page.
 
 - Fill in copyTranslations
