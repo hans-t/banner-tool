@@ -2,14 +2,6 @@ import React from 'react';
 import { CanvasTextWrapper } from 'canvas-text-wrapper';
 
 
-export function drawBorder(canvas, color) {
-  const { width, height } = canvas;
-  const context = canvas.getContext('2d');
-  context.fillStyle = color || '#FFFFFF';
-  context.strokeRect(0, 0, width, height);
-}
-
-
 const textWrapperOpts = {
   textAlign: 'center',
   lineBreak: 'auto',
@@ -46,6 +38,13 @@ export default class Canvas {
    */
   getContext() {
     return this.element.getContext('2d');
+  }
+
+  drawBorder(color) {
+    const { width, height } = this;
+    const context = this.element.getContext('2d');
+    context.fillStyle = color || '#FFFFFF';
+    context.strokeRect(0, 0, width, height);
   }
 
   /**

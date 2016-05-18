@@ -9,14 +9,13 @@ const styles = {
   container: {
     boxSizing: 'border-box',
     display: 'inline-block',
-    paddingTop: 1,
+    padding: 0,
     margin: '0 4px 0 0',
     position: 'relative',
   },
-  content: {
+  previewCanvas: {
     margin: 0,
     padding: 0,
-    outline: '1px solid black',
   },
 };
 
@@ -73,6 +72,7 @@ export default class BannerView extends React.Component {
         dy: boxY,
       });
       canvas.addImage(image, dx, dy, dWidth, dHeight);
+      canvas.drawBorder();
     });
 
     Object.keys(texts).forEach(key => {
@@ -102,7 +102,7 @@ export default class BannerView extends React.Component {
           width={this.previewWidth}
           height={this.previewHeight}
           ref={e => this.previewCanvas = e} // eslint-disable-line no-return-assign
-          style={styles.content}
+          style={styles.previewCanvas}
         />
       </div>
     );

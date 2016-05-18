@@ -51,6 +51,10 @@ module.exports = {
         path: '/api/*',
         target: 'http://localhost:5000',
       },
+      {
+        path: '/download',
+        target: 'http://localhost:5000',
+      },
     ],
   },
 };
