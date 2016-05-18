@@ -38,6 +38,7 @@ const BannerList = ({
         return (
           <BannerView
             key={id}
+            id={id}
             country={country}
             images={images}
             selected={selected}

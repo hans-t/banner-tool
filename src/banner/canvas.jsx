@@ -1,3 +1,4 @@
+import React from 'react';
 import { CanvasTextWrapper } from 'canvas-text-wrapper';
 
 
@@ -9,19 +10,30 @@ export function drawBorder(canvas, color) {
 }
 
 
-export default class Canvas {
-  constructor(width, height) {
-    this.element = document.createElement('canvas');
-    this.element.width = this.width = width;
-    this.element.height = this.height = height;
-    this.textWrapperOpts = {
-      textAlign: 'center',
-      lineBreak: 'auto',
-      verticalAlign: 'middle',
-      sizeToFill: true,
-    };
+const textWrapperOpts = {
+  textAlign: 'center',
+  lineBreak: 'auto',
+  verticalAlign: 'middle',
+  sizeToFill: true,
+};
 
-    this.ctx = this.element.getContext('2d');
+
+export default class Canvas {
+  constructor(id, width, height) {
+    this.id = id;
+    this.width = width;
+    this.height = height;
+    this.component = (
+      <canvas
+        id={id}
+        width={width}
+        height={height}
+        ref={e => this.element = e}  // eslint-disable-line no-return-assign
+        style={{ display: 'none' }}
+      />
+    );
+
+    this.getContext = this.getContext.bind(this);
     this.addImage = this.addImage.bind(this);
     this.addText = this.addText.bind(this);
     this.addCTA = this.addCTA.bind(this);
@@ -30,14 +42,21 @@ export default class Canvas {
   }
 
   /**
+   * Need this because this.element will not be initialized until this.component is mounted.
+   */
+  getContext() {
+    return this.element.getContext('2d');
+  }
+
+  /**
    * image needs to be a <canvas/>, <img>, or <video>
    */
   addImage(image, ...args) {
-    this.ctx.drawImage(image, ...args);
+    this.getContext().drawImage(image, ...args);
   }
 
   addText({ dx, dy, boxWidth, boxHeight, text, fillStyle, fontFamily }) {
-    const opts = { ...this.textWrapperOpts, font: fontFamily };
+    const opts = { ...textWrapperOpts, font: fontFamily };
     const textCanvas = document.createElement('canvas');
     const context = textCanvas.getContext('2d');
     textCanvas.width = boxWidth;
@@ -76,7 +95,8 @@ export default class Canvas {
 
   colorBackground(color) {
     const { width, height } = this;
-    this.ctx.fillStyle = color;
-    this.ctx.fillRect(0, 0, width, height);
+    const context = this.getContext();
+    context.fillStyle = color;
+    context.fillRect(0, 0, width, height);
   }
 }

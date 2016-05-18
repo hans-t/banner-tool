@@ -1,4 +1,4 @@
-- Refactor the canvases. Is there better alternative than having hidden canvases?
+- Send canvas dataURL to backend on save button click, zip it, and send it over to client.
 
 - Added simple interface to preview template.
 
