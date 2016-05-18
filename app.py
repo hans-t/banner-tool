@@ -1,22 +1,27 @@
+import os
 import re
 import requests
 from lxml import html
 
 from flask import Flask
 from flask import abort
-from flask import jsonify
 from flask import request
+from flask import jsonify
 from flask import send_file
 
 
+API_URL = '/api/'
+CACHE_DIR = 'cache'
+ZALORA_SITE_PATTERN = 'https?://www.zalora.'
+
+
 app = Flask(__name__)
-root = '/'
-zalora_site_prefix = 'https?://www.zalora.'
+os.makedirs(CACHE_DIR, exist_ok=True)
 
 
 def get_image_url(product_url, image_number):
     resp = requests.get(product_url)
-    if (resp.ok):
+    if resp.ok:
         tree = html.fromstring(resp.content)
     else:
         return ''
@@ -30,15 +35,35 @@ def get_image_url(product_url, image_number):
     return meta.get('content').replace('-product', '')
 
 
-@app.route(root + 'api/image')
-def fetch_image():
+def fetch_image(url):
+    resp = requests.get(url, stream=True)
+    if resp.status_code == 200:
+        filename = url.split('/')[-1]
+        path = os.path.join(CACHE_DIR, filename)
+        if not os.path.exists(path):
+            with open(path, 'wb') as fp:
+                for chunk in resp.iter_content(1024):
+                    fp.write(chunk)
+        return path
+    return ''
+
+
+@app.route(API_URL + 'image')
+def handle_image_sources_request():
     product_url = request.args.get('product_url')
     image_number = request.args.get('image_number')
-    if re.match(zalora_site_prefix, product_url):
-        image_src = get_image_url(product_url, image_number)
+    if re.match(ZALORA_SITE_PATTERN, product_url):
+        image_url = get_image_url(product_url, image_number)
+        image_src = fetch_image(image_url)
         return jsonify(src=image_src)
     else:
         abort(404)
+
+
+@app.route(API_URL + 'zip')
+def handle_download_request():
+    print(request.form)
+    return ''
 
 
 if __name__ == '__main__':

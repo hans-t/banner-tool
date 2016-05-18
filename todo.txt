@@ -1,6 +1,3 @@
-- Working on: Add save button to results.
-    - Image crossOrigin problem. Needs to save it on disk and serve it.
-
 - Refactor the canvases. Is there better alternative than having hidden canvases?
 
 - Added simple interface to preview template.
