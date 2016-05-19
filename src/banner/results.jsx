@@ -11,20 +11,20 @@ function renderBannerListBySize({ bannerIds, currentPageNum, ...props }) {
     .filter(bannerId => bannerId.visibleOnPageNum >= currentPageNum)
     .forEach(bannerId => {
       const { width, height } = propsById[bannerId.id];
-      const sizeStr = `${width}x${height}`;
-      if (sizeStr in bySize) {
-        bySize[sizeStr].push(bannerId);
+      const size = `${width}x${height}`;
+      if (size in bySize) {
+        bySize[size].push(bannerId);
       } else {
-        bySize[sizeStr] = [bannerId];
+        bySize[size] = [bannerId];
       }
     });
 
   return (
-    Object.keys(bySize).map(sizeStr => (
+    Object.keys(bySize).map(size => (
       <BannerList
-        key={sizeStr}
-        sizeStr={sizeStr}
-        bannerIds={bySize[sizeStr]}
+        key={size}
+        size={size}
+        bannerIds={bySize[size]}
         {...props}
       />
     ))

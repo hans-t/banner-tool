@@ -11,13 +11,11 @@ const textWrapperOpts = {
 
 
 export default class Canvas {
-  constructor(id, width, height) {
-    this.id = id;
+  constructor(width, height) {
     this.width = width;
     this.height = height;
     this.component = (
       <canvas
-        id={id}
         width={width}
         height={height}
         ref={e => this.element = e}  // eslint-disable-line no-return-assign
@@ -44,7 +42,8 @@ export default class Canvas {
     const { width, height } = this;
     const context = this.element.getContext('2d');
     context.fillStyle = color || '#FFFFFF';
-    context.strokeRect(0, 0, width, height);
+    context.lineWidth = 1;
+    context.strokeRect(0.5, 0.5, width - 0.5, height - 0.5);
   }
 
   /**

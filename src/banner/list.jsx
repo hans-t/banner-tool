@@ -22,7 +22,7 @@ const styles = {
 
 const BannerList = ({
   bannerIds,
-  sizeStr,
+  size,
   propsById,
   images,
   imageSetsById,
@@ -31,7 +31,7 @@ const BannerList = ({
   country,
 }) => (
   <div style={styles.container}>
-    <p style={styles.header}>{sizeStr}</p>
+    <p style={styles.header}>{size}</p>
     <div style={styles.content}>
       {bannerIds.map(bannerId => {
         const { id, selected, index } = bannerId;
@@ -39,10 +39,11 @@ const BannerList = ({
           <BannerView
             key={id}
             id={id}
+            size={size}
             country={country}
             images={images}
             selected={selected}
-            onClick={() => handleBannerClick(index)}
+            handleClick={banner => handleBannerClick({ index, banner })}
             imageSets={imageSetsById[id]}
             properties={propsById[id]}
             texts={textsById[id]}
@@ -55,13 +56,13 @@ const BannerList = ({
 
 BannerList.propTypes = {
   country: React.PropTypes.string.isRequired,
-  handleBannerClick: React.PropTypes.func.isRequired,
-  sizeStr: React.PropTypes.string.isRequired,
+  size: React.PropTypes.string.isRequired,
   bannerIds: React.PropTypes.array.isRequired,
   textsById: React.PropTypes.object.isRequired,
   propsById: React.PropTypes.object.isRequired,
   images: React.PropTypes.array.isRequired,
   imageSetsById: React.PropTypes.object.isRequired,
+  handleBannerClick: React.PropTypes.func.isRequired,
 };
 
 

@@ -30,7 +30,7 @@ function fetchTemplate(channel, name) {
 const initialState = {
   "pageNum":3,
   "selectedChannel":"mobile",
-  "countries":[
+  "countries": [
     {
       "value":"SG",
       "selected":true
@@ -41,7 +41,7 @@ const initialState = {
     },
     {
       "value":"ID",
-      "selected":false
+      "selected":true
     },
     {
       "value":"PH",
@@ -77,10 +77,50 @@ const initialState = {
         "imageNumber":"3",
         "id":"Hkleeq1idG"
       }
+    ],
+    "ID":[
+      {
+        "url":"https://www.zalora.sg/cotton-on-body-volt-tank-pink-472944.html",
+        "imageNumber":"1",
+        "id":"H1oec1odG"
+      },
+      {
+        "url":"https://www.zalora.sg/cotton-on-body-volt-tank-pink-472944.html",
+        "imageNumber":"2",
+        "id":"Hkkxe9yidM"
+      },
+      {
+        "url":"https://www.zalora.sg/cotton-on-body-volt-tank-pink-472944.html",
+        "imageNumber":"3",
+        "id":"Hkleeq1idG"
+      }
     ]
   },
   "imagesByCountry":{
     "SG":[
+      {
+        "index":0,
+        "image": fetchImage('https://www.zalora.sg/cotton-on-body-volt-tank-pink-472944.html', 1),
+        "id":"BJRqJj_G",
+        "width":762,
+        "height":1100
+      },
+      {
+        "index":1,
+        "image": fetchImage('https://www.zalora.sg/cotton-on-body-volt-tank-pink-472944.html', 2),
+        "id":"BkGikjuf",
+        "width":762,
+        "height":1100
+      },
+      {
+        "index":2,
+        "image": fetchImage('https://www.zalora.sg/cotton-on-body-volt-tank-pink-472944.html', 3),
+        "id":"SyXiyodz",
+        "width":762,
+        "height":1100
+      }
+    ],
+    "ID":[
       {
         "index":0,
         "image": fetchImage('https://www.zalora.sg/cotton-on-body-volt-tank-pink-472944.html', 1),
@@ -144,7 +184,7 @@ const initialState = {
       "height":1100
     }
   ],
-  "bannerIdsByCountry":{ "SG":[] },
+  "bannerIdsByCountry":{ "SG":[], "ID":[] },
   "imageSetsById":{},
   "propsById":{},
   "textsById":{},
@@ -155,7 +195,11 @@ const initialState = {
   "textsByCountry":{
     "SG":{
       "title":"Further Reductions",
-      "headline":"Signup Now and enjoy 25% off! Signup Now and enjoy 25% off!"
+      "headline":"Signup Now and enjoy 'xx' off!"
+    },
+    "ID":{
+      "title":"Penurunan Harga",
+      "headline":"Daftar Sekarang dan nikmati potongan ‘xx’! "
     }
   }
 };

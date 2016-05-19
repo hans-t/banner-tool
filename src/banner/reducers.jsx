@@ -151,3 +151,32 @@ export function textsById(state = {}, action) {
       return state;
   }
 }
+
+
+export function bannersById(state = {}, action) {
+  switch (action.type) {
+    /**
+     * Add banner information when it is (going to be) selected and remove when
+     * it is (going to be) deselected.
+     */
+    case TOGGLE_BANNER_SELECTION: {
+      const { id, selected, ...banner } = action.banner;
+      const newState = { ...state };
+      if (!selected) {
+        newState[id] = { ...banner, country: action.country };
+      } else {
+        delete newState[id];
+      }
+      return newState;
+    }
+
+    /**
+     * Remove all entries when combinations are replaced.
+     */
+    case REPLACE_COMBINATIONS:
+      return {};
+
+    default:
+      return state;
+  }
+}

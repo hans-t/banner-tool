@@ -61,20 +61,20 @@ def dump_datauri(datauri, filename):
         fp.write(decoded_img)
 
 
-def zip_banners(banners):
+def zip_banners(banners_by_id):
     tmpdir = tempfile.TemporaryDirectory()
     zip_name = '{}.zip'.format(os.path.split(tmpdir.name)[-1])
     zip_path = os.path.join(TEMP_DIR, zip_name)
     zipfp = zipfile.ZipFile(zip_path, 'w', compression=zipfile.ZIP_DEFLATED)
 
     with tmpdir, zipfp:
-        for banner in banners:
+        for banner_id, banner in banners_by_id.items():
             country = banner['country']
             size = banner['size']
             banner_dir = os.path.join(tmpdir.name, country, size)
             os.makedirs(banner_dir, exist_ok=True)
 
-            banner_name = '{id}.jpg'.format(**banner)
+            banner_name = '{id}.jpg'.format(id=banner_id)
             banner_filename = os.path.join(banner_dir, banner_name)
             dump_datauri(banner['datauri'], filename=banner_filename)
 
@@ -97,9 +97,9 @@ def handle_image_sources_request():
 
 @app.route(API_URL + 'zip', methods=['POST'])
 def handle_zip_banners_request():
-    payload = request.get_json();
-    banners = payload['banners']
-    zip_name, zip_path = zip_banners(banners)
+    payload = request.get_json()
+    banners_by_id = payload['bannersById']
+    zip_name, zip_path = zip_banners(banners_by_id)
     return jsonify(
         url='download?file={}'.format(zip_path),
         filename=zip_name,

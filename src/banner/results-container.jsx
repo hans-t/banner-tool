@@ -46,11 +46,12 @@ function mapStateToProps(state, ownProps) {
 
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  handleBannerClick: (currentPageNum, index) => (
+  handleBannerClick: ({ currentPageNum, index, banner }) => (
     dispatch(toggleBannerSelection({
       country: ownProps.currentCountry,
-      index,
       currentPageNum,
+      index,
+      banner,
     }))
   ),
 });
@@ -61,7 +62,11 @@ const mergeProps = (stateProps, dispatchProps) => {
   const { handleBannerClick } = dispatchProps;
   return {
     ...stateProps,
-    handleBannerClick: index => handleBannerClick(currentPageNum, index),
+    handleBannerClick: ({ index, banner }) => handleBannerClick({
+      currentPageNum,
+      index,
+      banner,
+    }),
   };
 };
 

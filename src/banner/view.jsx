@@ -35,10 +35,11 @@ export default class BannerView extends React.Component {
     this.height = height;
     this.previewWidth = previewWidth;
     this.previewHeight = previewHeight;
-    this.canvas = new Canvas(props.id, width, height);
+    this.canvas = new Canvas(width, height);
     this.drawOnCanvas = this.drawOnCanvas.bind(this);
     this.renderPreview = this.renderPreview.bind(this);
     this.onImageLoad = this.onImageLoad.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
 
   componentDidMount() {
@@ -52,6 +53,15 @@ export default class BannerView extends React.Component {
 
   onImageLoad() {
     this.forceUpdate();
+  }
+
+  onClick() {
+    const { id, size, selected, handleClick } = this.props;
+    const type = 'image/jpeg';
+    const encoderOptions = 0.92;
+    const datauri = this.canvas.element.toDataURL(type, encoderOptions);
+    const banner = { id, size, selected, datauri };
+    handleClick(banner);
   }
 
   drawOnCanvas() {
@@ -93,11 +103,10 @@ export default class BannerView extends React.Component {
   }
 
   render() {
-    const { onClick, selected } = this.props;
     return (
-      <div style={styles.container} onClick={onClick}>
+      <div style={styles.container} onClick={this.onClick}>
         {this.canvas.component}
-        <CheckCircleIcon selected={selected} />
+        <CheckCircleIcon selected={this.props.selected} />
         <canvas
           width={this.previewWidth}
           height={this.previewHeight}
@@ -110,14 +119,15 @@ export default class BannerView extends React.Component {
 }
 
 BannerView.propTypes = {
-  id: React.PropTypes.string.isRequired,
   country: React.PropTypes.string.isRequired,
+  size: React.PropTypes.string.isRequired,
+  id: React.PropTypes.string.isRequired,
   imageSets: React.PropTypes.array.isRequired,
   images: React.PropTypes.array.isRequired,
   selected: React.PropTypes.bool.isRequired,
   properties: React.PropTypes.object.isRequired,
   texts: React.PropTypes.object,
-  onClick: React.PropTypes.func.isRequired,
+  handleClick: React.PropTypes.func.isRequired,
 };
 
 BannerView.defaultProps = {
