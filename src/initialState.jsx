@@ -1,14 +1,7 @@
-function fetchImage(url, imageNumber) {
-  const image = new Image;
-  fetch(`api/image?product_url=${url}&image_number=${imageNumber}`)
-    .then(response => {
-      if (response.ok) {
-        response.json().then(data => {
-          image.src = data.src;
-        });
-      }
-    });
-  return image;
+import { fetchImage } from './sources-page/image-sources';
+
+function loadImage(url, imageNumber) {
+  return fetchImage(`api/image?product_url=${url}&image_number=${imageNumber}`);
 }
 
 
@@ -100,21 +93,21 @@ const initialState = {
     "SG":[
       {
         "index":0,
-        "image": fetchImage('https://www.zalora.sg/cotton-on-body-volt-tank-pink-472944.html', 1),
+        "image": loadImage('https://www.zalora.sg/cotton-on-body-volt-tank-pink-472944.html', 1),
         "id":"BJRqJj_G",
         "width":762,
         "height":1100
       },
       {
         "index":1,
-        "image": fetchImage('https://www.zalora.sg/cotton-on-body-volt-tank-pink-472944.html', 2),
+        "image": loadImage('https://www.zalora.sg/cotton-on-body-volt-tank-pink-472944.html', 2),
         "id":"BkGikjuf",
         "width":762,
         "height":1100
       },
       {
         "index":2,
-        "image": fetchImage('https://www.zalora.sg/cotton-on-body-volt-tank-pink-472944.html', 3),
+        "image": loadImage('https://www.zalora.sg/cotton-on-body-volt-tank-pink-472944.html', 3),
         "id":"SyXiyodz",
         "width":762,
         "height":1100
@@ -123,21 +116,21 @@ const initialState = {
     "ID":[
       {
         "index":0,
-        "image": fetchImage('https://www.zalora.sg/cotton-on-body-volt-tank-pink-472944.html', 1),
+        "image": loadImage('https://www.zalora.sg/cotton-on-body-volt-tank-pink-472944.html', 1),
         "id":"BJRqJj_G",
         "width":762,
         "height":1100
       },
       {
         "index":1,
-        "image": fetchImage('https://www.zalora.sg/cotton-on-body-volt-tank-pink-472944.html', 2),
+        "image": loadImage('https://www.zalora.sg/cotton-on-body-volt-tank-pink-472944.html', 2),
         "id":"BkGikjuf",
         "width":762,
         "height":1100
       },
       {
         "index":2,
-        "image": fetchImage('https://www.zalora.sg/cotton-on-body-volt-tank-pink-472944.html', 3),
+        "image": loadImage('https://www.zalora.sg/cotton-on-body-volt-tank-pink-472944.html', 3),
         "id":"SyXiyodz",
         "width":762,
         "height":1100
@@ -164,21 +157,21 @@ const initialState = {
   "images":[
     {
       "index":0,
-      "image": fetchImage('https://www.zalora.sg/cotton-on-body-volt-tank-pink-472944.html', 1),
+      "image": loadImage('https://www.zalora.sg/cotton-on-body-volt-tank-pink-472944.html', 1),
       "id":"BJRqJj_G",
       "width":762,
       "height":1100
     },
     {
       "index":1,
-      "image": fetchImage('https://www.zalora.sg/cotton-on-body-volt-tank-pink-472944.html', 2),
+      "image": loadImage('https://www.zalora.sg/cotton-on-body-volt-tank-pink-472944.html', 2),
       "id":"BkGikjuf",
       "width":762,
       "height":1100
     },
     {
       "index":2,
-      "image": fetchImage('https://www.zalora.sg/cotton-on-body-volt-tank-pink-472944.html', 3),
+      "image": loadImage('https://www.zalora.sg/cotton-on-body-volt-tank-pink-472944.html', 3),
       "id":"SyXiyodz",
       "width":762,
       "height":1100
@@ -205,4 +198,4 @@ const initialState = {
 };
 /* eslint-enable key-spacing, quotes, quote-props, comma-dangle, no-unused-vars */
 
-export default initialState;
+export default {};

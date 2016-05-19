@@ -1,7 +1,5 @@
 - Added simple interface to preview template.
 
-- Missing bottom border for 1200x627 mobile template.
-
 - Fill in copyTranslations
 
 - Store CTA image in store so only load the image once.

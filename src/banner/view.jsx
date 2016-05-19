@@ -21,7 +21,8 @@ const styles = {
 
 
 /**
- * dx, dy, dWidth, dHeight are defined in: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage
+ * dx, dy, dWidth, dHeight are defined in:
+ * https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/drawImage
  * Render preview using canvas not img.
  */
 
@@ -105,7 +106,6 @@ export default class BannerView extends React.Component {
   render() {
     return (
       <div style={styles.container} onClick={this.onClick}>
-        {this.canvas.component}
         <CheckCircleIcon selected={this.props.selected} />
         <canvas
           width={this.previewWidth}

@@ -52,7 +52,7 @@ ImageSources.defaultProps = {
 };
 
 
-function fetchImage(url) {
+export function fetchImage(url) {
   const image = new Image;
   fetch(url)
     .then(response => {
