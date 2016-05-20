@@ -1,0 +1,45 @@
+{
+  "imageBoxes": [
+    { "boxX": 28, "boxY": 26, "boxWidth": 260, "boxHeight": 220 },
+    { "boxX": 324, "boxY": 26, "boxWidth": 260, "boxHeight": 220 },
+    { "boxX": 616, "boxY": 26, "boxWidth": 260, "boxHeight": 220 },
+    { "boxX": 912, "boxY": 26, "boxWidth": 260, "boxHeight": 220 },
+    { "boxX": 28, "boxY": 266, "boxWidth": 260, "boxHeight": 220 },
+    { "boxX": 324, "boxY": 266, "boxWidth": 260, "boxHeight": 220 },
+    { "boxX": 616, "boxY": 266, "boxWidth": 260, "boxHeight": 220 },
+    { "boxX": 912, "boxY": 266, "boxWidth": 260, "boxHeight": 220 }
+  ],
+
+  "props": {
+    "width": 1200,
+    "height": 627,
+    "backgroundColor": "white",
+    "templateName": "1200x627_2",
+    "logo": {
+        "dx": 28,
+        "dy": 542,
+        "dWidth": 278,
+        "dHeight": 39,
+        "name": "ZaloraBlack.png"
+    },
+    "cta": {
+        "dx": 892,
+        "dy": 524,
+        "dWidth": 282,
+        "dHeight": 80
+    }
+  },
+
+  "texts": {
+    "headline": {
+        "fillStyle": "#000",
+        "font": "12px Apercu",
+        "boxHeight": 60,
+        "boxWidth": 440,
+        "dx": 379,
+        "dy": 534,"text":"Headline"
+    }
+  },
+
+  "selected": true
+}

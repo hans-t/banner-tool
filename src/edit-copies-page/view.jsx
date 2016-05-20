@@ -8,12 +8,29 @@ import TextsBox from './texts-box';
 import FontLoader from '../common/font-loader';
 
 
+function loadFonts() {
+  const styleSheet = Array
+    .from(document.styleSheets)
+    .find(el => el.href.indexOf('/fonts.css') !== -1);
+
+  if (styleSheet) {
+    return Array
+      .from(styleSheet.rules)
+      .map(rule => (
+        <FontLoader fontFamily={rule.style.fontFamily} />
+      ));
+  } else {
+    return false;
+  }
+}
+
+
 export default () => (
   <OuterContainer>
     <CountryTabsContainer>
       <TextsBox keyed />
     </CountryTabsContainer>
     <NavBtnContainer {...navButtons} />
-    <FontLoader fontFamily="Apercu" />
+    {loadFonts()}
   </OuterContainer>
 );

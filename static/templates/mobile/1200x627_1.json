@@ -14,19 +14,19 @@
     "cta": {
         "dx": 892,
         "dy": 525,
-        "dWidth": 290,
-        "dHeight": 90
+        "dWidth": 282,
+        "dHeight": 80
     }
   },
 
   "texts": {
     "headline": {
         "fillStyle": "#000",
-        "fontFamily": "Apercu",
-        "boxHeight": 90,
+        "font": "12px Apercu",
+        "boxHeight": 60,
         "boxWidth": 800,
         "dx": 46,
-        "dy": 525
+        "dy": 535
     }
   },
 

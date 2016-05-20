@@ -4,3 +4,11 @@
   font-weight: 400;
   src: url('../fonts/apercu_regular.otf') format('opentype');
 }
+
+
+@font-face {
+  font-family: 'Baskerville-Italic';
+  src: url('../fonts/Baskerville-Italic.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}

@@ -28,11 +28,11 @@
   "texts": {
     "headline": {
         "fillStyle": "#000",
-        "fontFamily": "Apercu",
-        "boxHeight": 44,
-        "boxWidth": 80,
-        "dx": 152,
-        "dy": 4
+        "font": "12px Apercu",
+        "boxHeight": 40,
+        "boxWidth": 70,
+        "dx": 158,
+        "dy": 5
     }
   },
 

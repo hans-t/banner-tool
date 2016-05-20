@@ -1,0 +1,40 @@
+{
+  "imageBoxes": [
+    { "boxX": 7, "boxY": 14, "boxWidth": 150, "boxHeight": 210 },
+    { "boxX": 165, "boxY": 14, "boxWidth": 150, "boxHeight": 210 },
+    { "boxX": 322, "boxY": 14, "boxWidth": 150, "boxHeight": 210 }
+  ],
+
+  "props": {
+    "width": 480,
+    "height": 320,
+    "backgroundColor": "white",
+    "templateName": "480x320_1",
+    "logo": {
+        "dx": 300,
+        "dy": 236,
+        "dWidth": 164,
+        "dHeight": 23,
+        "name": "ZaloraBlack.png"
+    },
+    "cta": {
+        "dx": 320,
+        "dy": 272,
+        "dWidth": 125,
+        "dHeight": 30
+    }
+  },
+
+  "texts": {
+    "headline": {
+        "fillStyle": "#000",
+        "font": "Apercu",
+        "boxHeight": 60,
+        "boxWidth": 270,
+        "dx": 14,
+        "dy": 240
+    }
+  },
+
+  "selected": true
+}

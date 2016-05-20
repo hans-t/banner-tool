@@ -51,8 +51,8 @@ export default class Canvas {
     this.context.drawImage(image, ...args);
   }
 
-  addText({ dx, dy, boxWidth, boxHeight, text, fillStyle, fontFamily }) {
-    const opts = { ...textWrapperOpts, font: fontFamily };
+  addText({ dx, dy, boxWidth, boxHeight, text, fillStyle, font }) {
+    const opts = { ...textWrapperOpts, font };
     const { canvas, context } = this.createElement({
       width: boxWidth,
       height: boxHeight,

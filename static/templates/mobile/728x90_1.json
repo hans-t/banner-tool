@@ -1,0 +1,48 @@
+{
+  "imageBoxes": [
+    { "boxX": 367, "boxY": 4, "boxWidth": 82, "boxHeight": 82 },
+    { "boxX": 467, "boxY": 4, "boxWidth": 82, "boxHeight": 82 }
+  ],
+
+  "props": {
+    "width": 728,
+    "height": 90,
+    "backgroundColor": "white",
+    "templateName": "728x90_1",
+    "logo": {
+        "dx": 13.5,
+        "dy": 32.5,
+        "dWidth": 164,
+        "dHeight": 23,
+        "name": "ZaloraBlack.png"
+    },
+    "cta": {
+        "dx": 569,
+        "dy": 24,
+        "dWidth": 136,
+        "dHeight": 43
+    }
+  },
+
+  "texts": {
+    "title": {
+        "fillStyle": "#000",
+        "font": "12px \"Baskerville-Italic\"",
+        "boxHeight": 26,
+        "boxWidth": 140,
+        "dx": 200,
+        "dy": 18
+    },
+    "headline": {
+        "fillStyle": "#000",
+        "font": "12px Apercu",
+        "boxHeight": 26,
+        "boxWidth": 140,
+        "dx": 200,
+        "dy": 48,
+        "text": "The quick brown fox jumps over the lazy dog"
+    }
+  },
+
+  "selected": true
+}
