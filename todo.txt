@@ -1,7 +1,6 @@
 - Fill in copyTranslations
 
-- Unify template editor and main app to use same Canvas class and
-add Link to each other using react-router. Needs to make Canvas class API better.
+- Needs to make Canvas class API better.
 
 - Store CTA image in store so only load the image once.
 
