@@ -28,7 +28,7 @@
   "texts": {
     "headline": {
         "fillStyle": "#000",
-        "font": "Apercu",
+        "font": "12px Apercu",
         "boxHeight": 60,
         "boxWidth": 270,
         "dx": 14,

@@ -17,7 +17,10 @@ function loadFonts() {
     return Array
       .from(styleSheet.rules)
       .map(rule => (
-        <FontLoader fontFamily={rule.style.fontFamily} />
+        <FontLoader
+          key={rule.style.fontFamily}
+          fontFamily={rule.style.fontFamily}
+        />
       ));
   } else {
     return false;

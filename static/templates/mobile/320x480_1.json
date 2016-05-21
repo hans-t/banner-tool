@@ -29,7 +29,7 @@
   "texts": {
     "headline": {
         "fillStyle": "#000",
-        "font": "Apercu",
+        "font": "12px Apercu",
         "boxHeight": 68,
         "boxWidth": 300,
         "dx": 10,
