@@ -3,10 +3,11 @@
 
 export PROJECT_NAME=banner-tool
 export ROOT_URL=/$PROJECT_NAME
-export SUFFIX=$SITENAME-$PROJECT_NAME
+export SUFFIX=$SITENAME_$PROJECT_NAME
 export ROOT=~/sites/$SITENAME/$PROJECT_NAME
-export NGINX_CONF = nginx_$SUFFIX.conf
-export SUPERVISOR_CONF = supervisor_$SUFFIX.conf
+export NGINX_CONF=nginx_$SUFFIX.conf
+export SUPERVISOR_CONF=supervisor_$SUFFIX.conf
+export SUPERVISOR_PROGRAM=gunicorn_$PROJECT_NAME
 
 
 ## Install required libraries
@@ -15,7 +16,7 @@ sudo apt-get install -y \
     build-essential \
     python3 \
     python3-pip \
-    python3-venv \
+    python3.4-venv \
     git \
     nginx \
     supervisor
@@ -42,6 +43,9 @@ git clone git@github.com:hans-t/banner-tool.git source
 pip install -r source/requirements.txt
 pip install -U pip setuptools
 
+### Install Gunicorn
+pip install -U gunicorn
+
 
 ## Populate variables in files
 cd source/deployment
@@ -66,9 +70,10 @@ sudo service nginx stop
 sudo service nginx start
 sudo supervisorctl reread
 sudo supervisorctl update
-sudo supervisorctl start gunicorn
+sudo supervisorctl start $SUPERVISOR_PROGRAM
 
 
-## Build index.ks
+## Install node packages and build index.js
 cd $ROOT/source
+npm i
 npm run build
