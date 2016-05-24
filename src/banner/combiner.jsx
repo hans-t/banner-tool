@@ -9,7 +9,8 @@ function setTexts(templateTexts, texts) {
     ...obj,
     [key]: {
       ...templateTexts[key],
-      text: texts[key] || '',
+      text: texts[key].text || '',
+      fillStyle: texts[key].color,
     },
   }), {});
 }

@@ -1,6 +1,8 @@
-- Color for text and background
+- Color for background.
 
-- Deploy with flask and gunicorn.
+- use HotLoader
+
+- store API paths in one module.
 
 - Fill in copyTranslations
 

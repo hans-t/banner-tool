@@ -8,7 +8,11 @@ import {
 
 
 function translateCopy({ copyType, country, copy }) {
-  return copyTranslations[copyType][country][copy] || '';
+  const translatedText = copyTranslations[copyType][country][copy.text] || '';
+  return {
+    text: translatedText,
+    color: copy.color,
+  };
 }
 
 

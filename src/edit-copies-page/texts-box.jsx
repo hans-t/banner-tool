@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import ColorPicker from '../common/color-picker';
 import { TextFieldWithValidation } from '../common/input';
 import { updateTranslatedCopyAction } from './actionCreators';
 
@@ -13,29 +14,42 @@ const styles = {
     overflowY: 'auto',
     boxSizing: 'border-box',
   },
-  textField: {
+  fieldContainer: {
     width: '60%',
-    display: 'block',
-    margin: '0 auto 30px',
+    margin: '0 auto 4%',
+  },
+  textField: {
+    width: '100%',
   },
 };
 
 
 const TextsBox = ({ updateTranslatedCopy, copies, style }) => (
   <div style={{ ...styles.div, ...style }}>
-    {Object.keys(copies).map(copyType => (
-      <TextFieldWithValidation
-        required
-        key={copyType}
-        style={styles.textField}
-        defaultValue={copies[copyType]}
-        floatingLabelText={copyType.toUpperCase()}
-        onChange={event => updateTranslatedCopy({
-          copy: event.target.value,
-          copyType,
-        })}
-      />
-    ))}
+    {Object.keys(copies).map(copyType => {
+      const { text, color } = copies[copyType];
+      return (
+        <div key={copyType} style={styles.fieldContainer}>
+          <TextFieldWithValidation
+            required
+            style={styles.textField}
+            defaultValue={text}
+            floatingLabelText={copyType.toUpperCase()}
+            onChange={event => updateTranslatedCopy({
+              copy: { text: event.target.value, color },
+              copyType,
+            })}
+          />
+          <ColorPicker
+            color={color}
+            onChange={value => updateTranslatedCopy({
+              copy: { text, color: value.hex },
+              copyType,
+            })}
+          />
+        </div>
+      );
+    })}
   </div>
 );
 

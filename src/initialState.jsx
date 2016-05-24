@@ -1,7 +1,7 @@
 import { fetchImage } from './sources-page/image-sources';
 
 function loadImage(url, imageNumber) {
-  return fetchImage(`api/image?product_url=${url}&image_number=${imageNumber}`);
+  return fetchImage(`/banner-tool/api/image?product_url=${url}&image_number=${imageNumber}`);
 }
 
 
@@ -21,7 +21,7 @@ function fetchTemplate(channel, name) {
 
 /* eslint-disable key-spacing, quotes, quote-props, comma-dangle, no-unused-vars */
 const initialState = {
-  "pageNum":3,
+  "pageNum":2,
   "selectedChannel":"mobile",
   "countries": [
     {
@@ -182,17 +182,35 @@ const initialState = {
   "propsById":{},
   "textsById":{},
   "copies":{
-    "title":"Further Reductions",
-    "headline":"Signup Now and enjoy 'xx' off!"
+    "title":{
+      text: "Further Reductions",
+      color: "#000000"
+    },
+    "headline":{
+      text: "Signup Now and enjoy 'xx' off!",
+      color: "#000000"
+    }
   },
   "textsByCountry":{
     "SG":{
-      "title":"Further Reductions",
-      "headline":"Signup Now and enjoy 'xx' off!"
+      "title": {
+        text: "Further Reductions",
+        color: "#000000",
+      },
+      "headline": {
+        text: "Signup Now and enjoy 'xx' off!",
+        color: "#000000",
+      },
     },
     "ID":{
-      "title":"Penurunan Harga",
-      "headline":"Daftar Sekarang dan nikmati potongan ‘xx’! "
+      "title": {
+        text: "Penurunan Harga",
+        color: "#000000",
+      },
+      "headline": {
+        text: "Daftar Sekarang dan nikmati potongan ‘xx’!",
+        color: "#000000",
+      },
     }
   }
 };

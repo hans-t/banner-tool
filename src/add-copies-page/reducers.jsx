@@ -5,7 +5,10 @@ import copyTranslations from '../common/copyTranslations';
 const defaultState = Object.keys(copyTranslations)
   .reduce((obj, curr) => ({
     ...obj,
-    [curr]: '',
+    [curr]: {
+      text: '',
+      color: '#000000',
+    },
   }), {});
 
 

@@ -10,7 +10,7 @@ function validator({ textsByCountry }) {
     .every(country => {
       const copies = textsByCountry[country];
       const copiesKeys = Object.keys(copies);
-      return copiesKeys.length > 0 && copiesKeys.every(key => copies[key]);
+      return copiesKeys.length > 0 && copiesKeys.every(key => copies[key].text !== '');
     });
 }
 

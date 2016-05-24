@@ -2,43 +2,57 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { MenuItem, SelectField } from 'material-ui';
 
+import ColorPicker from '../common/color-picker';
 import copyTranslations from '../common/copyTranslations';
 import { getSelectedCountries } from '../common/helpers';
 import { updateCopyAction } from './actionCreators';
 
 
 const styles = {
-  div: {
+  container: {
     width: '100%',
     height: '100%',
     padding: 0,
     overflowY: 'auto',
   },
-  selectField: {
+  fieldContainer: {
     width: '60%',
-    display: 'block',
-    margin: '0 auto 30px',
+    margin: '0 auto 4%',
+  },
+  selectField: {
+    width: '100%',
   },
 };
 
 
 const CopyBox = ({ style, updateCopy, copies }) => (
-  <div style={{ ...styles.div, ...style }}>
+  <div style={{ ...styles.container, ...style }}>
     {Object.keys(copyTranslations).map(copyType => {
-      const copyValue = copies[copyType];
+      const { text, color } = copies[copyType];
       return (
-        <SelectField
-          key={copyType}
-          style={styles.selectField}
-          onChange={(event, index, copy) => updateCopy({ copy, copyType })}
-          value={copyValue}
-          floatingLabelText={copyType.toUpperCase()}
-          errorText={copyValue ? '' : 'Required'}
-        >
-          {Object.keys(copyTranslations[copyType].global).map(copy => (
-            <MenuItem key={copy} value={copy} primaryText={copy} />
-          ))}
-        </SelectField>
+        <div key={copyType} style={styles.fieldContainer}>
+          <SelectField
+            style={styles.selectField}
+            onChange={(event, index, value) => updateCopy({
+              copy: { text: value, color },
+              copyType,
+            })}
+            value={text}
+            floatingLabelText={copyType.toUpperCase()}
+            errorText={text ? '' : 'Required'}
+          >
+            {Object.keys(copyTranslations[copyType].global).map(copy => (
+              <MenuItem key={copy} value={copy} primaryText={copy} />
+            ))}
+          </SelectField>
+          <ColorPicker
+            color={color}
+            onChange={value => updateCopy({
+              copy: { text, color: value.hex },
+              copyType,
+            })}
+          />
+        </div>
       );
     })}
   </div>

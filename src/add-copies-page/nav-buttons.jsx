@@ -10,7 +10,7 @@ const LeftBtn = prevBtnFactory({ label: 'Edit image sources' });
 
 function rightBtnValidator({ copies }) {
   const copiesKeys = Object.keys(copies);
-  return copiesKeys.every(key => copies[key] !== '');
+  return copiesKeys.every(key => copies[key].text !== '');
 }
 
 
