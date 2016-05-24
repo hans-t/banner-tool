@@ -18,3 +18,26 @@ Follow these steps:
 `npm run dev` and `python app.py` respectively.
 
 5. It is highly recommended to install Chrome extensions `Redux DevTools` and `React Developer Tools` for debugging.
+
+
+## Deployment
+
+1. You need to specify SITENAME environment variable when running provisioning.sh.
+Example:
+
+`SITENAME=yoursite.com bash provisioning.sh`
+
+2. Include this project Nginx conf to the main site Nginx configuration file. Example:
+
+```
+# inside main.conf
+
+server {
+    ...
+    include /etc/nginx/subsites-enabled/${SITENAME}/banner-tool.conf;
+}
+```
+
+3. Reload Nginx.
+
+`sudo service nginx reload`
