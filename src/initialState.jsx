@@ -21,7 +21,7 @@ function fetchTemplate(channel, name) {
 
 /* eslint-disable key-spacing, quotes, quote-props, comma-dangle, no-unused-vars */
 const initialState = {
-  "pageNum":2,
+  "pageNum":4,
   "selectedChannel":"mobile",
   "countries": [
     {

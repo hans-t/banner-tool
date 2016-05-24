@@ -7,6 +7,7 @@ import IndexView from './index-page/view';
 import SourcesView from './sources-page/view';
 import AddCopiesView from './add-copies-page/view';
 import EditCopiesView from './edit-copies-page/view';
+import BannerSettingsView from './banner-settings-page/view';
 import ResultsView from './results-page/view';
 import TemplateEditor from './template-editor/view';
 
@@ -16,6 +17,7 @@ const pages = [
   SourcesView,
   AddCopiesView,
   EditCopiesView,
+  BannerSettingsView,
   ResultsView,
 ];
 

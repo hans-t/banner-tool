@@ -21,6 +21,14 @@ ResultsContainer.propTypes = {
 };
 
 
+function updatePropsValues(propsById, globalProps) {
+  return Object.keys(propsById).reduce((obj, key) => ({
+    ...obj,
+    [key]: { ...propsById[key], ...globalProps },
+  }), {});
+}
+
+
 function mapStateToProps(state, ownProps) {
   const country = ownProps.currentCountry;
   const {
@@ -30,6 +38,7 @@ function mapStateToProps(state, ownProps) {
     pageNum,
     imagesByCountry,
     bannerIdsByCountry,
+    globalProps,
   } = state;
 
   return {
@@ -39,6 +48,7 @@ function mapStateToProps(state, ownProps) {
     textsById,
     images: imagesByCountry[country],
     imageSetsById,
+    globalProps,
     currentPageNum: pageNum,
     style: ownProps.style,
   };
@@ -58,10 +68,12 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 
 
 const mergeProps = (stateProps, dispatchProps) => {
-  const { currentPageNum } = stateProps;
+  const { globalProps, propsById, currentPageNum, ...states } = stateProps;
   const { handleBannerClick } = dispatchProps;
   return {
-    ...stateProps,
+    ...states,
+    currentPageNum,
+    propsById: updatePropsValues(propsById, globalProps),
     handleBannerClick: ({ index, banner }) => handleBannerClick({
       currentPageNum,
       index,

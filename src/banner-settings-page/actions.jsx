@@ -1,0 +1,1 @@
+export const SET_BANNER_PROPS = 'SET_BANNER_PROPS';
