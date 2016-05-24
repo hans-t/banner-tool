@@ -1,14 +1,9 @@
-- Color for background.
-
 - use HotLoader
 
-- store API paths in one module.
+- separate settings for dev and production
 
 - Fill in copyTranslations
 
 - Needs to make Canvas class API better.
 
 - Store CTA image in store so only load the image once.
-
-- Work on miscellaneous SVG rectangles.
-
