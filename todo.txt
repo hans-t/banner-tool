@@ -1,3 +1,7 @@
+- Color for text and background
+
+- Deploy with flask and gunicorn.
+
 - Fill in copyTranslations
 
 - Needs to make Canvas class API better.
@@ -6,4 +10,3 @@
 
 - Work on miscellaneous SVG rectangles.
 
-- Deploy with flask and gunicorn.

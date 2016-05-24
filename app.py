@@ -13,7 +13,7 @@ from flask import jsonify
 from flask import send_file
 
 
-ROOT_URL = '/'
+ROOT_URL = '/banner-tool'
 API_URL = ROOT_URL + 'api/'
 TEMP_DIR = 'temp'
 CACHE_DIR = 'cache'
