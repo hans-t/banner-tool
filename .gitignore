@@ -66,3 +66,7 @@ node_modules/
 .DS_Store
 cache
 temp
+
+
+# Index.js
+static/js/index.js
