@@ -15,6 +15,7 @@ from flask import send_file
 
 ROOT_URL = '/banner-tool'
 API_URL = ROOT_URL + '/api'
+DOWNLOAD_URL = ROOT_URL + '/download'
 TEMP_DIR = 'temp'
 CACHE_DIR = 'cache'
 ZALORA_SITE_PATTERN = 'https?://www.zalora.'
@@ -101,12 +102,12 @@ def handle_zip_banners_request():
     banners_by_id = payload['bannersById']
     zip_name, zip_path = zip_banners(banners_by_id)
     return jsonify(
-        url='download?file={}'.format(zip_path),
+        url=DOWNLOAD_URL + '?file={}'.format(zip_path),
         filename=zip_name,
     )
 
 
-@app.route(ROOT_URL + '/download')
+@app.route(DOWNLOAD_URL)
 def handle_download():
     path = request.args.get('file')
     return send_file(path, mimetype='application/octet-stream')
