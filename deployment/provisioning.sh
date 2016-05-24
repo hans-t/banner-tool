@@ -66,8 +66,6 @@ sudo ln -sf /etc/nginx/sites-available/$NGINX_CONF /etc/nginx/sites-enabled/$NGI
 
 
 ## Restart services
-sudo service nginx stop
-sudo service nginx start
 sudo supervisorctl reread
 sudo supervisorctl update
 sudo supervisorctl start $SUPERVISOR_PROGRAM
