@@ -8,6 +8,9 @@ const PATHS = {
   fonts: path.join(__dirname, 'static', 'fonts'),
 };
 
+const ROOT_URL = '/banner-tool';
+
+
 module.exports = {
   entry: path.join(PATHS.src, 'index.jsx'),
   output: {
@@ -53,11 +56,11 @@ module.exports = {
     historyApiFallback: true,
     proxy: [
       {
-        path: '/api/*',
+        path: ROOT_URL + '/api/*',
         target: 'http://localhost:5000',
       },
       {
-        path: '/download',
+        path: ROOT_URL + '/download',
         target: 'http://localhost:5000',
       },
     ],

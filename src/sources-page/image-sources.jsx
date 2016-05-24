@@ -80,7 +80,7 @@ function mapDispatchToProps(dispatch) {
 
     onChange: debounce((index, values) => {
       const { url, imageNumber } = values;
-      const imageURL = `api/image?product_url=${url}&image_number=${imageNumber}`;
+      const imageURL = `/banner-tool/api/image?product_url=${url}&image_number=${imageNumber}`;
       const image = fetchImage(imageURL);
       image.onload = () => dispatch(
         editSource({

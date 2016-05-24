@@ -22,7 +22,7 @@ function onClick({ bannersById }) {
       body: JSON.stringify({ bannersById }),
     };
 
-    fetch('/api/zip', init)
+    fetch('/banner-tool/api/zip', init)
       .then(response => response.json())
       .then(response => saveFile(response));
   }
