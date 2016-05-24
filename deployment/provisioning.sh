@@ -67,3 +67,8 @@ sudo service nginx start
 sudo supervisorctl reread
 sudo supervisorctl update
 sudo supervisorctl start gunicorn
+
+
+## Build index.ks
+cd $ROOT/source
+npm run build
