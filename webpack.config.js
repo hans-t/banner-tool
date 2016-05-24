@@ -10,7 +10,11 @@ const PATHS = {
 
 module.exports = {
   entry: path.join(PATHS.src, 'index.jsx'),
-  output: {path: PATHS.build, filename: 'index.js'},
+  output: {
+    path: PATHS.build,
+    filename: 'index.js',
+    publicPath: '/static/js/',
+  },
   devtool: 'inline-source-map',
   resolve: {
     extensions: ['', '.js', '.jsx']
