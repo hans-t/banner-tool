@@ -20,7 +20,7 @@ Follow these steps:
 5. It is highly recommended to install Chrome extensions `Redux DevTools` and `React Developer Tools` for debugging.
 
 
-## Deployment
+## Provisioning (first-time deployment)
 
 1. You need to specify SITENAME environment variable when running provisioning.sh.
 Example:
