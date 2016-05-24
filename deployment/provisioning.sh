@@ -12,10 +12,11 @@ export PROJECT_NAME=banner-tool
 export ROOT_URL=/$PROJECT_NAME
 export ROOT=~/sites/$SITENAME/$PROJECT_NAME
 
-export SUFFIX=${SITENAME}_${PROJECT_NAME}
-export NGINX_CONF=nginx_$SUFFIX.conf
-export SUPERVISOR_CONF=supervisor_$SUFFIX.conf
+export NGINX_CONF=${PROJECT_NAME}.conf
+export SUPERVISOR_CONF=${PROJECT_NAME}.conf
 export SUPERVISOR_PROGRAM=gunicorn_${PROJECT_NAME}
+
+export SOCKNAME=${SITENAME}_${PROJECT_NAME}.sock
 
 
 ## Install required libraries
@@ -63,12 +64,16 @@ pip install -U gunicorn
 
 ## Populate variables in files
 cd source/deployment
-DOLLAR=$ envsubst < nginx_template.conf > $NGINX_CONF
-DOLLAR=$ envsubst < supervisor_template.conf > $SUPERVISOR_CONF
+DOLLAR=$ envsubst < nginx_template.conf > nginx.conf
+DOLLAR=$ envsubst < supervisor_template.conf > supervisor.conf
 DOLLAR=$ envsubst < gunicorn_start_template.sh > gunicorn_start.sh
 
-sudo cp $NGINX_CONF /etc/nginx/sites-available/$NGINX_CONF
-sudo cp $SUPERVISOR_CONF /etc/supervisor/conf.d/$SUPERVISOR_CONF
+
+sudo mkdir -p /etc/nginx/subsites-available/${SITENAME}
+sudo mkdir -p /etc/nginx/subsites-enabled/${SITENAME}
+
+sudo cp nginx.conf /etc/nginx/subsites-available/${SITENAME}/$NGINX_CONF
+sudo cp supervisor.conf /etc/supervisor/conf.d/$SUPERVISOR_CONF
 
 
 ## make gunicorn script executable
@@ -76,7 +81,8 @@ sudo chmod u+x gunicorn_start.sh
 
 
 ## symlink configurations
-sudo ln -sf /etc/nginx/sites-available/$NGINX_CONF /etc/nginx/sites-enabled/$NGINX_CONF
+sudo ln -sf /etc/nginx/subsites-available/${SITENAME}/$NGINX_CONF \
+            /etc/nginx/subsites-enabled/${SITENAME}/$NGINX_CONF
 
 
 ## Restart services

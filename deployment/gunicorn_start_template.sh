@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ROOT=$ROOT
-SOCKFILE=/tmp/$SUFFIX.sock
+SOCKFILE=/tmp/$SOCKNAME
 MODULE_DIR=${DOLLAR}ROOT/source
 NUM_WORKERS=3
 
@@ -14,6 +14,6 @@ exec gunicorn \
      --bind unix:${DOLLAR}SOCKFILE \
      --chdir ${DOLLAR}MODULE_DIR \
      --log-level debug \
-     --access-logfile ${DOLLAR}ROOT/logs/gunicorn_${SUFFIX}_access.log \
-     --error-logfile ${DOLLAR}ROOT/logs/gunicorn_${SUFFIX}_error.log \
+     --access-logfile ${DOLLAR}ROOT/logs/gunicorn_access.log \
+     --error-logfile ${DOLLAR}ROOT/logs/gunicorn_error.log \
      app:app
