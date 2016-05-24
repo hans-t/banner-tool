@@ -1,13 +1,21 @@
 #!/bin/bash
 
 
+## Check if SITENAME environment variable is defined.
+if [ -z ${SITENAME+x} ];
+    then exit 1;
+fi
+
+
+## Variable declarations.
 export PROJECT_NAME=banner-tool
 export ROOT_URL=/$PROJECT_NAME
-export SUFFIX=$SITENAME_$PROJECT_NAME
 export ROOT=~/sites/$SITENAME/$PROJECT_NAME
+
+export SUFFIX=${SITENAME}_${PROJECT_NAME}
 export NGINX_CONF=nginx_$SUFFIX.conf
 export SUPERVISOR_CONF=supervisor_$SUFFIX.conf
-export SUPERVISOR_PROGRAM=gunicorn_$PROJECT_NAME
+export SUPERVISOR_PROGRAM=gunicorn_${PROJECT_NAME}
 
 
 ## Install required libraries
@@ -21,7 +29,13 @@ sudo apt-get install -y \
     nginx \
     supervisor
 
-# lxml dependencies
+
+### Install Node.js v6
+curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+
+### lxml dependencies
 sudo apt-get install -y \
     libxml2-dev \
     libxslt1-dev \

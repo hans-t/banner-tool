@@ -14,6 +14,6 @@ exec gunicorn \
      --bind unix:${DOLLAR}SOCKFILE \
      --chdir ${DOLLAR}MODULE_DIR \
      --log-level debug \
-     --access-logfile ${DOLLAR}ROOT/logs/gunicorn_$SUFFIX_access.log \
-     --error-logfile ${DOLLAR}ROOT/logs/gunicorn_$SUFFIX_error.log \
+     --access-logfile ${DOLLAR}ROOT/logs/gunicorn_${SUFFIX}_access.log \
+     --error-logfile ${DOLLAR}ROOT/logs/gunicorn_${SUFFIX}_error.log \
      app:app
