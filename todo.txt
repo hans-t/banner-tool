@@ -1,3 +1,5 @@
+- store format and compression level in store, inside globalProps
+
 - use HotLoader
 
 - separate settings for dev and production
