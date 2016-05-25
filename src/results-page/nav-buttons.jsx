@@ -4,7 +4,7 @@ import SaveBtn from './save-btn';
 import { prevBtnFactory } from '../common/nav-btn';
 
 
-const LeftBtn = prevBtnFactory({ label: 'Edit copies by country' });
+const LeftBtn = prevBtnFactory({ label: 'Edit banner settings' });
 
 
 export default {

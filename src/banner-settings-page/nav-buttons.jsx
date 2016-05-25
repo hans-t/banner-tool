@@ -24,7 +24,7 @@ function dispatcher(dispatch, state) {
 }
 
 
-const LeftBtn = prevBtnFactory({ label: 'Edit banner settings' });
+const LeftBtn = prevBtnFactory({ label: 'Edit copies' });
 const RightBtn = nextBtnFactory({
   label: 'See results',
   validator,
