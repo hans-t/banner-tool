@@ -8,6 +8,7 @@ const PATHS = {
   fonts: path.join(__dirname, 'static', 'fonts'),
 };
 
+// value must be the same as defined in app.py
 const ROOT_URL = '/banner-tool';
 
 
@@ -56,12 +57,12 @@ module.exports = {
     historyApiFallback: true,
     proxy: [
       {
-        path: ROOT_URL + '/api/*',
-        target: 'http://localhost:5000',
+        path: '/api/*',
+        target: 'http://localhost:5000' + ROOT_URL,
       },
       {
-        path: ROOT_URL + '/download',
-        target: 'http://localhost:5000',
+        path: '/download',
+        target: 'http://localhost:5000' + ROOT_URL,
       },
     ],
   },

@@ -41,3 +41,9 @@ Example:
 3. Reload Nginx.
 
     `sudo service nginx reload`
+
+Note that, if you want to customize the ROOT_URL, you have to change the value in 3 places:
+
+- deployment/nginx_template.conf,
+- app.py, and
+- webpack.config.js.

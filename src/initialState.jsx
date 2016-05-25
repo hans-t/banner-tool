@@ -1,7 +1,7 @@
 import { fetchImage } from './sources-page/image-sources';
 
 function loadImage(url, imageNumber) {
-  return fetchImage(`/banner-tool/api/image?product_url=${url}&image_number=${imageNumber}`);
+  return fetchImage(`api/image?product_url=${url}&image_number=${imageNumber}`);
 }
 
 
@@ -216,4 +216,4 @@ const initialState = {
 };
 /* eslint-enable key-spacing, quotes, quote-props, comma-dangle, no-unused-vars */
 
-export default {};
+export default initialState;
