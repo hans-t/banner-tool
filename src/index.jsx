@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import rootReducer from './reducers';
-import initialState from './initialState';
 import App from './app';
 
 import '../static/css/fonts.css';
@@ -18,7 +17,7 @@ ReactDOM.render(
   <Provider
     store={createStore(
       rootReducer,
-      initialState,
+      {},
       window.devToolsExtension ? window.devToolsExtension() : undefined
     )}
   >

@@ -1,8 +1,10 @@
 - store format and compression level in store, inside globalProps
 
-- use HotLoader
-
 - separate settings for dev and production
+
+- Nginx should serve zip files.
+
+- use HotLoader
 
 - Fill in copyTranslations
 
